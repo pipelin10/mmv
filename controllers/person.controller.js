@@ -21,3 +21,27 @@ exports.person_create = function (req, res) {
         res.send('Person Created successfully')
     })
 };
+
+exports.person_details = function (req, res) {
+    Person.findById(req.params.id, 
+        function (err, person) {
+            if (err) return next(err);
+            res.send(person);
+        })
+};
+
+exports.person_update = function (req, res){
+    Person.findByIdAndUpdate(req.params.id, {$set: req.body},
+        function (err, person) {
+            if (err) return next(err);
+            res.send(person);
+    })
+};
+
+exports.person_delete = function (req, res){
+    Person.findByIdAndDelete(req.params.id, 
+        function(err, person){
+            if(err) return next(err);
+            res.send('Person sucesfully delete');
+    })
+}
