@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const person = require('./routes/person.route'); // Imports routes for the products
 const app = express(); //Initialice our express app
 
-var mongoose = require('mongoose');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
