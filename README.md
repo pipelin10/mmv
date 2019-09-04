@@ -1,2 +1,2 @@
-# Probando_React
-Repositorio para probar la tecnología ReactJS
+# Trabajo de grado Memento
+Repositorio que contiene el trabajo de grado Memento
