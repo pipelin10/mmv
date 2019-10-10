@@ -217,7 +217,7 @@ class SectionBasics extends React.Component {
             </GridContainer>
           </div>
           <div className={classes.space70} />
-          <div id="checkRadios">
+          <div id="checkRadios">login-page
             <GridContainer>
               <GridItem xs={12} sm={6} md={4} lg={3}>
                 <div className={classes.title}>
@@ -265,7 +265,7 @@ class SectionBasics extends React.Component {
                       />
                     }
                     classes={{ label: classes.label }}
-                    label="Checked"
+                    label="Checked"SectionBasics
                   />
                 </div>
                 <div

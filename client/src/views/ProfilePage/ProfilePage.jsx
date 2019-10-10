@@ -19,7 +19,7 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import profile from "assets/img/faces/christian.jpg";
+import profile from "assets/img/faces/oldPerson.jpg";
 
 import studio1 from "assets/img/examples/studio-1.jpg";
 import studio2 from "assets/img/examples/studio-2.jpg";
@@ -46,17 +46,17 @@ class ProfilePage extends React.Component {
     return (
       <div>
         <Header
-          color="transparent"
+          //color="transparent"
           brand="Memento"
-          rightLinks={<HeaderLinks />}
+          rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 200,
+            height: 300,
             color: "white"
           }}
           {...rest}
         />
-        <Parallax small filter image={require("assets/img/profile-bg.jpg")} />
+        <Parallax filter small image={require("assets/img/profile-bg.jpg")} />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>
@@ -67,25 +67,16 @@ class ProfilePage extends React.Component {
                       <img src={profile} alt="..." className={imageClasses} />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>Christian Louboutin</h3>
-                      <h6>DESIGNER</h6>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-twitter"} />
-                      </Button>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-instagram"} />
-                      </Button>
-                      <Button justIcon link className={classes.margin5}>
-                        <i className={"fab fa-facebook"} />
-                      </Button>
+                      <h2 className={classes.title}>Clemencia Rincón</h2>
+                      <h4>Ama de casa</h4>
                     </div>
                   </div>
                 </GridItem>
               </GridContainer>
               <div className={classes.description}>
-                <p>
-                  Hola
-                </p>
+                <h3>
+                  ¡Hola! 
+                </h3>
               </div>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>

@@ -94,13 +94,12 @@ class RegisterPage extends React.Component {
     };
     
     console.log(newUser);
-    this.props.registerUser(newUser, this.props.history); 
+    //this.props.registerUser(newUser, this.props.history); 
 
   };
   
   render() {
-    const { classes, ...rest } = this.props;
-    const { errors } = this.state;
+    const { classes, errors, ...rest } = this.props;
 
     return (
       <div>
@@ -130,11 +129,11 @@ class RegisterPage extends React.Component {
                     <CardBody>
                     <h4>Información basica</h4>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.name}
-                        labelText="Primer nombre"
-                        error={errors.name}
+                        labelText="Nombre(s)"
                         id="first"
+                        onChange={this.onChange}
+                        error={errors.name}
                         className={classnames("", {
                           invalid: errors.name
                         })}
@@ -143,6 +142,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           type: "text",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Person className={classes.inputIconsColor} />
@@ -152,7 +152,6 @@ class RegisterPage extends React.Component {
                       />
                       <span className="red-text">{errors.name}</span>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.last_name}
                         labelText="Apellido"
                         id="lastName"
@@ -165,6 +164,7 @@ class RegisterPage extends React.Component {
                         })}
                         inputProps={{
                           type: "text",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Person className={classes.inputIconsColor} />
@@ -174,7 +174,6 @@ class RegisterPage extends React.Component {
                       />
                       <span className="red-text">{errors.last_name}</span>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.cc}
                         labelText="Cédula de ciudadanía"
                         id="cc"
@@ -186,6 +185,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           type: "email",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Fingerprint className={classes.inputIconsColor} />
@@ -198,7 +198,6 @@ class RegisterPage extends React.Component {
                       {errors.cc}
                       </span>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.adress}
                         labelText="Dirección"
                         id="adress"
@@ -210,6 +209,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           type: "text",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Location className={classes.inputIconsColor} />
@@ -219,7 +219,6 @@ class RegisterPage extends React.Component {
                       />
                       <span className="red-text">{errors.adress}</span>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.phone}
                         labelText="Telefono"phone
                         id="phone"
@@ -231,6 +230,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           type: "text",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Phone className={classes.inputIconsColor} />
@@ -240,7 +240,6 @@ class RegisterPage extends React.Component {
                       />
                       <span className="red-text">{errors.phone}</span>
                       <CustomInput
-                        onChange={this.onChange}
                         value={this.state.pass}
                         labelText="Contraseña"
                         id="pass"
@@ -252,6 +251,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           type: "password",
+                          onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
                               <Icon className={classes.inputIconsColor}>
@@ -267,13 +267,13 @@ class RegisterPage extends React.Component {
                       <br />
                       <FormControl fullWidth>
                       <Datetime 
-                        onChange={this.onChange}
                         value={this.state.date}
                         timeFormat={false}
                         className={classnames("", {
                           invalid: errors.date
                         })}
                         inputProps={{
+                          onChange: this.onChange,
                           placeholder: "Fecha de nacimiento",
                         }}
                       />

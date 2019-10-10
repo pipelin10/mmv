@@ -13,10 +13,12 @@ import "assets/scss/material-kit-react.scss?v=1.7.0";
 
 // pages for this product
 import Components from "views/Components/Components.jsx";
-import LandingPage from "views/LandingPage/LandingPage.jsx";
 import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import RegisterPage from "views/RegisterPage/RegisterPage.jsx";
+import ActivitiesPage from "views/ActivitiesPage/ActivitiesPage";
+import QuestionsPage from "views/QuestionsPage/QuestionsPage";
+import AlbumPage from "views/AlbumPage/AlbumPage";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -45,9 +47,12 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
       <Switch>
-        <Route path="/landing-page" component={LandingPage} />
         <Route path="/login-page" component={LoginPage} />
         <Route path="/register-page" component={RegisterPage} />
+        <Route path="/activities-page" component={ActivitiesPage} />
+        <Route path="/questions-page" component={QuestionsPage} />
+        <Route path="/albumUpload-page" component={AlbumPage} />
+        
         <PrivateRoute exact path="/profile-page" component={ProfilePage} />
         <Route path="/" component={Components} />
       </Switch>
