@@ -19,16 +19,24 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
+//Notifications component
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+//Style for the page
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/cute.jpeg";
+//Image font
+import image from "assets/img/hola.jpeg";
 
+//Redux
 import { connect } from "react-redux";
+
+//Front and backend
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
+import { GET_ERRORS } from "actions/types";
 
 
 class LoginPage extends React.Component {
@@ -80,8 +88,31 @@ class LoginPage extends React.Component {
       password: this.state.password,
     };
 
-    this.props.loginUser(userData, this.props.history); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-  
+    let prueba = this.props.loginUser(userData);
+    console.log(prueba);
+    
+  };
+
+  createNotification = (type) => {
+    return () => {
+      switch (type) {
+        case 'info':
+          NotificationManager.info('Info message');
+          break;
+        case 'success':
+          console.log("holaaa");
+          NotificationManager.success('Success message', 'Title here');
+          break;
+        case 'warning':
+          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+          break;
+        case 'error':
+          NotificationManager.error('Error message', 'Click me!', 5000, () => {
+            alert('callback');
+          });
+          break;
+      }
+    };
   };
   
   render() {
@@ -161,8 +192,7 @@ class LoginPage extends React.Component {
                       {errors.pass}
                       {errors.passincorrect}
                       </span>
-
-                    {/* <InputSelect></InputSelect> */}
+                      
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                       <Button
@@ -177,7 +207,10 @@ class LoginPage extends React.Component {
                 </Card>
               </GridItem>
             </GridContainer>
+
+            
           </div>
+          <NotificationContainer/>
         </div>
       </div>
     );

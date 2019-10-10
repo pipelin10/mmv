@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const AffectiveRelation = require('../models/affectiveRelation.model');
+const SessionTherapy = require('../models/sessionTherapy.model');
+const Question = require('../models/question.model');
 const User = require('../models/user.model');
 const service = require('../services/jwt.service');
 const bcrypt = require('bcrypt');
@@ -84,4 +86,95 @@ exports.login = function(req, res){
     });
 }
 
+exports.newAffectionAndUpdate = function(req, res){
 
+    User.findOne({cc: req.params.cc})
+    .then((user,err) => {
+        const newAffectiveRelation = new AffectiveRelation({
+            name: req.body.name,
+            last_name: req.body.last_name,
+            relationship: req.body.relationship,
+            user: user._id
+        })
+
+        newAffectiveRelation.save(function (err) {
+            if (err) {
+                return res.status(400).send({message: `Error adding affective relation ${err}`});
+                
+            }
+            
+            res.status(200).send(`${newAffectiveRelation}`);
+        }) 
+
+        user.affectiveRelation.push(newAffectiveRelation)
+        user.save()
+
+    })
+    .catch((err) => {
+        console.error(err);
+    });
+ }
+ 
+
+exports.newQuestion = function(req, res){
+
+    User.findOne({cc: req.params.cc})
+    .then((user,err) => {
+        const newQuestion = new Question(
+            {
+                question: req.body.question,
+                answer: req.body.answer,
+                optionalAnswerOne: req.body.optionalAnswerOne,
+                optionalAnswerTwo: req.body.optionalAnswerTwo,
+                kind: req.body.kind,
+                score: req.body.score,
+                user: user._id
+            }
+        )   
+    
+        newQuestion.save(function (err) {
+            if (err) {
+                return res.status(400).send({message: `Error adding affective relation ${err}`});
+                
+            }
+            
+            res.status(200).send(`${newQuestion}`);
+        }) 
+
+        user.question.push(newQuestion)
+        user.save()
+
+    })
+    .catch((err) => {
+        console.error(err);
+    });
+}
+
+
+exports.newSessionTherapy = function(req, res){
+    User.findOne({cc: req.params.cc})
+    .then((user,err) => {
+        const newSessionTherapy = new SessionTherapy({
+            sessionDate: req.body.sessionDate,
+            minutesDuration: req.body.minutesDuration,
+            user: user._id
+        })
+
+        newSessionTherapy.save(function (err) {
+            if (err) {
+                return res.status(400).send({message: `Error adding affective relation ${err}`});
+                
+            }
+            
+            res.status(200).send({message: `sucess`});
+        }) 
+
+        user.sessionTherapy.push(newSessionTherapy)
+        user.save()
+
+    })
+    .catch((err) => {
+        console.error(err);
+    });
+
+}

@@ -1,4 +1,5 @@
 import { container } from "assets/jss/material-kit-react.jsx";
+import 'react-notifications/lib/notifications.css';
 
 const signupPageStyle = {
   container: {

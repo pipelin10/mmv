@@ -2,8 +2,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const person = require('./routes/person.route'); // Imports routes for the products
 const user = require('./routes/user.route');
+const photo = require('./routes/photo.route');
+const affectiveRelation = require('./routes/affectiveRelation.route');
+const session = require('./routes/sessionTherapy.route');
+const activity = require('./routes/activity.route');
+const question = require('./routes/question.route');
 const app = express(); //Initialice our express app
 
 //Body parser widdleware
@@ -11,7 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 
-app.use('/people', person);
 app.use('/user', user);
+app.use('/photo', photo);
+app.use('/affective', affectiveRelation);
+app.use('/session', session);
+app.use('/activity', activity);
+app.use('/question', question)
 
 module.exports =  app;

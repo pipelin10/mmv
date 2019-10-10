@@ -16,10 +16,11 @@ import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/
 class SectionBasics extends React.Component {
   state = {
     checked: [24, 22],
-    selectedEnabled: "b",
+    selectedEnabled: "Inicial",
   };
 
   handleChange = name => event => {
+    console.log("Prueba del checked hp: ", event.target.checked );
     this.setState({ [name]: event.target.checked });
   };
   handleChangeEnabled = event => {
@@ -43,9 +44,9 @@ class SectionBasics extends React.Component {
                   <FormControlLabel
                     control={
                       <Radio
-                        checked={this.state.selectedEnabled === "a"}
+                        checked={this.state.selectedEnabled === "inicial"}
                         onChange={this.handleChangeEnabled}
-                        value="a"
+                        value="inicial"
                         name="radio button enabled"
                         aria-label="A"
                         icon={
@@ -79,9 +80,9 @@ class SectionBasics extends React.Component {
                   <FormControlLabel
                     control={
                       <Radio
-                        checked={this.state.selectedEnabled === "b"}
+                        checked={this.state.selectedEnabled === "Mediano"}
                         onChange={this.handleChangeEnabled}
-                        value="b"
+                        value="Mediano"
                         name="radio button enabled"
                         aria-label="B"
                         icon={
