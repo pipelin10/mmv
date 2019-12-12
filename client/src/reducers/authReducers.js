@@ -1,13 +1,22 @@
 import {
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
+    AUTH_ERROR,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    USER_LOADED,
+    LOGOUT_SUCCESS
   } from "../actions/types";
 
   const isEmpty = require("is-empty");
 
   const initialState = {
-    isAuthenticated: false,
+    token: localStorage.getItem('token'),
+    isAuthenticated: null,
     user: {},
+    userData: {},
     loading: false
   };
   
@@ -24,6 +33,29 @@ import {
           ...state,
           loading: true
         };
+      case REGISTER_SUCCESS:
+        return{
+          ...state,
+          ...action.payload,
+          isAuthenticated: true,
+          loading: false
+        }
+      case AUTH_ERROR:
+      case LOGIN_FAIL:
+      case LOGIN_SUCCESS:
+          return {
+            ...state,
+            userData: action.payload
+          };
+      case REGISTER_FAIL:
+        localStorage.removeItem('token');
+        return{
+          ...state,
+          token: null,
+          isAuthenticated: false,
+          user: null,
+          loading: false
+        }
       default:
         return state;
     }

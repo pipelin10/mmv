@@ -35,8 +35,7 @@ class SectionNotifications extends React.Component {
         <SnackbarContent
           message={
             <span>
-              <b>SUCCESS ALERT:</b> You{"'"}ve got some friends nearby, stop
-              looking at your phone and find them...
+              Has añadido con exito a Camila
             </span>
           }
           close

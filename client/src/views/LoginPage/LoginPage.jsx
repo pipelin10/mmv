@@ -51,6 +51,12 @@ class LoginPage extends React.Component {
     };
   }
   componentDidMount() {
+    // If logged in and user navigates to Login page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/profile-page");
+    }
+
+
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
       function() {
@@ -59,9 +65,7 @@ class LoginPage extends React.Component {
       700
     );
 
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/profile-page");
-    }
+
   }
   
   componentWillReceiveProps(nextProps) {
@@ -88,9 +92,7 @@ class LoginPage extends React.Component {
       password: this.state.password,
     };
 
-    let prueba = this.props.loginUser(userData);
-    console.log(prueba);
-    
+    this.props.loginUser(userData);
   };
 
   createNotification = (type) => {
@@ -141,7 +143,7 @@ class LoginPage extends React.Component {
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form className={classes.form}  noValidate onSubmit={this.onSubmit}>
                     <CardHeader color="info" className={classes.cardHeader}>
-                      <h4>Inicia sesión</h4>
+                      <h4 className={classes.subtitle}>Inicia sesión</h4>
                     </CardHeader>
                     <CardBody>
                     <CustomInput

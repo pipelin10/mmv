@@ -1,4 +1,4 @@
-import { container } from "assets/jss/material-kit-react.jsx";
+import { container, defaultFont } from "assets/jss/material-kit-react.jsx";
 import 'react-notifications/lib/notifications.css';
 
 const signupPageStyle = {
@@ -56,6 +56,17 @@ const signupPageStyle = {
     marginTop: "-40px",
     padding: "20px 0",
     marginBottom: "15px"
+  },
+  subtitle: {
+    ...defaultFont,
+    lineHeight: "30px",
+    fontSize: "22px",
+    textTransform: "none",
+    color: "inherit",
+    "&:hover,&:focus": {
+      color: "inherit",
+      background: "transparent"
+    }
   },
   socialIcons: {
     maxWidth: "24px",

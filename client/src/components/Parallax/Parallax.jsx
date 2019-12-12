@@ -41,12 +41,14 @@ class Parallax extends React.Component {
       children,
       style,
       image,
-      small
+      small,
+      verysmall
     } = this.props;
     const parallaxClasses = classNames({
       [classes.parallax]: true,
       [classes.filter]: filter,
       [classes.small]: small,
+      [classes.verysmall]: verysmall,
       [className]: className !== undefined
     });
     return (
@@ -71,7 +73,8 @@ Parallax.propTypes = {
   children: PropTypes.node,
   style: PropTypes.string,
   image: PropTypes.string,
-  small: PropTypes.bool
+  small: PropTypes.bool,
+  verysmall: PropTypes.bool
 };
 
 export default withStyles(parallaxStyle)(Parallax);

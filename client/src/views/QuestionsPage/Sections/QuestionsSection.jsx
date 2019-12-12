@@ -5,39 +5,72 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // @material-ui/icons
+import Check from "@material-ui/icons/Check";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
+import Select from 'react-select';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
+import questionStyle from "assets/jss/material-kit-react/views/landingPageSections/questionStyle.jsx";
+
+//Import data
+import {towns, defaultChooseTown, optionsDeparment} from "../Data/Deparments";
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    color: state.isSelected ? 'white' : 'black',
+    backgroundColor: state.isSelected ? 'indigo' : 'white'
+  }),
+  control: (provided) => ({
+    ...provided,
+    marginTop: "5%",
+  })
+}
 
 class QuestionsSection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      profileFile: null,
-      familyFile: null,
-      height: 100
+      height: 100,
+      deparment: null,
+      number: null,
+      town: null,
+      checked: [24, 22],
     }
-    this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
   }
 
-  fileSelectedHandler = event => {
-    this.setState({
-      profileFile: URL.createObjectURL(event.target.files[0])
-    })
-    console.log(event.target.files[0]);
+  handleChange = (deparment) => {
+    this.setState({ deparment });
+    this.setState({ number: (optionsDeparment.indexOf(deparment)-1)});
   }
 
-  fileSelectedHandlerSecond = event => {
-    this.setState({
-      familyFile: URL.createObjectURL(event.target.files[0])
-    })
-    console.log(event.target.files[0]);
+  handleChangeTown = (town) => {
+    this.setState({ town });
   }
+
+  handleToggle(value) {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    console.log(newChecked)
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked
+    });
+  }
+
 
   render() {
     const { classes } = this.props;
@@ -52,118 +85,35 @@ class QuestionsSection extends React.Component {
             <p className={classes.title}>Cuentanos información que sea agradable para el paciente.
             Si la respuesta es negativa, desconoces alguna de las respuestas o no estas seguro, deja la respuesta vacía.</p>
             <form>
+
               <GridContainer>
-
                 <GridItem xs={12} sm={10} md={12}>
-                  <div className={classes.typo}>
-                    <div className={classes.note}>Sube una foto de perfil para el paciente</div>
+
+                <p className={classes.subtitle}>1. información personal</p>
+
+                <p className={classes.description}>¿La persona tiene algún sobrenombre?</p>
+
+                <div
+                  className={
+                    classes.checkboxAndRadio +
+                    " " +
+                    classes.checkboxAndRadioHorizontal
+                  }
+                >
+                <FormControlLabel
+                    control={
+                      <Checkbox
+                        tabIndex={-1}
+                        onClick={() => this.handleToggle(21)}
+                        checkedIcon={<Check className={classes.checkedIcon} />}
+                        icon={<Check className={classes.uncheckedIcon} />}
+                        classes={{ checked: classes.checked }}
+                      />
+                    }
+                    classes={{ label: classes.label }}
+                    label="Si, lo tiene"
+                  />
                   </div>
-
-                  <input 
-                  style={{display:'none'}}
-                  type="file" 
-                  onChange={this.fileSelectedHandler}
-                  ref = {fileInput => this.fileInput = fileInput}
-                  />
-                  <img src={this.state.profileFile} height={height}/>
-                  <Button 
-                      onClick={() => this.fileInput.click()}
-                      round size="normal"
-                      color="success"
-                      >Subir foto perfil
-                  </Button>
-
-                  <div className={classes.typo}>
-                      <div className={classes.note}>Sube una foto del paciente con su familia</div>
-                  </div>
-
-                  <input 
-                  style={{display:'none'}}
-                  type="file" 
-                  onChange={this.fileSelectedHandlerSecond}
-                  ref = {fileInput2 => this.fileInput2 = fileInput2}
-                  />
-                  <img src={this.state.familyFile} height={height}/>
-                  <Button 
-                      onClick={() => this.fileInput2.click()}
-                      round size="normal"
-                      color="success"
-                      >Subir foto familiar
-                  </Button>
-
-
-                  <CustomInput
-                    label="Label"
-                    labelText="¿Ciudad dónde vive?"
-                    id="city"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Departamento dónde vive?"
-                    id="department"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Barrio dónde vive?"
-                    id="neighborhood"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Dónde nació?"
-                    id="birthCity"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Profesion que ejerció o ejerce"
-                    id="profession"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Nombre del último lugar dónde estudió escuela/universidad/instituto"
-                    id="school"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
 
                   <CustomInput
                     labelText="Sobrenombre"
@@ -176,6 +126,70 @@ class QuestionsSection extends React.Component {
                     type: "text",
                     }}
                   />
+              
+                 <p className={classes.subtitle}>2. Localización actual del paciente</p>
+
+                  <Select  
+                  styles = {customStyles} 
+                  options={optionsDeparment}
+                  defaultValue={optionsDeparment[0]} 
+                  onChange={this.handleChange}
+                  />
+
+                  <Select  
+                  styles = {customStyles} 
+                  options={towns[this.state.number]}
+                  defaultValue={defaultChooseTown}
+                  onChange={this.handleChangeTown}
+                  />
+
+                  <CustomInput
+                    labelText={"Barrio"}
+                    id="neighborhood"
+                    formControlProps={{
+                    fullWidth: true
+                    }}
+                    inputProps={{
+                    onChange: this.onChange,
+                    type: "text",
+                    }}
+                  />
+
+                  <p className={classes.subtitle}>3. Estudios y profesión</p>
+
+                  <CustomInput
+                    labelText="Profesion que ejerció o ejerce"
+                    id="profession"
+                    formControlProps={{
+                    fullWidth: true
+                    }}
+                    inputProps={{
+                    onChange: this.onChange,
+                    type: "text",
+                    }}
+                  />
+                  
+                  <CustomInput
+                    labelText="Nombre del último lugar dónde estudió escuela/universidad/instituto"
+                    id="school"
+                    formControlProps={{
+                    fullWidth: true
+                    }}
+                    inputProps={{
+                    onChange: this.onChange,
+                    type: "text",
+                    }}
+                  />
+
+                  <p className={classes.subtitle}>4. Relaciones personales</p>
+
+                  <p className={classes.subtitle}>5. Gustos alimenticios</p>
+
+                  <p className={classes.subtitle}>6. Gustos literarios</p>
+
+                  <p className={classes.subtitle}>7. Deportes </p>
+
+                  <p className={classes.subtitle}>8. Viajes </p>
 
                   <CustomInput
                     labelText="¿Nombre de la pareja?"
@@ -555,4 +569,4 @@ QuestionsSection.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(workStyle)(QuestionsSection);
+export default withStyles(questionStyle)(QuestionsSection);

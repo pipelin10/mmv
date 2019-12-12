@@ -1,4 +1,4 @@
-import { container, title, normalText } from "assets/jss/material-kit-react.jsx";
+import { container, title, normalText, defaultFont } from "assets/jss/material-kit-react.jsx";
 
 const landingPageStyle = {
   container: {
@@ -14,6 +14,17 @@ const landingPageStyle = {
     minHeight: "32px",
     color: "#FFFFFF",
     textDecoration: "none"
+  },
+  subtitle2: {
+    ...defaultFont,
+    lineHeight: "30px",
+    fontSize: "18px",
+    textTransform: "none",
+    color: "inherit",
+    "&:hover,&:focus": {
+      color: "inherit",
+      background: "transparent"
+    }
   },
   normalText: {
     ...normalText,

@@ -4,7 +4,8 @@ import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
-  USER_LOADING
+  USER_LOADING,
+  LOGIN_SUCCESS
 } from "./types";
 
 
@@ -22,13 +23,13 @@ export const registerUser = (userData, history) => dispatch => {
 };
 // Login - get user token
 export const loginUser = userData => dispatch => {
-  let prue = 0;
   return (axios
     .post("/user/login", userData)
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
       const { token } = res.data;
+      const { user } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
@@ -36,8 +37,7 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-      prue=1;
-      return prue
+      dispatch(setUser(user));
     })
     .catch(err =>
       dispatch({
@@ -47,6 +47,7 @@ export const loginUser = userData => dispatch => {
     ));
  
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
@@ -58,6 +59,14 @@ export const setCurrentUser = decoded => {
 export const setUserLoading = () => {
   return {
     type: USER_LOADING
+  };
+};
+
+// User loading
+export const setUser = user => {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: user
   };
 };
 // Log user out

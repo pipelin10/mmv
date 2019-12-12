@@ -7,7 +7,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Schedule from "@material-ui/icons/Schedule";
-import List from "@material-ui/icons/List";
+import Button from "components/CustomButtons/Button.jsx";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -31,95 +31,8 @@ class SectionPills extends React.Component {
               </h3>
             </div>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={8} lg={6}>
-                <NavPills
-                  color="primary"
-                  tabs={[
-                    {
-                      tabButton: "Dashboard",
-                      tabIcon: Dashboard,
-                      tabContent: (
-                        <span>
-                          <p>
-                            Collaboratively administrate empowered markets via
-                            plug-and-play networks. Dynamically procrastinate
-                            B2C users after installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
-                        </span>
-                      )
-                    },
-                    {
-                      tabButton: "Schedule",
-                      tabIcon: Schedule,
-                      tabContent: (
-                        <span>
-                          <p>
-                            Efficiently unleash cross-media information without
-                            cross-media value. Quickly maximize timely
-                            deliverables for real-time schemas.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically maintain clicks-and-mortar solutions
-                            without functional solutions. Dramatically visualize
-                            customer directed convergence without revolutionary
-                            ROI. Collaboratively administrate empowered markets
-                            via plug-and-play networks. Dynamically
-                            procrastinate B2C users after installed base
-                            benefits.
-                          </p>
-                        </span>
-                      )
-                    },
-                    {
-                      tabButton: "Tasks",
-                      tabIcon: List,
-                      tabContent: (
-                        <span>
-                          <p>
-                            Collaboratively administrate empowered markets via
-                            plug-and-play networks. Dynamically procrastinate
-                            B2C users after installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
-                        </span>
-                      )
-                    }
-                  ]}
-                />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={12} lg={6}>
+
+              <GridItem xs={12} sm={12} md={12}>
                 <NavPills
                   color="rose"
                   horizontal={{
@@ -128,36 +41,37 @@ class SectionPills extends React.Component {
                   }}
                   tabs={[
                     {
-                      tabButton: "Dashboard",
+                      tabButton: "Familia",
                       tabIcon: Dashboard,
                       tabContent: (
                         <span>
-                          <p>
-                            Collaboratively administrate empowered markets via
-                            plug-and-play networks. Dynamically procrastinate
-                            B2C users after installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
-                          <br />
-                          <p>
-                            Dramatically visualize customer directed convergence
-                            without revolutionary ROI. Collaboratively
-                            administrate empowered markets via plug-and-play
-                            networks. Dynamically procrastinate B2C users after
-                            installed base benefits.
-                          </p>
+                          <Button
+                          color="success"
+                          size="lg"
+                        >
+                          Mamá
+                        </Button>
+
+                        <Button
+                        style={{display: "block", marginLeft: "300px"}}
+                          color="success"
+                          size="lg"
+                        >
+                          Papá
+                        </Button>
+
+                        <Button
+                          color="success"
+                          size="lg"
+                        >
+                          Tia
+                        </Button>
+                          
                         </span>
                       )
                     },
                     {
-                      tabButton: "Schedule",
+                      tabButton: "Amigos",
                       tabIcon: Schedule,
                       tabContent: (
                         <span>

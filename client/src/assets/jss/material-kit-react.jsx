@@ -167,7 +167,7 @@ const normalText = {
   color: "#3C4858",
   margin: "1.75rem 0 0.875rem",
   textDecoration: "none",
-  fontWeight: "300",
+  fontWeight: "200",
   fontFamily: `"Roboto Slab", "Times New Roman", serif`
 };
 
