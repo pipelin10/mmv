@@ -13,6 +13,7 @@ import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
+
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
@@ -20,9 +21,13 @@ import QuestionsSection from "./Sections/QuestionsSection.jsx";
 
 const dashboardRoutes = [];
 
+
 class QuestionsPage extends React.Component {
+  
+
   render() {
     const { classes, ...rest } = this.props;
+    
     return (
       <div>
         <Header

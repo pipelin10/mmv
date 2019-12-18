@@ -32,8 +32,8 @@ const questionStyle = {
     textAlign: "center"
   },
   textArea: {
-    marginRight: "15px",
-    marginLeft: "15px"
+    marginRight: "0px",
+    marginLeft: "0px"
   }
 };
 

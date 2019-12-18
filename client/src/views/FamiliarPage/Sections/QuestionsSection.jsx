@@ -125,6 +125,8 @@ class QuestionsSection extends React.Component {
     const { userData } = this.props.auth;
     const { classes } = this.props;
     var { height } = this.state;
+
+
     return (
       <div className={classes.section}>
         <GridContainer justify="center">

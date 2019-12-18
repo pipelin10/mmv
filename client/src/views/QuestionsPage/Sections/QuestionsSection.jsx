@@ -13,23 +13,48 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Select from 'react-select';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
 
 import questionStyle from "assets/jss/material-kit-react/views/landingPageSections/questionStyle.jsx";
 
 //Import data
 import {towns, defaultChooseTown, optionsDeparment} from "../Data/Deparments";
 
+import { styled } from "@material-ui/styles";
+
+const StyledStepLabel = styled(StepLabel)({
+
+  "& .MuiStepLabel-label": {
+    color: "rgba(0,0,0,0.5);",
+    fontFamily: "Roboto Slab",
+    fontWeight: "600",
+    marginBottom: "0px"
+  },
+  "& .MuiStepLabel-active": {
+    color: "#3C4858",
+    fontFamily: "Roboto Slab",
+    fontWeight: "600"
+  },
+
+});
+
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
+    fontFamily: "Roboto",
+    fontSize: "14px",
     color: state.isSelected ? 'white' : 'black',
     backgroundColor: state.isSelected ? 'indigo' : 'white'
   }),
   control: (provided) => ({
     ...provided,
     marginTop: "5%",
+    fontFamily: "Roboto",
+    fontSize: "14px",
+    color:  "#495057"
   })
 }
 
@@ -38,12 +63,96 @@ class QuestionsSection extends React.Component {
     super(props)
     this.state = {
       height: 100,
+      step: 1, 
       deparment: null,
       number: null,
       town: null,
-      checked: [24, 22],
+      step: 0,
     }
   }
+
+  //Procedd next step
+nextStep = () => {
+  const { step } = this.state;
+  this.setState({ step: step + 1 });
+  console.log(step);
+} 
+
+//Go back previous step
+prevStep = () => {
+  const { step } = this.state;
+  this.setState({ step: step -1 });
+} 
+
+getSteps() {
+  return ['Información personal', 'Localización actual del paciente', 'Create an ad'];
+}
+
+sectionPersonalInf(){
+  return <div>
+    <p className={this.props.classes.description}>¿La persona tiene algún sobrenombre?</p>
+
+
+    <CustomInput
+      labelText="Sobrenombre"
+      id="nickname"
+      formControlProps={{
+      fullWidth: true
+      }}
+      inputProps={{
+      onChange: this.onChange,
+      type: "text",
+      }}
+    />
+  </div>
+}
+
+sectionActualLocal(){
+  return <div>
+    <Select  
+                  styles = {customStyles} 
+                  options={optionsDeparment}
+                  defaultValue={optionsDeparment[0]} 
+                  onChange={this.handleChange}
+                  />
+
+                  <Select  
+                  styles = {customStyles} 
+                  options={towns[this.state.number]}
+                  defaultValue={defaultChooseTown}
+                  onChange={this.handleChangeTown}
+                  />
+
+<CustomInput
+                    labelText={"Barrio"}
+                    id="neighborhood"
+                    formControlProps={{
+                    fullWidth: true
+                    }}
+                    inputProps={{
+                    onChange: this.onChange,
+                    type: "text",
+                    }}
+                  />
+
+  </div>
+}
+
+getActualSection = (step) => {
+  switch (step) {
+    case 0:
+      return this.sectionPersonalInf()
+    case 1:
+      return this.sectionActualLocal()
+    case 2:
+      return `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`;
+    default:
+      return 'Unknown step';
+  }
+}
 
   handleChange = (deparment) => {
     this.setState({ deparment });
@@ -53,28 +162,14 @@ class QuestionsSection extends React.Component {
   handleChangeTown = (town) => {
     this.setState({ town });
   }
-
-  handleToggle(value) {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    console.log(newChecked)
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked
-    });
-  }
-
+  
 
   render() {
     const { classes } = this.props;
+    const { step } = this.state; 
+    const steps = this.getSteps();
     var { height } = this.state;
+
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
@@ -89,71 +184,43 @@ class QuestionsSection extends React.Component {
               <GridContainer>
                 <GridItem xs={12} sm={10} md={12}>
 
+                <Stepper activeStep={step} orientation="vertical">
+                  {steps.map((label, index) => (
+                    <Step key={label}>
+                     <StyledStepLabel >{label}</StyledStepLabel>
+                      <StepContent>
+                        {this.getActualSection(this.state.step)}  
+                        <div className={classes.actionsContainer}>
+                          <div>
+                            <Button
+                              disabled={step === 0}
+                              onClick={this.prevStep}
+                            >
+                              Back
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={this.nextStep}
+                            >
+                              {step === steps.length - 1 ? 'Finish' : 'Next'}
+                            </Button>
+                          </div>
+                        </div>
+                      </StepContent>
+                    </Step>
+                  ))}
+                </Stepper>
+
                 <p className={classes.subtitle}>1. información personal</p>
 
-                <p className={classes.description}>¿La persona tiene algún sobrenombre?</p>
-
-                <div
-                  className={
-                    classes.checkboxAndRadio +
-                    " " +
-                    classes.checkboxAndRadioHorizontal
-                  }
-                >
-                <FormControlLabel
-                    control={
-                      <Checkbox
-                        tabIndex={-1}
-                        onClick={() => this.handleToggle(21)}
-                        checkedIcon={<Check className={classes.checkedIcon} />}
-                        icon={<Check className={classes.uncheckedIcon} />}
-                        classes={{ checked: classes.checked }}
-                      />
-                    }
-                    classes={{ label: classes.label }}
-                    label="Si, lo tiene"
-                  />
-                  </div>
-
-                  <CustomInput
-                    labelText="Sobrenombre"
-                    id="nickname"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
+               
               
                  <p className={classes.subtitle}>2. Localización actual del paciente</p>
 
-                  <Select  
-                  styles = {customStyles} 
-                  options={optionsDeparment}
-                  defaultValue={optionsDeparment[0]} 
-                  onChange={this.handleChange}
-                  />
+                  
 
-                  <Select  
-                  styles = {customStyles} 
-                  options={towns[this.state.number]}
-                  defaultValue={defaultChooseTown}
-                  onChange={this.handleChangeTown}
-                  />
-
-                  <CustomInput
-                    labelText={"Barrio"}
-                    id="neighborhood"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
+                  
 
                   <p className={classes.subtitle}>3. Estudios y profesión</p>
 
