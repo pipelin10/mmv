@@ -12,14 +12,15 @@ const app = express(); //Initialice our express app
 
 //Body parser widdleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: false}));
 
-
+//app.use('/api',apiRoutes)
 app.use('/user', user);
 app.use('/photo', photo);
 app.use('/affective', affectiveRelation);
 app.use('/session', session);
 app.use('/activity', activity);
-app.use('/question', question)
+app.use('/question', question);
+app.use('/uploads', express.static('uploads'));
 
 module.exports =  app;

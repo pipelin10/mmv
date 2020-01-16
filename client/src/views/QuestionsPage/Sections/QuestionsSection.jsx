@@ -3,9 +3,8 @@ import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-
-// @material-ui/icons
-import Check from "@material-ui/icons/Check";
+// react plugin for creating date-time-picker
+import Datetime from "react-datetime";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -13,33 +12,17 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Select from 'react-select';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import FormControl from "@material-ui/core/FormControl";
 
 import questionStyle from "assets/jss/material-kit-react/views/landingPageSections/questionStyle.jsx";
 
 //Import data
 import {towns, defaultChooseTown, optionsDeparment} from "../Data/Deparments";
+import {optionsKids, defaultChooseKids} from "../Data/KidsNumbers"
 
-import { styled } from "@material-ui/styles";
-
-const StyledStepLabel = styled(StepLabel)({
-
-  "& .MuiStepLabel-label": {
-    color: "rgba(0,0,0,0.5);",
-    fontFamily: "Roboto Slab",
-    fontWeight: "600",
-    marginBottom: "0px"
-  },
-  "& .MuiStepLabel-active": {
-    color: "#3C4858",
-    fontFamily: "Roboto Slab",
-    fontWeight: "600"
-  },
-
-});
 
 const customStyles = {
   option: (provided, state) => ({
@@ -63,96 +46,613 @@ class QuestionsSection extends React.Component {
     super(props)
     this.state = {
       height: 100,
-      step: 1, 
+      step: 0, 
       deparment: null,
       number: null,
       town: null,
-      step: 0,
+      numberK: '0',
+      activeButtons: false,
+    }
+  }
+
+  activeButtonsFunc(active){
+    if(active){
+      return  <div >
+                <div>
+                  <Button
+                    disabled={this.state.step === 0}
+                    onClick={this.prevStep}
+                  >
+                    Anterior
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.nextStep}
+                  >
+                    {this.state.step === this.getSteps().length - 1 ? 'Finalizar' : 'Siguiente'}
+                  </Button>
+                </div>
+              </div>
     }
   }
 
   //Procedd next step
-nextStep = () => {
-  const { step } = this.state;
-  this.setState({ step: step + 1 });
-  console.log(step);
-} 
-
-//Go back previous step
-prevStep = () => {
-  const { step } = this.state;
-  this.setState({ step: step -1 });
-} 
-
-getSteps() {
-  return ['Información personal', 'Localización actual del paciente', 'Create an ad'];
-}
-
-sectionPersonalInf(){
-  return <div>
-    <p className={this.props.classes.description}>¿La persona tiene algún sobrenombre?</p>
-
-
-    <CustomInput
-      labelText="Sobrenombre"
-      id="nickname"
-      formControlProps={{
-      fullWidth: true
-      }}
-      inputProps={{
-      onChange: this.onChange,
-      type: "text",
-      }}
-    />
-  </div>
-}
-
-sectionActualLocal(){
-  return <div>
-    <Select  
-                  styles = {customStyles} 
-                  options={optionsDeparment}
-                  defaultValue={optionsDeparment[0]} 
-                  onChange={this.handleChange}
-                  />
-
-                  <Select  
-                  styles = {customStyles} 
-                  options={towns[this.state.number]}
-                  defaultValue={defaultChooseTown}
-                  onChange={this.handleChangeTown}
-                  />
-
-<CustomInput
-                    labelText={"Barrio"}
-                    id="neighborhood"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-  </div>
-}
-
-getActualSection = (step) => {
-  switch (step) {
-    case 0:
-      return this.sectionPersonalInf()
-    case 1:
-      return this.sectionActualLocal()
-    case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
-    default:
-      return 'Unknown step';
+  nextStep = () => {
+    const { step } = this.state;
+    this.setState({ step: step + 1 });
   }
-}
+
+  changeState = () => {
+    this.nextStep()
+    this.setState({ activeButtons: true });
+
+  }
+
+  jumpStep = () => {
+    const { step } = this.state;
+    this.setState({ step: step + 2 });
+  }
+
+  //Go back previous step
+  prevStep = () => {
+    const { step } = this.state;
+    this.setState({ step: step -1 });
+  } 
+
+  getSteps() {
+    return ['Información personal', 'Información personal', 'Localización actual', 
+    'Estudios y profesión', 'Estudios y profesión', 'Estudios y profesión', 'Estudios y profesión', 
+    'Estudios y profesión', 'Estudios y profesión' ,'Relaciones personales', 'Relaciones personales',
+    'Relaciones personales' , 'Relaciones personales', 'Relaciones personales', 'Relaciones personales', 'Relaciones personales',
+    'Relaciones personales', 'Relaciones personales','Intereses', 'Intereses'
+  ];
+  }
+
+  sectionPersonalInf(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿La persona tiene algún sobrenombre?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  sectionPrimary(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Tiene educación básica primaria?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionPrimary(){
+    return <div>
+      <CustomInput
+        labelText="Escuela primaria"
+        id="primarySchool"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+
+      </div>
+
+  }
+
+  sectionHighSchool(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Tiene educación básica secundaria?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionHighSchool(){
+    return <div>
+      <CustomInput
+        labelText="Escuela secundaria"
+        id="highSchool"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  sectionMiddleSchool(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Tiene educación media/Técnica/Tecnologica?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionMiddleSchool(){
+    return <div>
+      <CustomInput
+        labelText="Institución"
+        id="middleSchool"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  sectionUniversity(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Tiene educación universitaria?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionUniversity(){
+    return <div>
+      <CustomInput
+        labelText="Universidad"
+        id="university"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+      </div>
+  }
+
+  sectionMarriage(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Está casado/casada?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+
+  sectionMom(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Es cercano/cercana a su mamá?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionMom(){
+    return <div>
+      <CustomInput
+        labelText="Nombre de la madre"
+        id="mom"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  sectionDad(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Es cercano/cercana a su papá?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionDad(){
+    return <div>
+      <CustomInput
+        labelText="Nombre del padre"
+        id="dad"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  continueSectionMarriage(){
+    return <div>
+      <CustomInput
+        labelText="Nombre de la pareja"
+        id="partner"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  sectionKids(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Tiene hijos?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  continueSectionKids(){
+    return <div>
+      <Select  
+        styles = {customStyles} 
+        options={optionsKids}
+        defaultValue={defaultChooseKids} 
+        onChange={this.handleChange}
+      />
+
+    {this.activeButtonsFunc(this.state.activeButtons)}
+
+    </div>
+  }
+
+
+  continueSecondSectionMarriage(){
+    return <div>
+      <FormControl fullWidth>
+                      <Datetime
+                        inputProps={{ placeholder: "Aniversario" }}
+                      />
+                    </FormControl>
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+      </div>
+  }
+
+  sectionFood(){
+    return <div>
+      <h5 className={this.props.classes.description}>Comida favorita</h5>
+
+      <CustomInput
+        labelText="Comida"
+        id="food"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+    {this.activeButtonsFunc(this.state.activeButtons)}
+
+    </div>
+  }
+
+  sectionSport(){
+    return <div>
+      <h5 className={this.props.classes.description}>Deporte favorito</h5>
+
+      <CustomInput
+        labelText="Deporte"
+        id="sport"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+    {this.activeButtonsFunc(this.state.activeButtons)}
+
+    </div>
+  }
+
+  sectionSoccer(){
+    return <div>
+      <h5 className={this.props.classes.description}>¿Es aficcionado al futbol?</h5>
+
+      <GridContainer  justify="center">
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="success"
+              onClick={this.changeState}
+            >
+              Si
+            </Button>
+            <Button
+            onClick={this.jumpStep}
+            >
+              No
+            </Button>
+      </GridItem>
+      </GridContainer>
+
+    </div>
+  }
+
+  sectionSoccerTeams(){
+    return <div>
+      <h5 className={this.props.classes.description}>Deporte favorito</h5>
+
+      <CustomInput
+        labelText="Deporte"
+        id="sport"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+    {this.activeButtonsFunc(this.state.activeButtons)}
+
+    </div>
+  }
+
+  sectionNickname(){
+    return <div>
+      <CustomInput
+        labelText="Sobrenombre"
+        id="nickname"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+      {this.activeButtonsFunc(this.state.activeButtons)}
+
+      </div>
+  }
+
+  sectionActualLocal(){
+    return <div>
+      <Select  
+        styles = {customStyles} 
+        options={optionsDeparment}
+        defaultValue={optionsDeparment[0]} 
+        onChange={this.handleChange}
+      />
+
+      <Select  
+        styles = {customStyles} 
+        options={towns[this.state.number]}
+        defaultValue={defaultChooseTown}
+        onChange={this.handleChangeTown}
+      />
+
+      <CustomInput
+        labelText={"Barrio"}
+        id="neighborhood"
+        formControlProps={{
+        fullWidth: true
+        }}
+        inputProps={{
+        onChange: this.onChange,
+        type: "text",
+        }}
+      />
+
+    {this.activeButtonsFunc(this.state.activeButtons)}
+
+    </div>
+  }
+
+  getActualSection = (step) => {
+    switch (step) {
+      case 0:
+        return this.sectionPersonalInf()
+      case 1:
+        return this.sectionNickname()
+      case 2:
+        return this.sectionActualLocal()
+      case 3:
+        return this.sectionPrimary()
+      case 4:
+        return this.continueSectionPrimary()
+      case 5:
+        return this.sectionHighSchool()
+      case 6:
+        return this.continueSectionHighSchool()
+      case 7:
+        return this.sectionMiddleSchool()
+      case 8:
+        return this.continueSectionMiddleSchool()
+      case 9:
+        return this.sectionMom()
+      case 10:
+        return this.continueSectionMom()
+      case 11:
+        return this.sectionDad()
+      case 12:
+        return this.continueSectionDad()
+      case 13:
+        return this.sectionMarriage()
+      case 14:
+        return this.continueSectionMarriage()
+      case 15:
+        return this.continueSecondSectionMarriage()
+      case 16:
+        return this.sectionKids()
+      case 17:
+        return this.continueSectionKids()
+      case 18:
+        return this.sectionFood()
+      case 19:
+        return this.sectionSport()
+      default:
+        return 'Unknown step';
+    }
+  }
+
+  
 
   handleChange = (deparment) => {
     this.setState({ deparment });
@@ -167,7 +667,6 @@ getActualSection = (step) => {
   render() {
     const { classes } = this.props;
     const { step } = this.state; 
-    const steps = this.getSteps();
     var { height } = this.state;
 
     return (
@@ -175,455 +674,23 @@ getActualSection = (step) => {
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
 
-            <h2 className={classes.title}>Primero, cuentanos sobre el paciente</h2>
             
-            <p className={classes.title}>Cuentanos información que sea agradable para el paciente.
-            Si la respuesta es negativa, desconoces alguna de las respuestas o no estas seguro, deja la respuesta vacía.</p>
             <form>
 
               <GridContainer>
                 <GridItem xs={12} sm={10} md={12}>
-
-                <Stepper activeStep={step} orientation="vertical">
-                  {steps.map((label, index) => (
-                    <Step key={label}>
-                     <StyledStepLabel >{label}</StyledStepLabel>
-                      <StepContent>
-                        {this.getActualSection(this.state.step)}  
-                        <div className={classes.actionsContainer}>
-                          <div>
-                            <Button
-                              disabled={step === 0}
-                              onClick={this.prevStep}
-                            >
-                              Back
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={this.nextStep}
-                            >
-                              {step === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
-                          </div>
-                        </div>
-                      </StepContent>
-                    </Step>
-                  ))}
-                </Stepper>
-
-                <p className={classes.subtitle}>1. información personal</p>
-
-               
-              
-                 <p className={classes.subtitle}>2. Localización actual del paciente</p>
-
-                  
-
-                  
-
-                  <p className={classes.subtitle}>3. Estudios y profesión</p>
-
-                  <CustomInput
-                    labelText="Profesion que ejerció o ejerce"
-                    id="profession"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-                  
-                  <CustomInput
-                    labelText="Nombre del último lugar dónde estudió escuela/universidad/instituto"
-                    id="school"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <p className={classes.subtitle}>4. Relaciones personales</p>
-
-                  <p className={classes.subtitle}>5. Gustos alimenticios</p>
-
-                  <p className={classes.subtitle}>6. Gustos literarios</p>
-
-                  <p className={classes.subtitle}>7. Deportes </p>
-
-                  <p className={classes.subtitle}>8. Viajes </p>
-
-                  <CustomInput
-                    labelText="¿Nombre de la pareja?"
-                    id="partner"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Contrajo matrimonio?"
-                    id="isMarried"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Fecha en que contrajo matrimonio"
-                    id="marriageDate"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Cuántos hijos tiene?"
-                    id="childrenNumb"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "number",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Nombre de la madre"
-                    id="motherName"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Nombre del padre"
-                    id="fatherName"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Cuántos nietos tiene?"
-                    id="grandchildrenNumb"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="¿Cuántos hermanos tiene?"
-                    id="siblingsName"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Qué le gusta/gustaba hacer en su tiempo libre"
-                    id="hobby"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Género de música que le gusta"
-                    id="music"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Banda favorita"
-                    id="band"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Cantante favorito"
-                    id="singer"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Pelicula favorita"
-                    id="movie"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Genero de películas favorito"
-                    id="favoriteGenre"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Libro favorito"
-                    id="book"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Practicó algún deporte"
-                    id="sport"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Programa de televisión favorito"
-                    id="tvShow"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Comida favorita"
-                    id="food"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Color favorito"
-                    id="color"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Segundo idioma"
-                    id="secondLanguage"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Nombre de la mascota"
-                    id="petName"
-                    formControlProps={{
-                      fullWidth: true
-                      }}
-                      inputProps={{
-                      onChange: this.onChange,
-                      type: "text",
-                      }}
-                  />
-
-                  <CustomInput
-                    labelText="Equipo favorito de futbol"
-                    id="soccer"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Equipo favorito de tenis"
-                    id="tenis"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Equipo favorito de basketball"
-                    id="basketball"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Corta descripción de lo que le hace sentir bien"
-                    id="feelGood"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                      onChange: this.onChange,
-                      type: "text",
-                      }}
-                  />
-
-                  <CustomInput
-                    labelText="Viaje favorito"
-                    id="travel"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Lugar que sueña con conocer"
-                    id="dreamPlace"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Lugar favorito de la casa"
-                    id="favoriteHomePlace"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-                  <CustomInput
-                    labelText="Amistad más cercana"
-                    id="friend"
-                    formControlProps={{
-                    fullWidth: true
-                    }}
-                    inputProps={{
-                    onChange: this.onChange,
-                    type: "text",
-                    }}
-                  />
-
-
-                <GridContainer justify="center">
                 
-              <GridItem xs={12} sm={7} md={3}>
-                  <Button 
-                  round size="lg"
-                  color="success"
-                  >Guardar
-                  </Button>
+                <div >
 
-                </GridItem>
+                  <p className={classes.simpleText}> {this.getSteps()[this.state.step]}</p>
+                  {this.getActualSection(this.state.step)} 
+
+                  
+                </div>
                 
-              </GridContainer>
+                
               </GridItem>
-                
-              </GridContainer>
-
-            
+             </GridContainer>
             </form>
           </GridItem>
         </GridContainer>

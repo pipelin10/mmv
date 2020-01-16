@@ -89,7 +89,7 @@ function HeaderLinks({ ...props }) {
         <ListItem className={classes.listItem}>
           <CustomDropdown
             noLiPadding
-            buttonText="Información"
+            buttonText="Actualizar"
             buttonProps={{
               className: classes.navLink,
               color: "transparent"
@@ -100,7 +100,7 @@ function HeaderLinks({ ...props }) {
                 Información básica
               </Link>,
               <Link to="/albumUpload-page" className={classes.dropdownLink}>
-                Información familiar
+                Fotos familiares
               </Link>
               ,
               <Link to="/cover-profile-person-page" className={classes.dropdownLink}>

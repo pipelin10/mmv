@@ -18,7 +18,6 @@ exports.create = function (req, res) {
     if(!isValid){
         return res.status(400).json(errors);
     }   
-
     User.findOne({cc: req.body.cc}).then(user => {
         if(!user){
             const user = new User(
@@ -41,7 +40,16 @@ exports.create = function (req, res) {
                 //Send the token create for the user
                 console.log(`${user}`);
                 
-                res.status(200).send( {token: service.createToken(user)});
+                res.status(200).json( {
+                    token: service.createToken(user),
+                    user:{
+                        name: user.name,
+                        last_name: user.last_name,
+                        cc: user.cc,
+                        dementia_stage: user.dementia_stage,
+                        adress: user.adress,
+                        birthdate: user.birthdate,    
+                    }});
             })
 
         } else {
@@ -69,8 +77,16 @@ exports.login = function(req, res){
             if(isMatch){
                 
                 req.user = user
-                res.status(200).send( {
+                res.status(200).json( {
                     token: service.createToken(user),
+                    user:{
+                        name: user.name,
+                        last_name: user.last_name,
+                        cc: user.cc,
+                        dementia_stage: user.dementia_stage,
+                        adress: user.adress,
+                        birthdate: user.birthdate,    
+                    },
                     message: 'Te has logueado correctamente'
                 });
             }
@@ -88,7 +104,7 @@ exports.login = function(req, res){
 
 exports.newAffectionAndUpdate = function(req, res){
 
-    User.findOne({cc: req.params.cc})
+    User.findOne({_id: req.params.id})
     .then((user,err) => {
         const newAffectiveRelation = new AffectiveRelation({
             name: req.body.name,

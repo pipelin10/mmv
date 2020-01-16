@@ -32,12 +32,12 @@ class FamiliarPage extends React.Component {
           rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 500,
+            height: 100,
             color: "black"
           }}
           {...rest}
         />
-         <Parallax filter small image={require("assets/img/hola.jpeg")}>
+         <Parallax filter verysmall image={require("assets/img/hola.jpeg")}>
           <div className={classes.container}>
           </div>
         </Parallax>

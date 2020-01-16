@@ -37,7 +37,7 @@ class QuestionsPage extends React.Component {
           rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 400,
+            height: 50,
             color: "black"
           }}
           {...rest}

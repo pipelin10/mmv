@@ -151,12 +151,12 @@ class SectionJavascript extends React.Component {
                 </GridItem>
               </GridContainer>
               <GridItem xs={12} sm={12} md={12}>
-                <div className={classes.title}>
+                <div>
                   <h3>Datetime Picker</h3>
                 </div>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
-                    <InputLabel className={classes.label}>
+                    <InputLabel>
                       hey hey
                     </InputLabel>
                     <br />

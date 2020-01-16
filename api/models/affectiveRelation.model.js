@@ -5,9 +5,9 @@ const User = require('./user.model');
 
 let AffectiveRelationSchema = new Schema({
     name: {type: String, required: true, max: 20 },
-    last_name: {type: String, required: true, max: 20},
+    last_name: {type: String,  max: 50},
     relationship:{type: String, 
-                  enum: ['Paciente', 'Amistad', 'Abuelo', 'Abuela', 'Mamá', 
+                  enum: ['Paciente', 'Amigo', 'Amiga', 'Abuelo', 'Abuela', 'Mamá', 
                   'Papá', 'Hermano', 'Hermana', 'Novio', 'Novia', 'Esposo', 
                   'Esposa', 'Cuñado', 'Cuñada','Nieto', 'Nieta', 'Bisnieto', 'Bisnieta',
                   'Primo', 'Prima', 'Tia', 'Tio', 'Sobrino', 'Sobrina',
