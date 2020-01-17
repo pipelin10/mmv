@@ -26,16 +26,19 @@ import {albumPersonStyle, navPillsStyle} from "assets/jss/material-kit-react/vie
 
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
-
+const buttonStyle={
+  paddingLeft:"7rem",
+  paddingRight:"7rem",
+}
 class PersonSection extends React.Component { 
 
 
   renderButtons(name,key){
-    return <div key={key}>
+    return <div key={key} style={buttonStyle}>
         <Button
           onClick={() => this.props.onTodoClick(name)}
           component={Link}
-          style={{display: "block", marginLeft: "300px"}}
+          style={{display: "block", marginLeft: "0"}}
           color="success"
           size="lg"
           to="/select-view-album-page"
@@ -62,7 +65,7 @@ class PersonSection extends React.Component {
       <div className={classes.section}>
       <div className={classes.container}>
         <GridContainer className={classes.textCenter} justify="center">
-          <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={12}>
             <h2 className={classes.title}>¿Sobre quién quieres trabajar hoy?</h2>
             
           </GridItem>
@@ -70,8 +73,8 @@ class PersonSection extends React.Component {
                 <NavPills
                   color="rose"
                   horizontal={{
-                    tabsGrid: { xs: 12, sm: 4, md: 4 },
-                    contentGrid: { xs: 12, sm: 8, md: 8 }
+                    tabsGrid: { xs: 12, sm: 12, md: 6},
+                    contentGrid: { xs: 12, sm: 12, md: 6}
                   }}
                   tabs={[
                     {

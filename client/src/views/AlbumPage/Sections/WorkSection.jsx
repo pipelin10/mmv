@@ -22,6 +22,7 @@ import { relative } from "path";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
+import imagesStyles from "assets/jss/material-kit-react/imagesStyles";
 
 const sectionStyle = {
   position: relative,
@@ -36,25 +37,20 @@ const sectionStyle = {
 };
 
 const conta ={
-  padding: "200"
+  paddingTop: "17rem",
+  paddingLeft: "7rem",
+  paddingRight: "7rem",
+  paddingBottom: "10rem",
 }
 
 const imgStyle = {
-  left: "260px",
-  width: "100%",
   maxWidth: "350px",
-  height: "350px",
-  top:"190px",
-  position: "fixed",
+  maxHeight:"266px",
 }
 
-const imgStyle2 = {
-  left: "790px",
-  width: "100%",
-  maxWidth: "350px",
-  height: "350px",
-  top:"190px",
-  position: "fixed",
+const leftDiv = {
+//
+  textAlign: "center",
 }
 
 
@@ -83,19 +79,25 @@ class WorkSection extends React.Component {
 
     return (
        <section style={ sectionStyle }>
-         <div >
-         <GridContainer style={conta}>
-         <GridContainer item xs={12} spacing={4}>
-          <GridItem xs={12}>
-            <img src={"../../../../../../" + photos[1].img } style={imgStyle}/>
-            <img src={Ejemplo} style={imgStyle2}/>
+         <div style={conta}>
+          <GridContainer
+            direction="row"
+            justify="center"
+            alignItems= "flex-end"
+            >
+            <GridItem xs={6} sm={6} md={6} >
+              <img src={"../../../../../../" + photos[1].img } style={imgStyle} />
 
-          </GridItem>
+            </GridItem>
+            <GridItem xs={6} sm={6} md={6}>
+              <div style={leftDiv}>
+                <img src={Ejemplo} style={imgStyle} />
 
-  
-          </GridContainer>
-          </GridContainer>
-        </div>
+              </div>
+
+            </GridItem>
+            </GridContainer>
+          </div>
       </section>
     );
   }

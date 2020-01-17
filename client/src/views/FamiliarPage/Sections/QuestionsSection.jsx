@@ -29,6 +29,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const options = [
+  {label: 'Selecciona',isDisabled: true },
   { value: 'Mamá', label: 'Mamá' },
   { value: 'Papá', label: 'Papá' },
   { value: 'Abuelo', label: 'Abuelo'},
@@ -89,6 +90,12 @@ class QuestionsSection extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  clean = () => {
+    this.setState({ name: '' });
+    this.setState({ last_name: '' });
+    this.setState({ relationship: null });
+  }
+
   onSubmit = e => {
     
     const affectiveRelationData = {
@@ -111,7 +118,9 @@ class QuestionsSection extends React.Component {
         icon: "error",
         button: "Continuar",
         })
-      );   
+      );
+
+      this.clean()
 
     //Aquí no debe estar este console sino el llamado a la función de redux para agregar a la nueva persona
     //Modificar esto cuando se pueda
@@ -147,13 +156,14 @@ class QuestionsSection extends React.Component {
                   </div>
 
                   <Select  
-                  styles = {customStyles} 
+                  styles = {customStyles}
+                  defaultValue={options[0]}
                   options={options} 
                   onChange={this.handleChange}
+                  value={this.state.relationship}
                   />
 
                   <CustomInput
-                    value={this.state.name}
                     labelText="Nombre"
                     id="name"
                     formControlProps={{
@@ -162,11 +172,12 @@ class QuestionsSection extends React.Component {
                     inputProps={{
                       onChange: this.onChange,
                       type: "text",
+                      value:this.state.name
                       }}
                   />
 
                     <CustomInput
-                      value={this.state.last_name}
+                      
                       labelText="Apellidos"
                       id="last_name"
                       formControlProps={{
@@ -175,6 +186,7 @@ class QuestionsSection extends React.Component {
                       inputProps={{
                         onChange: this.onChange,
                         type: "text",
+                        value:this.state.last_name
                       }}
                     />
 

@@ -4,7 +4,7 @@ import { container } from "assets/jss/material-kit-react.jsx";
 
 const albumPersonStyle = {
   section: {
-    padding: "70px 0"
+    padding: "0"
   },
   container,
   title: {
