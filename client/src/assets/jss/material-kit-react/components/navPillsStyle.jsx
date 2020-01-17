@@ -2,7 +2,7 @@
 const navPillsStyle = theme => ({
   root: {
     marginTop: "20px",
-    paddingLeft: "80px",
+    paddingLeft: "0px",
     marginBottom: "0",
     overflow: "visible !important",
     lineHeight: "24px",
