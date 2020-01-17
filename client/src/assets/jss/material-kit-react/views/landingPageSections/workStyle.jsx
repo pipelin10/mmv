@@ -18,6 +18,11 @@ const workStyle = {
     position: "relative",
     width: "100%"
   },
+  icons: {
+    width: "20px",
+    height: "20px",
+    marginRight: "3px"
+  },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     bottom: "10px",

@@ -5,16 +5,14 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // @material-ui/icons
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import Radio from '@material-ui/core/Radio';
 import Select from 'react-select';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import swal from 'sweetalert';
 
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
@@ -38,31 +36,63 @@ const customStyles = {
 
 const optionDefaultFamiliarPhoto =  {label: 'Selecciona', isDisabled: true }
 
+
 class QuestionsSection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       profileFile: null,
-      familyFile: null,
-      person: ''
+      person: '',
+      height: 100
     }
     this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
+    this.sweetAlertFunction = this.sweetAlertFunction.bind(this);
   }
 
   fileSelectedHandler = event => {
-    this.setState({
-      profileFile: URL.createObjectURL(event.target.files[0])
-    })
-    console.log(event.target.files[0]);
+
+
+    var verify = this.verifyFormat(event.target.files[0].name)
+
+
+   if(verify==true){
+      this.setState({
+        profileFile: URL.createObjectURL(event.target.files[0])
+      })
+    }
+    else this.sweetAlertFunction()
   }
 
-  fileSelectedHandlerSecond = event => {
-    this.setState({
-      familyFile: URL.createObjectURL(event.target.files[0])
-    })
-    console.log(event.target.files[0]);
+  sweetAlertFunction(){
+    swal({
+      title: "Error de formato",
+      text: "El formato de imagen no es el correcto",
+      icon: "error",
+      button: "Reintentar",
+    });
   }
 
+  verifyFormat = (URLname) => {
+    var correct = false
+
+    if(URLname.includes(".png")){
+      correct = true
+    }
+
+    if(URLname.includes(".jpg")){
+      correct = true
+    }
+
+    if(URLname.includes(".jpeg")){
+      correct = true
+    }
+
+    if(URLname.includes(".gif")){
+      correct = true
+    }
+
+    return correct
+  }
 
   handleChange = (person) => {
     this.setState({ person });
@@ -121,11 +151,13 @@ class QuestionsSection extends React.Component {
                       onClick={() => this.fileInput.click()}
                       round size="normal"
                       color="primary"
-                      >Seleccionar foto
+                      >
+                     <AddAPhotoOutlinedIcon lassName={classes.icons}/>
+
+                     Agregar foto
                   </Button>
                   <img src={this.state.profileFile} height={height}/>
                       
-
 
                 <GridContainer justify="center">
                 
