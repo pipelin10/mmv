@@ -37,7 +37,7 @@ class AlbumUploadPage extends React.Component {
           }}
           {...rest}
         />
-         <Parallax filter small image={require("assets/img/hola.jpeg")}>
+         <Parallax filter verysmall image={require("assets/img/hola.jpeg")}>
           <div className={classes.container}>
           </div>
         </Parallax>

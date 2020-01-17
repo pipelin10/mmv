@@ -11,7 +11,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -24,6 +24,19 @@ import { connect } from "react-redux";
 
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
 
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    color: state.isSelected ? 'white' : 'black',
+    backgroundColor: state.isSelected ? 'indigo' : 'white'
+  }),
+  control: (provided) => ({
+    ...provided,
+    marginTop: "5%",
+  })
+}
+
+const optionDefaultFamiliarPhoto =  {label: 'Selecciona', isDisabled: true }
 
 class QuestionsSection extends React.Component {
   constructor(props){
@@ -31,15 +44,9 @@ class QuestionsSection extends React.Component {
     this.state = {
       profileFile: null,
       familyFile: null,
-      height: 100,
-      value: 'female'
+      person: ''
     }
     this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
-  }
-
-  componentDidMount(){
-    this.props.fetchRelations(this.props.auth.user.sub);
-    console.log(this.props.fetchRelations(this.props.auth.user.sub));
   }
 
   fileSelectedHandler = event => {
@@ -56,80 +63,80 @@ class QuestionsSection extends React.Component {
     console.log(event.target.files[0]);
   }
 
-  renderBottons(name,key){
-    return <div key={key}>
-        <FormControlLabel 
-        value={name} 
-        control={<Radio color="primary" />} 
-        label={name} 
-        labelPlacement="start" />
-      </div>
+
+  handleChange = (person) => {
+    this.setState({ person });
   }
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-    this.value=event.target.value;
-		console.log(this.value);
-  };
+  returnNames = (relatns) => {
+    var names = new Array(relatns.length)
+
+    for (var i = 0; i < relatns.length; i++) {
+      names[i] = { value: relatns[i].name, label: relatns[i].relationship + " " + relatns[i].name }
+    }
+
+    return names
+  }
 
   render() {
     const { classes } = this.props;
     var { height } = this.state;
     const {relations} = this.props.relations;
-    console.log(relations);
+    var names = this.returnNames(relations)
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
 
-            <h2 className={classes.title}>Compartenos fotos de tu familia</h2>
+            <h2 className={classes.title}>Compártenos fotos de tu familia</h2>
             
             <p className={classes.title}>Diseñaremos un album para el paciente, con el fin de que siga conectado 
             con sus familiares, amigos y allegados.</p>
             <form>
               <GridContainer justify="center">
-
-
                 <GridItem xs={12} sm={12} md={12}>
                       
-                  <FormControl component="fieldset">
-                      <FormLabel component="legend">¿Sobre quién es este album?</FormLabel>
-                      <RadioGroup aria-label="position" name="position" value={this.state.value} onChange={this.handleChange} row>
-                      {relations.map((relation,key)=>{
-                        return this.renderBottons(relation.name,key);
-                      })}
-                      </RadioGroup>
-
+                <div className={classes.typo}>
+                    <div className={classes.note}> ¿Sobre quién es esta foto?  </div>
+                  </div>
+                      <Select  
+                      styles = {customStyles}
+                      options={names} 
+                      defaultValue={names[0]}
+                      onChange={this.handleChange}
+                      value={this.state.person}
+                      />
 
                       <input 
-                    style={{display:'none'}}
-                    type="file" 
-                    onChange={this.fileSelectedHandler}
-                    ref = {fileInput => this.fileInput = fileInput}
-                    />
-                  <FormLabel component="legend">Sube la foto</FormLabel>
+                      style={{display:'none'}}
+                      type="file" 
+                      onChange={this.fileSelectedHandler}
+                      ref = {fileInput => this.fileInput = fileInput}
+                      />
+                 <div className={classes.typo}>
+                    <div className={classes.note}> Selecciona la foto  </div>
+                  </div>
+
                   <Button 
                       onClick={() => this.fileInput.click()}
                       round size="normal"
                       color="primary"
-                      >Subir foto
+                      >Seleccionar foto
                   </Button>
                   <img src={this.state.profileFile} height={height}/>
-
-                    </FormControl>;
                       
 
 
                 <GridContainer justify="center">
                 
-              <GridItem xs={12} sm={7} md={3}>
+              {/* <GridItem xs={12} sm={7} md={3}>
                   <Button 
                   round size="lg"
                   color="success"
                   >Guardar
                   </Button>
 
-                </GridItem>
+                </GridItem> */}
                 
               </GridContainer>
               </GridItem>
