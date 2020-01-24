@@ -8,9 +8,6 @@ exports.newPhotoUpdate = function(req, res){
     AffectiveRelation.findOne({_id: req.params.id})
     .then((affectiveRelation) => {
 
-      console.log("here")
-      console.log(req.file)
-
     const newPhoto = new Photo({
         description: req.body.description,
         img: req.file.path,

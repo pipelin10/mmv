@@ -17,7 +17,7 @@ const headerStyle = {
     display: "flex",
     border: "0",
     borderRadius: "3px",
-    padding: "0.625rem 0",
+    padding: "0.825rem 0",
     marginBottom: "20px",
     color: "#555",
     width: "100%",
@@ -54,7 +54,7 @@ const headerStyle = {
   title: {
     ...defaultFont,
     lineHeight: "30px",
-    fontSize: "18px",
+    fontSize: "22px",
     borderRadius: "3px",
     textTransform: "none",
     color: "inherit",

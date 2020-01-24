@@ -129,8 +129,6 @@ class UploadSection extends React.Component {
     fd.append('image', this.state.img)
     fd.append('description', this.state.description)
 
-    console.log(fd)
-
      axios.post(`/affective/${this.state.id}/uploadPhoto`, fd)
     .then(res => swal({
        title: "Se ha agregado exitosamente",
