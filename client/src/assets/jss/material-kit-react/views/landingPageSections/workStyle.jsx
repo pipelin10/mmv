@@ -46,6 +46,19 @@ const workStyle = {
   textArea: {
     marginRight: "15px",
     marginLeft: "15px"
+  },
+  grid:{
+    position: "relative",
+    width: "100%",
+    minHeight: "1px",
+    paddingRight: "35px",
+    paddingLeft: "35px",
+    flexBasis: "auto"
+  },
+  wrapp:{
+    paddingTop: "20px",
+    textAlign:"center",
+    verticalAlign:"middle"
   }
 };
 

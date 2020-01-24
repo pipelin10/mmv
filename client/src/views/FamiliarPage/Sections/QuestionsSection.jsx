@@ -14,7 +14,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
 import Select from 'react-select';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
@@ -139,7 +138,7 @@ class QuestionsSection extends React.Component {
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
-          <GridItem cs={12} sm={12} md={8}>
+          <GridItem cs={12} sm={12} md={8} className={classes.grid}>
 
             <h2 className={classes.title}>Compartenos información de la familia</h2>
             
@@ -193,13 +192,15 @@ class QuestionsSection extends React.Component {
 
                 <GridContainer justify="center">
                 
-              <GridItem xs={12} sm={7} md={3}>
-                  <Button 
-                  round size="lg"
-                  color="success"
-                  type="submit"
-                  >Guardar
-                  </Button>
+              <GridItem xs={12} sm={12} md={12}>
+              <div className={classes.wrapp}>
+                    <Button
+                    round size="lg"
+                    color="success"
+                    type="submit"
+                    >Guardar
+                    </Button>
+                  </div>
 
                 </GridItem>
                 

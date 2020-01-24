@@ -16,7 +16,7 @@ import Parallax from "components/Parallax/Parallax.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
-import QuestionsSection from "./Sections/QuestionsSection.jsx";
+import UploadSection from "./Sections/UploadSection.jsx";
 
 const dashboardRoutes = [];
 
@@ -44,7 +44,7 @@ class AlbumUploadPage extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <QuestionsSection />
+            <UploadSection />
           </div>
         </div>
       </div>

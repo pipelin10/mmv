@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 
 exports.newPhotoUpdate = function(req, res){
     AffectiveRelation.findOne({_id: req.params.id})
-    .then((affectiveRelation,err) => {
+    .then((affectiveRelation) => {
+
+      console.log("here")
+      console.log(req.file)
 
     const newPhoto = new Photo({
         description: req.body.description,
@@ -25,11 +28,10 @@ exports.newPhotoUpdate = function(req, res){
 
     affectiveRelation.photo.push(newPhoto)
     affectiveRelation.save()
-
+    })
     .catch((err) => {
         console.error(err);
     });
-})
 
 }
 

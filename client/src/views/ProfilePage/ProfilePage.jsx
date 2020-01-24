@@ -85,8 +85,6 @@ renderQuestion(question,key){
                       hija, mi yerno y mis dos nietos.
                       <br/>
                       <br/>
-                      <br/>
-                      <br/>
                       {questions.length != 0 ? questions[0].score : ""} </h4>
                       {questions.map((question,key)=>{
                         return this.renderQuestion(question,key);

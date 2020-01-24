@@ -36,6 +36,16 @@ const profilePageStyle = {
   },
   title: {
     ...title,
+    fontSize: "3rem",
+    display: "inline-block",
+    position: "relative",
+    marginTop: "30px",
+    minHeight: "32px",
+    textDecoration: "none"
+  },
+  textPacient: {
+    ...title,
+    fontSize: "2rem",
     display: "inline-block",
     position: "relative",
     marginTop: "30px",
