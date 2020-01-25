@@ -6,11 +6,22 @@ const workStyle = {
   },
   title: {
     ...title,
-    marginBottom: "50px",
+    marginBottom: "20px",
     marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: "2.5rem",
+  },
+  subtitle: {
+    ...title,
+    fontWeight: "400",
+    marginBottom: "50px",
+    marginTop: "10px",
+    minHeight: "22px",
+    textDecoration: "none",
+    textAlign: "center",
+    fontSize: "1.2rem",
   },
   typo: {
     marginBottom: "60px",
@@ -29,7 +40,7 @@ const workStyle = {
     color: "#5c5c5c",
     display: "block",
     fontWeight: "400",
-    fontSize: "14px",
+    fontSize: "17px",
     lineHeight: "13px",
     left: "0",
     marginLeft: "0px",

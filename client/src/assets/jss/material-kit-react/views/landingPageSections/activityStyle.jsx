@@ -14,7 +14,8 @@ const activityStyle = {
     marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: "2.5rem"
   },
   textCenter: {
     textAlign: "center"

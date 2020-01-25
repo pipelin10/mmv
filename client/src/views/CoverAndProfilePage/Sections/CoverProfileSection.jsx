@@ -9,12 +9,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
 
-class QuestionsSection extends React.Component {
+class CoverProfileSection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -51,7 +50,7 @@ class QuestionsSection extends React.Component {
 
             <h2 className={classes.title}>Sube una foto de perfil para el paciente</h2>
             
-            <p className={classes.title}> Proporcionar imagenes ayuda al paciente a mantener 
+            <p className={classes.subtitle}> Proporcionar imagenes ayuda al paciente a mantener 
             presente su imagen y la de su familia </p>
 
             <form>
@@ -67,6 +66,7 @@ class QuestionsSection extends React.Component {
                   type="file" 
                   onChange={this.fileSelectedHandler}
                   ref = {fileInput => this.fileInput = fileInput}
+                  accept="image/*"
                   />
                   <img src={this.state.profileFile} height={height}/>
                   <Button 
@@ -85,6 +85,7 @@ class QuestionsSection extends React.Component {
                   type="file" 
                   onChange={this.fileSelectedHandlerSecond}
                   ref = {fileInput2 => this.fileInput2 = fileInput2}
+                  accept="image/*"
                   />
                   <img src={this.state.familyFile} height={height}/>
                   <Button 
@@ -120,8 +121,8 @@ class QuestionsSection extends React.Component {
   }
 }
 
-QuestionsSection.propTypes = {
+CoverProfileSection.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(workStyle)(QuestionsSection);
+export default withStyles(workStyle)(CoverProfileSection);

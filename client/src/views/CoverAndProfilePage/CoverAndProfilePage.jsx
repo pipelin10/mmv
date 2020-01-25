@@ -16,7 +16,7 @@ import Parallax from "components/Parallax/Parallax.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
-import QuestionsSection from "./Sections/QuestionsSection.jsx";
+import CoverProfileSection from "./Sections/CoverProfileSection.jsx";
 
 const dashboardRoutes = [];
 
@@ -44,7 +44,7 @@ class CoverAndProfilePage extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <QuestionsSection />
+            <CoverProfileSection />
           </div>
         </div>
       </div>

@@ -142,7 +142,7 @@ class QuestionsSection extends React.Component {
 
             <h2 className={classes.title}>Compartenos información de la familia</h2>
             
-            <p className={classes.title}>Diseñaremos un album para el paciente, con el fin de que siga conectado 
+            <p className={classes.subtitle}>Diseñaremos un album para el paciente, con el fin de que siga conectado 
             con sus familiares, amigos y allegados.</p>
             <form onSubmit={this.onSubmit}>
               <GridContainer>
