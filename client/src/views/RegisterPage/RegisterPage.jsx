@@ -45,13 +45,14 @@ class RegisterPage extends React.Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
-      first_name: "",
+      name: "",
       last_name: "",
       cc: "",
       adress: "",
       phone: "",
       password: "",
-      demential_stage: [],
+      demential_stage: "",
+      date: "",
       errors: {}
     };
   }
@@ -78,12 +79,21 @@ class RegisterPage extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  onChangeExa = date => {
+    console.log(date.toDate())
+    this.setState({ date: date.toDate() });
+  };
+
+  handleChangeEnabled = event => {
+    this.setState({ demential_stage: event.target.value });
+  };
+
   onSubmit = e => {
     e.preventDefault(); 
     
     const newUser = {
       name: this.state.name,
-      last_name: this.state.email,
+      last_name: this.state.last_name,
       cc: this.state.cc,
       adress: this.state.adress,
       phone: this.state.phone,
@@ -104,7 +114,6 @@ class RegisterPage extends React.Component {
       <div>
         <Header
           absolute
-         /* color="transparent"*/
           brand="Memento"
           rightLinks={<HeaderLinks />}
           {...rest}
@@ -123,19 +132,14 @@ class RegisterPage extends React.Component {
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form className={classes.form} noValidate onSubmit={this.onSubmit}>
                     <CardHeader color="info" className={classes.cardHeader}>
-                      <h4>Registrate</h4>
+                      <h4 className={classes.subtitle}> Registrate</h4>
                     </CardHeader>
                     <CardBody>
-                    <h4>Información basica</h4>
-                      <CustomInput
+                    <h4 className={classes.lineSubtitle}>Información basica</h4>
+                    <CustomInput
                         value={this.state.name}
                         labelText="Nombre(s)"
-                        id="first"
-                        onChange={this.onChange}
-                        error={errors.name}
-                        className={classnames("", {
-                          invalid: errors.name
-                        })}
+                        id="name"
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -149,18 +153,13 @@ class RegisterPage extends React.Component {
                           )
                         }}
                       />
-                      <span className="red-text">{errors.name}</span>
                       <CustomInput
                         value={this.state.last_name}
-                        labelText="Apellido"
-                        id="lastName"
-                        error={errors.last_name}
+                        labelText="Apellidos"
+                        id="last_name"
                         formControlProps={{
                           fullWidth: true
                         }}
-                        className={classnames("", {
-                          invalid: errors.last_name
-                        })}
                         inputProps={{
                           type: "text",
                           onChange: this.onChange,
@@ -171,19 +170,15 @@ class RegisterPage extends React.Component {
                           )
                         }}
                       />
-                      <span className="red-text">{errors.last_name}</span>
                       <CustomInput
                         value={this.state.cc}
-                        labelText="Cédula de ciudadanía"
+                        labelText="Cedula de ciudadania"
                         id="cc"
-                        className={classnames("", {
-                          invalid: errors.cc
-                        })}
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: "email",
+                          type: "text",
                           onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
@@ -192,10 +187,6 @@ class RegisterPage extends React.Component {
                           )
                         }}
                       />
-                      <span className="red-text">
-                      {errors.emailnotfound}
-                      {errors.cc}
-                      </span>
                       <CustomInput
                         value={this.state.adress}
                         labelText="Dirección"
@@ -216,10 +207,9 @@ class RegisterPage extends React.Component {
                           )
                         }}
                       />
-                      <span className="red-text">{errors.adress}</span>
                       <CustomInput
                         value={this.state.phone}
-                        labelText="Telefono"phone
+                        labelText="Telefono"
                         id="phone"
                         className={classnames("", {
                           invalid: errors.phone
@@ -237,14 +227,10 @@ class RegisterPage extends React.Component {
                           )
                         }}
                       />
-                      <span className="red-text">{errors.phone}</span>
                       <CustomInput
-                        value={this.state.pass}
+                        value={this.state.password}
                         labelText="Contraseña"
-                        id="pass"
-                        className={classnames("", {
-                          invalid: errors.pass
-                        })}
+                        id="password"
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -261,29 +247,36 @@ class RegisterPage extends React.Component {
                           autoComplete: "off"
                         }}
                        />
-                      <span className="red-text">{errors.pass}</span>
                       <br />
                       <br />
                       <FormControl fullWidth>
                       <Datetime 
                         value={this.state.date}
                         timeFormat={false}
-                        className={classnames("", {
-                          invalid: errors.date
-                        })}
+                        onChange={this.onChangeExa}
                         inputProps={{
-                          onChange: this.onChange,
                           placeholder: "Fecha de nacimiento",
                         }}
                       />
-                      <span className="red-text">{errors.name}</span>
                       <br />
                       <br />
                       </FormControl>
                       
-                      <h4>Estado de la demencia</h4>
+                      <h4 className={classes.lineSubtitle}>Estado de la demencia</h4>
                       
-                      <RadioInput></RadioInput>
+                      <RadioInput
+                        checked={this.state.demential_stage === "inicial"}
+                        onChange={this.handleChangeEnabled}
+                        value="inicial"
+                        label="Inicial"
+                      ></RadioInput>
+
+                      <RadioInput
+                        checked={this.state.demential_stage === "Mediano"}
+                        onChange={this.handleChangeEnabled}
+                        value="Mediano"
+                        label="Mediano"
+                      ></RadioInput>
 
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>

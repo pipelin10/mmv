@@ -22,7 +22,6 @@ import { relative } from "path";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
-import imagesStyles from "assets/jss/material-kit-react/imagesStyles";
 
 const sectionStyle = {
   position: relative,

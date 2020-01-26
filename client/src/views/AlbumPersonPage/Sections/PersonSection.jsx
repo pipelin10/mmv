@@ -22,7 +22,7 @@ import { connect } from "react-redux";
 
 import { setActualAlbumPerson} from "../../../actions/relationAction";
 
-import {albumPersonStyle, navPillsStyle} from "assets/jss/material-kit-react/views/landingPageSections/albumPersonStyle";
+import {albumPersonStyle} from "assets/jss/material-kit-react/views/landingPageSections/albumPersonStyle";
 
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
@@ -150,7 +150,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     onTodoClick: (name) => {
-      console.log("por acá llego" + name);
       dispatch(setActualAlbumPerson(name))
     }
   }

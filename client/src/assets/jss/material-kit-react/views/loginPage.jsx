@@ -1,4 +1,5 @@
 import { container, defaultFont } from "assets/jss/material-kit-react.jsx";
+import customCheckboxRadioSwitch from "assets/jss/material-kit-react/customCheckboxRadioSwitch.jsx";
 import 'react-notifications/lib/notifications.css';
 
 const signupPageStyle = {
@@ -60,6 +61,17 @@ const signupPageStyle = {
   subtitle: {
     ...defaultFont,
     lineHeight: "30px",
+    fontSize: "25px",
+    textTransform: "none",
+    color: "inherit",
+    "&:hover,&:focus": {
+      color: "inherit",
+      background: "transparent"
+    }
+  },
+  lineSubtitle: {
+    ...defaultFont,
+    lineHeight: "30px",
     fontSize: "22px",
     textTransform: "none",
     color: "inherit",
@@ -97,7 +109,7 @@ const signupPageStyle = {
   },
   inputIconsColor: {
     color: "#495057"
-  }
+  },
 };
 
 export default signupPageStyle;

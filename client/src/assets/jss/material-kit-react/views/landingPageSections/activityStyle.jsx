@@ -10,7 +10,7 @@ const activityStyle = {
   container,
   title: {
     ...title,
-    marginBottom: "50px",
+    marginBottom: "30px",
     marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
