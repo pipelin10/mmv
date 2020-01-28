@@ -1,5 +1,4 @@
 import { container, defaultFont } from "assets/jss/material-kit-react.jsx";
-import customCheckboxRadioSwitch from "assets/jss/material-kit-react/customCheckboxRadioSwitch.jsx";
 import 'react-notifications/lib/notifications.css';
 
 const signupPageStyle = {

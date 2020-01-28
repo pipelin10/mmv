@@ -2,7 +2,8 @@ import {
   primaryColor,
   dangerColor,
   roseColor,
-  grayColor
+  grayColor,
+  defaultFont
 } from "assets/jss/material-kit-react.jsx";
 
 const customCheckboxRadioSwitch = {
@@ -59,6 +60,7 @@ const customCheckboxRadioSwitch = {
     opacity: "0.45"
   },
   label: {
+    ...defaultFont,
     cursor: "pointer",
     paddingLeft: "0",
     color: "#495057",
@@ -68,6 +70,7 @@ const customCheckboxRadioSwitch = {
     display: "inline-flex",
     transition: "0.3s ease all",
     letterSpacing: "unset"
+
   },
   labelHorizontal: {
     color: "rgba(0, 0, 0, 0.26)",

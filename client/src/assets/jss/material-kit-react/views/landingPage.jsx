@@ -1,4 +1,4 @@
-import { container, title, normalText, defaultFont } from "assets/jss/material-kit-react.jsx";
+ import { container, title, normalText, defaultFont } from "assets/jss/material-kit-react.jsx";
 
 const landingPageStyle = {
   container: {

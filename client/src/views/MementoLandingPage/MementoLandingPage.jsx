@@ -14,6 +14,7 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 //Image font
 import image from "assets/img/cute.jpeg";
+
 import imageMemento from "assets/img/Mementologo.png";
 
 

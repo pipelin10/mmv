@@ -25,11 +25,14 @@ import RadioInput from "components/CustomInput/RadioInput.jsx";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 
-import FormControl from "@material-ui/core/FormControl";//Quitar de aquí -------------------------
+//library to show notifications
+import swal from 'sweetalert';
+
 //Styles of login using in  the page too
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 //Font of the page
-import image from "assets/img/cute.jpeg";
+//import image from "assets/img/cute.jpeg";
+import mel from "assets/img/Mel.jpg"
 //Connection with redux
 import { connect } from "react-redux";
 //
@@ -38,6 +41,7 @@ import { registerUser } from "../../actions/authActions";
 import { Link, withRouter } from "react-router-dom";
 //classnames
 import classnames from "classnames";
+
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -66,12 +70,12 @@ class RegisterPage extends React.Component {
   }
 
   componentDidMount() {
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
+    // we add a hidden class to the card and after 300 ms we delete it and the transition appears
     setTimeout(
       function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
-      700
+      300
     );
   }
 
@@ -88,22 +92,54 @@ class RegisterPage extends React.Component {
     this.setState({ demential_stage: event.target.value });
   };
 
+  validateInfo(){
+    var validate = true
+    if(this.state.name == "" ||
+    this.state.last_name == "" ||
+    this.state.cc == "" || 
+    this.state.adress == "" ||
+    this.state.phone == "" ||
+    this.state.password == "" ||
+    this.state.demential_stage == "" ||
+    this.state.date == ""){
+      validate = false
+    }
+    return validate
+  }
+
+  errorNotification = () => {
+    swal({
+      title: "Falta un dato",
+      text: "Completa todo el formulario",
+      icon: "error",
+      button: "Reintentar",
+      })
+  }
+
   onSubmit = e => {
-    e.preventDefault(); 
+    e.preventDefault();
+    var valit = this.validateInfo()
     
-    const newUser = {
-      name: this.state.name,
-      last_name: this.state.last_name,
-      cc: this.state.cc,
-      adress: this.state.adress,
-      phone: this.state.phone,
-      password: this.state.password,
-      demential_stage: this.state.demential_stage,
-      date: this.state.date
-    };
+    if(valit){
+      const newUser = {
+        name: this.state.name,
+        last_name: this.state.last_name,
+        cc: this.state.cc,
+        adress: this.state.adress,
+        phone: this.state.phone,
+        password: this.state.password,
+        demential_stage: this.state.demential_stage,
+        date: this.state.date
+      };
+
+      console.log(newUser)
     
-    console.log(newUser);
     //this.props.registerUser(newUser, this.props.history); 
+
+    }
+    else {
+      this.errorNotification();
+    }
 
   };
   
@@ -121,7 +157,7 @@ class RegisterPage extends React.Component {
         <div
           className={classes.pageHeader}
           style={{
-            backgroundImage: "url(" + image + ")",
+            backgroundImage: "url(" + mel + ")",
             backgroundSize: "cover",
             backgroundPosition: "top center",
           }}
@@ -249,18 +285,17 @@ class RegisterPage extends React.Component {
                        />
                       <br />
                       <br />
-                      <FormControl fullWidth>
                       <Datetime 
                         value={this.state.date}
                         timeFormat={false}
                         onChange={this.onChangeExa}
                         inputProps={{
                           placeholder: "Fecha de nacimiento",
+                          //className: 'hola'
                         }}
                       />
                       <br />
                       <br />
-                      </FormControl>
                       
                       <h4 className={classes.lineSubtitle}>Estado de la demencia</h4>
                       

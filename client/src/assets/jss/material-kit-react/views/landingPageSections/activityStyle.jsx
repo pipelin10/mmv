@@ -1,6 +1,5 @@
 import { title } from "assets/jss/material-kit-react.jsx";
 import { container } from "assets/jss/material-kit-react.jsx";
-import customCheckboxRadioSwitch from "assets/jss/material-kit-react/customCheckboxRadioSwitch.jsx";
 
 
 const activityStyle = {
@@ -20,7 +19,6 @@ const activityStyle = {
   textCenter: {
     textAlign: "center"
   },
-  ...customCheckboxRadioSwitch
 };
 
 export default activityStyle;
