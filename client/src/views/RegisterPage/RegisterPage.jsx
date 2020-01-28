@@ -38,7 +38,7 @@ import { connect } from "react-redux";
 //
 import { registerUser } from "../../actions/authActions";
 //React router for wrapping the page
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 //classnames
 import classnames from "classnames";
 
@@ -55,8 +55,17 @@ class RegisterPage extends React.Component {
       adress: "",
       phone: "",
       password: "",
+      equalpassword: "",
       demential_stage: "",
       date: "",
+      errorName: false,
+      errorLast_name: false,
+      errorcc: false,
+      errorAdress: false,
+      errorPhone: false,
+      errorPassword: false,
+      errorEqualpassword: false,
+      demential_stage: "",
       errors: {}
     };
   }
@@ -94,14 +103,15 @@ class RegisterPage extends React.Component {
 
   validateInfo(){
     var validate = true
-    if(this.state.name == "" ||
-    this.state.last_name == "" ||
-    this.state.cc == "" || 
-    this.state.adress == "" ||
-    this.state.phone == "" ||
-    this.state.password == "" ||
-    this.state.demential_stage == "" ||
-    this.state.date == ""){
+    if(this.state.name === "" ||
+    this.state.last_name === "" ||
+    this.state.cc === "" || 
+    this.state.adress === "" ||
+    this.state.phone === "" ||
+    this.state.password === "" ||
+    this.state.equalpassword === "" ||
+    this.state.demential_stage === "" ||
+    this.state.date === ""){
       validate = false
     }
     return validate
@@ -176,6 +186,7 @@ class RegisterPage extends React.Component {
                         value={this.state.name}
                         labelText="Nombre(s)"
                         id="name"
+                        error={this.state.errorName}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -283,15 +294,36 @@ class RegisterPage extends React.Component {
                           autoComplete: "off"
                         }}
                        />
+                       <CustomInput
+                        value={this.state.equalpassword}
+                        labelText="Repetir contraseña"
+                        id="equalpassword"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "password",
+                          onChange: this.onChange,
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Icon className={classes.inputIconsColor}>
+                                lock_outline
+                              </Icon>
+                            </InputAdornment>
+                          ),
+                          autoComplete: "off"
+                        }}
+                       />
                       <br />
                       <br />
                       <Datetime 
                         value={this.state.date}
                         timeFormat={false}
-                        onChange={this.onChangeExa}
+                        onChange={this.onChangeExa}                       
                         inputProps={{
                           placeholder: "Fecha de nacimiento",
-                          //className: 'hola'
+                          style:{fontFamily: '"Nunito", "Roboto"'}
+                           
                         }}
                       />
                       <br />
