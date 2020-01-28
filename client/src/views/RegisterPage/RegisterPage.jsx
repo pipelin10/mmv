@@ -51,9 +51,9 @@ class RegisterPage extends React.Component {
       cardAnimaton: "cardHidden",
       name: "",
       last_name: "",
-      cc: "",
+      cc: 0,
       adress: "",
-      phone: "",
+      phone: 0,
       password: "",
       equalpassword: "",
       demential_stage: "",
@@ -112,7 +112,7 @@ class RegisterPage extends React.Component {
       validate = false
     }
 
-    if (this.state.cc === "") {
+    if (this.state.cc === 0) {
       this.setState({ errorcc: true });
       validate = false
     }
@@ -122,7 +122,7 @@ class RegisterPage extends React.Component {
       validate = false
     }
 
-    if (this.state.phone === "") {
+    if (this.state.phone === 0) {
       this.setState({ errorPhone: true });
       validate = false
     }
@@ -152,13 +152,30 @@ class RegisterPage extends React.Component {
     })
   }
 
-  errorNotificationPass = () => {
+  errorNotificationEqualPass = () => {
     swal({
-      title: "Las contraseñas no coinciden",
+      title: "Las contraseñas deben coincidir",
       text: "Verifica y vuelve a intentarlo",
       icon: "error",
       button: "Reintentar",
     })
+  }
+
+  errorLengthPass = () => {
+    swal({
+      title: "La contraseña debe ser de 8 o más caracteres de longitud",
+      text: "Verifica y vuelve a intentarlo",
+      icon: "error",
+      button: "Reintentar",
+    })
+  }
+
+  validateLength() {
+    var limit = true
+    if (this.state.password.length < 8) {
+      limit = false
+    }
+    return limit
   }
 
   validateEqualPass() {
@@ -175,23 +192,29 @@ class RegisterPage extends React.Component {
 
     if (valit) {
       if (this.validateEqualPass()) {
-        const newUser = {
-          name: this.state.name,
-          last_name: this.state.last_name,
-          cc: this.state.cc,
-          adress: this.state.adress,
-          phone: this.state.phone,
-          password: this.state.password,
-          demential_stage: this.state.demential_stage,
-          date: this.state.date
-        };
+        if (this.validateLength()) {
+          const newUser = {
+            name: this.state.name,
+            last_name: this.state.last_name,
+            cc: this.state.cc,
+            adress: this.state.adress,
+            phone: this.state.phone,
+            password: this.state.password,
+            demential_stage: this.state.demential_stage,
+            date: this.state.date
+          };
 
-        console.log(newUser)
+          console.log(newUser)
 
-        //this.props.registerUser(newUser, this.props.history); 
+          //this.props.registerUser(newUser, this.props.history); 
+        }
+        else {
+          this.errorLengthPass();
+        }
+
       }
       else {
-        this.errorNotificationPass()
+        this.errorNotificationEqualPass();
       }
 
     }
@@ -275,7 +298,7 @@ class RegisterPage extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: "text",
+                          type: "number",
                           onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
@@ -314,7 +337,7 @@ class RegisterPage extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: "text",
+                          type: "number",
                           onChange: this.onChange,
                           endAdornment: (
                             <InputAdornment position="end">
