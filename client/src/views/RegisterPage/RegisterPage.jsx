@@ -65,7 +65,6 @@ class RegisterPage extends React.Component {
       errorPhone: false,
       errorPassword: false,
       errorEqualpassword: false,
-      demential_stage: "",
       errors: {}
     };
   }
@@ -81,7 +80,7 @@ class RegisterPage extends React.Component {
   componentDidMount() {
     // we add a hidden class to the card and after 300 ms we delete it and the transition appears
     setTimeout(
-      function() {
+      function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       300
@@ -101,17 +100,44 @@ class RegisterPage extends React.Component {
     this.setState({ demential_stage: event.target.value });
   };
 
-  validateInfo(){
+  validateInfo() {
     var validate = true
-    if(this.state.name === "" ||
-    this.state.last_name === "" ||
-    this.state.cc === "" || 
-    this.state.adress === "" ||
-    this.state.phone === "" ||
-    this.state.password === "" ||
-    this.state.equalpassword === "" ||
-    this.state.demential_stage === "" ||
-    this.state.date === ""){
+    if (this.state.name === "") {
+      this.setState({ errorName: true });
+      validate = false
+    }
+
+    if (this.state.last_name === "") {
+      this.setState({ errorLast_name: true });
+      validate = false
+    }
+
+    if (this.state.cc === "") {
+      this.setState({ errorcc: true });
+      validate = false
+    }
+
+    if (this.state.adress === "") {
+      this.setState({ errorAdress: true });
+      validate = false
+    }
+
+    if (this.state.phone === "") {
+      this.setState({ errorPhone: true });
+      validate = false
+    }
+
+    if (this.state.password === "") {
+      this.setState({ errorPassword: true });
+      validate = false
+    }
+
+    if (this.state.equalpassword === "") {
+      this.setState({ errorEqualpassword: true });
+      validate = false
+    }
+    if (this.state.demential_stage === "" ||
+      this.state.date === "") {
       validate = false
     }
     return validate
@@ -119,32 +145,54 @@ class RegisterPage extends React.Component {
 
   errorNotification = () => {
     swal({
-      title: "Falta un dato",
+      title: "Faltan datos",
       text: "Completa todo el formulario",
       icon: "error",
       button: "Reintentar",
-      })
+    })
+  }
+
+  errorNotificationPass = () => {
+    swal({
+      title: "Las contraseñas no coinciden",
+      text: "Verifica y vuelve a intentarlo",
+      icon: "error",
+      button: "Reintentar",
+    })
+  }
+
+  validateEqualPass() {
+    var equal = true
+    if (this.state.password != this.state.equalpassword) {
+      equal = false
+    }
+    return equal
   }
 
   onSubmit = e => {
     e.preventDefault();
     var valit = this.validateInfo()
-    
-    if(valit){
-      const newUser = {
-        name: this.state.name,
-        last_name: this.state.last_name,
-        cc: this.state.cc,
-        adress: this.state.adress,
-        phone: this.state.phone,
-        password: this.state.password,
-        demential_stage: this.state.demential_stage,
-        date: this.state.date
-      };
 
-      console.log(newUser)
-    
-    //this.props.registerUser(newUser, this.props.history); 
+    if (valit) {
+      if (this.validateEqualPass()) {
+        const newUser = {
+          name: this.state.name,
+          last_name: this.state.last_name,
+          cc: this.state.cc,
+          adress: this.state.adress,
+          phone: this.state.phone,
+          password: this.state.password,
+          demential_stage: this.state.demential_stage,
+          date: this.state.date
+        };
+
+        console.log(newUser)
+
+        //this.props.registerUser(newUser, this.props.history); 
+      }
+      else {
+        this.errorNotificationPass()
+      }
 
     }
     else {
@@ -152,7 +200,7 @@ class RegisterPage extends React.Component {
     }
 
   };
-  
+
   render() {
     const { classes, errors, ...rest } = this.props;
 
@@ -181,8 +229,8 @@ class RegisterPage extends React.Component {
                       <h4 className={classes.subtitle}> Registrate</h4>
                     </CardHeader>
                     <CardBody>
-                    <h4 className={classes.lineSubtitle}>Información basica</h4>
-                    <CustomInput
+                      <h4 className={classes.lineSubtitle}>Información basica</h4>
+                      <CustomInput
                         value={this.state.name}
                         labelText="Nombre(s)"
                         id="name"
@@ -204,6 +252,7 @@ class RegisterPage extends React.Component {
                         value={this.state.last_name}
                         labelText="Apellidos"
                         id="last_name"
+                        error={this.state.errorLast_name}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -221,6 +270,7 @@ class RegisterPage extends React.Component {
                         value={this.state.cc}
                         labelText="Cedula de ciudadania"
                         id="cc"
+                        error={this.state.errorcc}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -238,6 +288,7 @@ class RegisterPage extends React.Component {
                         value={this.state.adress}
                         labelText="Dirección"
                         id="adress"
+                        error={this.state.errorAdress}
                         className={classnames("", {
                           invalid: errors.adress
                         })}
@@ -258,9 +309,7 @@ class RegisterPage extends React.Component {
                         value={this.state.phone}
                         labelText="Telefono"
                         id="phone"
-                        className={classnames("", {
-                          invalid: errors.phone
-                        })}
+                        error={this.state.errorPhone}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -278,6 +327,7 @@ class RegisterPage extends React.Component {
                         value={this.state.password}
                         labelText="Contraseña"
                         id="password"
+                        error={this.state.errorPassword}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -293,11 +343,12 @@ class RegisterPage extends React.Component {
                           ),
                           autoComplete: "off"
                         }}
-                       />
-                       <CustomInput
+                      />
+                      <CustomInput
                         value={this.state.equalpassword}
                         labelText="Repetir contraseña"
                         id="equalpassword"
+                        error={this.state.errorEqualpassword}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -312,25 +363,25 @@ class RegisterPage extends React.Component {
                             </InputAdornment>
                           ),
                           autoComplete: "off"
-                        }}
-                       />
-                      <br />
-                      <br />
-                      <Datetime 
-                        value={this.state.date}
-                        timeFormat={false}
-                        onChange={this.onChangeExa}                       
-                        inputProps={{
-                          placeholder: "Fecha de nacimiento",
-                          style:{fontFamily: '"Nunito", "Roboto"'}
-                           
                         }}
                       />
                       <br />
                       <br />
-                      
+                      <Datetime
+                        value={this.state.date}
+                        timeFormat={false}
+                        onChange={this.onChangeExa}
+                        inputProps={{
+                          placeholder: "Fecha de nacimiento",
+                          style: { fontFamily: '"Nunito", "Roboto"' }
+
+                        }}
+                      />
+                      <br />
+                      <br />
+
                       <h4 className={classes.lineSubtitle}>Estado de la demencia</h4>
-                      
+
                       <RadioInput
                         checked={this.state.demential_stage === "inicial"}
                         onChange={this.handleChangeEnabled}
@@ -347,10 +398,10 @@ class RegisterPage extends React.Component {
 
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button 
-                      simple color="info"
-                      size="lg"
-                      type="submit"
+                      <Button
+                        simple color="info"
+                        size="lg"
+                        type="submit"
                       >
                         Registrar paciente
                       </Button>
