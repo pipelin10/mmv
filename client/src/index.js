@@ -15,7 +15,6 @@ import PrivateRoute from "./views/LoginPage/PrivateRoute";
 import "assets/scss/material-kit-react.scss?v=1.7.0";
 
 // pages in the project
-import Components from "views/Components/Components.jsx";
 import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import RegisterPage from "views/RegisterPage/RegisterPage.jsx";
@@ -28,6 +27,7 @@ import SelectAlbumViewPage from "views/SelectAlbumViewPage/AlbumViewPage";
 import AlbumCarouselPage from "views/AlbumCarouselPage/AlbumCarouselpage";
 import AlbumPersonPage from "views/AlbumPersonPage/AlbumPersonPage";
 import CoverAndProfilePage from "views/CoverAndProfilePage/CoverAndProfilePage";
+import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
 
 
 var hist = createBrowserHistory();
@@ -71,7 +71,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/select-person-album-page" component={AlbumPersonPage}/>
           <PrivateRoute exact path="/cover-profile-person-page" component={CoverAndProfilePage}/>
           <PrivateRoute exact path="/profile-page" component={ProfilePage} />
-          <Route path="/" component={Components} />
+          <Route path="/" component={MementoLandingPage} />
         </Switch>
       </Router>
     </PersistGate>

@@ -160,7 +160,7 @@ const title = {
   margin: "1.75rem 0 0.875rem",
   textDecoration: "none",
   fontWeight: "600",
-  fontFamily: `"Roboto Slab", "Times New Roman", serif`
+  fontFamily: `"Nunito", "Times New Roman", serif`
 };
 
 const normalText = {
@@ -168,7 +168,7 @@ const normalText = {
   margin: "1.75rem 0 0.875rem",
   textDecoration: "none",
   fontWeight: "200",
-  fontFamily: `"Roboto Slab", "Times New Roman", serif`
+  fontFamily: `"Nunito", "Roboto Slab", "Times New Roman", serif`
 };
 
 const cardTitle = {

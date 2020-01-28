@@ -24,7 +24,6 @@ let UserSchema = new Schema({
 //This function is executed before saving the data, that is why the name is "pre"
 UserSchema.pre('save', function(next) {
     let user = this
-    console.log(`${user}`);
     if(!user.isModified('password')) return next()
     bcrypt.genSalt(10, (err,salt) => {
         if(err) return next(err)
