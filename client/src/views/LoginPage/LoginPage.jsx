@@ -56,15 +56,13 @@ class LoginPage extends React.Component {
       this.props.history.push("/profile-page");
     }
 
-
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
+    // we add a hidden class to the card and after 300 ms we delete it and the transition appears
     setTimeout(
       function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
-      700
+      300
     );
-
 
   }
   

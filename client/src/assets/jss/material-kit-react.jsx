@@ -64,7 +64,7 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto", "Helvetica", sans-serif',
+  fontFamily: '"Nunito","Roboto", "Helvetica", sans-serif',
   fontWeight: "300",
   lineHeight: "1.5em"
 };
