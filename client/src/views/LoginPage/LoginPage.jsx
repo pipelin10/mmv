@@ -19,11 +19,11 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
-//Notifications component
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-
 //Style for the page
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
+
+//library to show notifications
+import swal from 'sweetalert';
 
 //Image font
 import image from "assets/img/hola.jpeg";
@@ -45,8 +45,10 @@ class LoginPage extends React.Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
-      cc: "",
+      cc: 0,
       password: "",
+      errorcc: false,
+      errorPassword: false,
       errors: {},
     };
   }
@@ -58,63 +60,83 @@ class LoginPage extends React.Component {
 
     // we add a hidden class to the card and after 300 ms we delete it and the transition appears
     setTimeout(
-      function() {
+      function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       300
     );
 
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/profile-page"); // push user to dashboard when they login
     }
     if (nextProps.errors) {
-        this.setState({
-          errors: nextProps.errors
-        });
-      }
+      this.setState({
+        errors: nextProps.errors
+      });
+      this.errorNotificationBack(nextProps.errors.msg)
+    }
+  }
+
+  errorNotificationBack = (msg) => {
+    swal({
+      title: "Error",
+      text: msg,
+      icon: "error",
+      button: "Reintentar",
+    })
+  }
+
+  validateInfo() {
+    var validate = true
+
+    if (this.state.cc === 0) {
+      this.setState({ errorcc: true });
+      validate = false
     }
 
-  
+    if (this.state.password === "") {
+      this.setState({ errorPassword: true });
+      validate = false
+    }
+
+    return validate
+  }
+
+  errorNotification = () => {
+    swal({
+      title: "Faltan datos",
+      text: "Completa todo el formulario",
+      icon: "error",
+      button: "Reintentar",
+    })
+  }
+
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
   onSubmit = e => {
-    e.preventDefault(); 
-    
-    const userData = {
-      cc: this.state.cc,
-      password: this.state.password,
-    };
+    e.preventDefault();
 
-    this.props.loginUser(userData);
-  };
+    var valit = this.validateInfo()
 
-  createNotification = (type) => {
-    return () => {
-      switch (type) {
-        case 'info':
-          NotificationManager.info('Info message');
-          break;
-        case 'success':
-          console.log("holaaa");
-          NotificationManager.success('Success message', 'Title here');
-          break;
-        case 'warning':
-          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-          break;
-        case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
-          break;
-      }
-    };
-  };
+    if (valit) {
+
+      const userData = {
+        cc: this.state.cc,
+        password: this.state.password,
+      };
+
+      this.props.loginUser(userData);
+    } else {
   
+      this.errorNotification();
+    }
+  };
+
   render() {
     const { classes, errors, ...rest } = this.props;
 
@@ -122,7 +144,7 @@ class LoginPage extends React.Component {
       <div>
         <Header
           absolute
-         /* color="transparent"*/
+          /* color="transparent"*/
           brand="Memento"
           rightLinks={<HeaderLinks />}
           {...rest}
@@ -139,24 +161,22 @@ class LoginPage extends React.Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
-                  <form className={classes.form}  noValidate onSubmit={this.onSubmit}>
+                  <form className={classes.form} noValidate onSubmit={this.onSubmit}>
                     <CardHeader color="info" className={classes.cardHeader}>
                       <h4 className={classes.subtitle}>Inicia sesión</h4>
                     </CardHeader>
                     <CardBody>
                     <CustomInput
                         value={this.state.cc}
-                        labelText="Cédula de ciudadanía"
+                        labelText="Cedula de ciudadania"
                         id="cc"
-                        className={classnames("", {
-                          invalid: errors.cc || errors.ccnotfound
-                        })}
+                        error={this.state.errorcc}
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
+                          type: "number",
                           onChange: this.onChange,
-                          type: "email",
                           endAdornment: (
                             <InputAdornment position="end">
                               <Fingerprint className={classes.inputIconsColor} />
@@ -164,14 +184,12 @@ class LoginPage extends React.Component {
                           )
                         }}
                       />
-                    
-                    <CustomInput
+
+                      <CustomInput
                         value={this.state.pass}
                         labelText="Contraseña"
                         id="password"
-                        className={classnames("", {
-                          invalid: errors.pass || errors.passincorrect
-                        })}
+                        error={this.state.errorPassword}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -187,18 +205,18 @@ class LoginPage extends React.Component {
                           ),
                           autoComplete: "off"
                         }}
-                       />
+                      />
                       <span className="red-text">
-                      {errors.pass}
-                      {errors.passincorrect}
+                        {errors.pass}
+                        {errors.passincorrect}
                       </span>
-                      
+
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                       <Button
-                      simple color="info" 
-                      size="lg"
-                      type="submit"
+                        simple color="info"
+                        size="lg"
+                        type="submit"
                       >
                         Iniciar terapia
                       </Button>
@@ -208,9 +226,7 @@ class LoginPage extends React.Component {
               </GridItem>
             </GridContainer>
 
-            
           </div>
-          <NotificationContainer/>
         </div>
       </div>
     );

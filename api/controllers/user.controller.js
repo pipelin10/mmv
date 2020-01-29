@@ -91,7 +91,7 @@ exports.login = function(req, res){
                 });
             }
             else {
-                return res.status(400).send( {passwordincorrect:'Contraseña incorrecta'});
+                return res.status(400).send( {message:'Contraseña incorrecta'});
             }
         }
             

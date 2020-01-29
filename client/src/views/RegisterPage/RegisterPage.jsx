@@ -74,7 +74,17 @@ class RegisterPage extends React.Component {
       this.setState({
         errors: nextProps.errors
       });
+      this.errorNotificationBack(nextProps.errors.msg)
     }
+  }
+
+  errorNotificationBack = (msg) => {
+    swal({
+      title: "Error",
+      text: msg,
+      icon: "error",
+      button: "Reintentar",
+    })
   }
 
   componentDidMount() {
@@ -92,7 +102,6 @@ class RegisterPage extends React.Component {
   };
 
   onChangeExa = date => {
-    console.log(date.format('YYYY'))
     this.setState({ date: date.format('YYYY-MM-DD') });
   };
 
