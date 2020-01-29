@@ -92,13 +92,15 @@ class RegisterPage extends React.Component {
   };
 
   onChangeExa = date => {
-    console.log(date.toDate())
-    this.setState({ date: date.toDate() });
+    console.log(date.format('YYYY'))
+    this.setState({ date: date.format('YYYY-MM-DD') });
   };
 
   handleChangeEnabled = event => {
     this.setState({ demential_stage: event.target.value });
   };
+
+
 
   validateInfo() {
     var validate = true
@@ -186,6 +188,11 @@ class RegisterPage extends React.Component {
     return equal
   }
 
+  verifyDate = current => {
+    var yesterday = Datetime.moment().subtract(1, 'day')
+    return current.isBefore( yesterday );
+  }
+
   onSubmit = e => {
     e.preventDefault();
     var valit = this.validateInfo()
@@ -194,19 +201,17 @@ class RegisterPage extends React.Component {
       if (this.validateEqualPass()) {
         if (this.validateLength()) {
           const newUser = {
-            name: this.state.name,
-            last_name: this.state.last_name,
+            name: this.state.name.toLowerCase(),
+            last_name: this.state.last_name.toLowerCase(),
             cc: this.state.cc,
-            adress: this.state.adress,
+            adress: this.state.adress.toLowerCase(),
             phone: this.state.phone,
             password: this.state.password,
-            demential_stage: this.state.demential_stage,
-            date: this.state.date
+            dementia_stage: this.state.demential_stage,
+            birthdate: this.state.date
           };
 
-          console.log(newUser)
-
-          //this.props.registerUser(newUser, this.props.history); 
+          this.props.registerUser(newUser, this.props.history); 
         }
         else {
           this.errorLengthPass();
@@ -394,6 +399,8 @@ class RegisterPage extends React.Component {
                         value={this.state.date}
                         timeFormat={false}
                         onChange={this.onChangeExa}
+                        isValidDate={this.verifyDate}
+                        closeOnSelect={true}
                         inputProps={{
                           placeholder: "Fecha de nacimiento",
                           style: { fontFamily: '"Nunito", "Roboto"' }
@@ -406,17 +413,17 @@ class RegisterPage extends React.Component {
                       <h4 className={classes.lineSubtitle}>Estado de la demencia</h4>
 
                       <RadioInput
-                        checked={this.state.demential_stage === "inicial"}
+                        checked={this.state.demential_stage === "Inicial"}
                         onChange={this.handleChangeEnabled}
-                        value="inicial"
+                        value="Inicial"
                         label="Inicial"
                       ></RadioInput>
 
                       <RadioInput
-                        checked={this.state.demential_stage === "Mediano"}
+                        checked={this.state.demential_stage === "Moderada"}
                         onChange={this.handleChangeEnabled}
-                        value="Mediano"
-                        label="Mediano"
+                        value="Moderada"
+                        label="Moderada"
                       ></RadioInput>
 
                     </CardBody>
