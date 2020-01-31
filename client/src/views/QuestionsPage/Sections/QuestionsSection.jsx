@@ -19,6 +19,7 @@ import questionStyle from "assets/jss/material-kit-react/views/landingPageSectio
 //Import data
 import { towns, defaultChooseTown, optionsDeparment } from "../Data/Deparments";
 import { optionsKids, defaultChooseKids } from "../Data/KidsNumbers"
+import { optionsStatus, defaultChooseStatus } from "../Data/CivilStatus"
 
 
 const customStyles = {
@@ -31,7 +32,6 @@ const customStyles = {
   }),
   control: (provided) => ({
     ...provided,
-    marginTop: "5%",
     fontFamily: "Nunito",
     fontSize: "14px",
     color: "#495057"
@@ -612,13 +612,14 @@ class QuestionsSection extends React.Component {
 
   sectionActualLocal() {
     return <div>
+      <h2 className={this.props.classes.titleA}>Departamento</h2>
       <Select
         styles={customStyles}
         options={optionsDeparment}
         defaultValue={optionsDeparment[0]}
         onChange={this.handleChange}
       />
-
+      <h2 className={this.props.classes.titleA}>Municipio</h2>
       <Select
         styles={customStyles}
         options={towns[this.state.number]}
