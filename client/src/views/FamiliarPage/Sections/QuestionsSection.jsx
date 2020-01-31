@@ -74,7 +74,6 @@ class QuestionsSection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      height: 420,
       relationship: null,
       name: '',
       last_name: ''
@@ -132,8 +131,6 @@ class QuestionsSection extends React.Component {
   render() {
     const { userData } = this.props.auth;
     const { classes } = this.props;
-    var { height } = this.state;
-
 
     return (
       <div className={classes.section}>

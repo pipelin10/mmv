@@ -43,7 +43,7 @@ class CoverProfileSection extends React.Component {
   fileSelectedHandler = event => {
     var verify = this.verifyFormat(event.target.files[0].name)
 
-    if(verify==true){
+    if(verify===true){
       this.setState({
         profileFile: URL.createObjectURL(event.target.files[0])
       })
@@ -56,7 +56,7 @@ class CoverProfileSection extends React.Component {
 
   fileSelectedHandlerSecond = event => {
     var verify = this.verifyFormat(event.target.files[0].name)
-    if(verify==true){
+    if(verify===true){
       this.setState({
         familyFile: URL.createObjectURL(event.target.files[0])
       })
@@ -185,7 +185,7 @@ class CoverProfileSection extends React.Component {
                   ref = {fileInput => this.fileInput = fileInput}
                   accept="image/*"
                   />
-                  <img src={this.state.profileFile} height={height}/>
+                  <img src={this.state.profileFile} height={height} alt=""/>
                   <Button 
                       onClick={() => this.fileInput.click()}
                       round size="normal"
@@ -206,7 +206,7 @@ class CoverProfileSection extends React.Component {
                   ref = {fileInput2 => this.fileInput2 = fileInput2}
                   accept="image/*"
                   />
-                  <img src={this.state.familyFile} height={height}/>
+                  <img src={this.state.familyFile} height={height} alt=""/>
                   <Button 
                       onClick={() => this.fileInput2.click()}
                       round size="normal"

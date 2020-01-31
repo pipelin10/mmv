@@ -71,7 +71,7 @@ class LoginPage extends React.Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/profile-page"); // push user to dashboard when they login
     }
-    if (this.props.errors!=nextProps.errors) {
+    if (this.props.errors!==nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });

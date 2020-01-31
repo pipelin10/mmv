@@ -191,7 +191,7 @@ class RegisterPage extends React.Component {
 
   validateEqualPass() {
     var equal = true
-    if (this.state.password != this.state.equalpassword) {
+    if (this.state.password !== this.state.equalpassword) {
       equal = false
     }
     return equal
