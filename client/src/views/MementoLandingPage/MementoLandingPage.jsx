@@ -17,7 +17,6 @@ import image from "assets/img/cute.jpeg";
 
 import imageMemento from "assets/img/Mementologo.png";
 
-
 //Redux
 import { connect } from "react-redux";
 

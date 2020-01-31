@@ -2,7 +2,7 @@ import { title } from "assets/jss/material-kit-react.jsx";
 
 const questionStyle = {
   section: {
-    padding: "30px 0px"
+    padding: "0px 0px"
   },
   title: {
     ...title,
@@ -11,6 +11,14 @@ const questionStyle = {
     minHeight: "22px",
     textDecoration: "none",
     textAlign: "center"
+  },
+  titleA: {
+    ...title,
+    marginBottom: "10px",
+    marginTop: "20px",
+    minHeight: "22px",
+    textDecoration: "none",
+    textAlign: "left"
   },
   subtitle:{
     ...title,
@@ -46,6 +54,10 @@ const questionStyle = {
   textArea: {
     marginRight: "0px",
     marginLeft: "0px"
+  },
+  wrapp:{
+    textAlign:"center",
+    verticalAlign:"middle"
   }
 };
 

@@ -36,6 +36,7 @@ const profilePageStyle = {
   },
   title: {
     ...title,
+    textTransform: "capitalize",
     fontSize: "3rem",
     display: "inline-block",
     position: "relative",

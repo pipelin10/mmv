@@ -1,5 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
+import {clearErrors} from "./errorActions"
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
@@ -28,6 +29,8 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
+      dispatch(clearErrors)
+
       const { token } = res.data;
       const { user } = res.data;
       localStorage.setItem("jwtToken", token);

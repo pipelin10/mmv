@@ -33,10 +33,9 @@ import { connect } from "react-redux";
 
 //Front and backend
 import { loginUser } from "../../actions/authActions";
-import classnames from "classnames";
+
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
-import { GET_ERRORS } from "actions/types";
 
 
 class LoginPage extends React.Component {
@@ -72,7 +71,7 @@ class LoginPage extends React.Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/profile-page"); // push user to dashboard when they login
     }
-    if (nextProps.errors) {
+    if (this.props.errors!=nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });

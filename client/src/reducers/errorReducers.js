@@ -14,9 +14,9 @@ export default function(state = initialState, action) {
         status: action.payload.status,
         id: action.payload.id
       };
-    case  CLEAR_ERRORS:
+    case CLEAR_ERRORS:
       return{
-        msg: {},
+        message: {},
         status: null,
         id: null
       };
