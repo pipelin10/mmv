@@ -28,6 +28,7 @@ import AlbumCarouselPage from "views/AlbumCarouselPage/AlbumCarouselpage";
 import AlbumPersonPage from "views/AlbumPersonPage/AlbumPersonPage";
 import CoverAndProfilePage from "views/CoverAndProfilePage/CoverAndProfilePage";
 import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
+import EspatialOptionsPage from "views/EspatialOptionsPage/EspatialOptionsPage"
 
 
 var hist = createBrowserHistory();
@@ -62,6 +63,7 @@ ReactDOM.render(
           <Route path="/login-page" component={LoginPage} />
           <Route path="/register-page" component={RegisterPage} />
           <PrivateRoute exact path="/activities-page" component={ActivitiesPage} />
+          <PrivateRoute exact path="/espatial-page" component={EspatialOptionsPage} />
           <PrivateRoute exact path="/questions-page" component={QuestionsPage} />
           <PrivateRoute exact path="/albumUpload-page" component={AlbumUploadPage} />
           <PrivateRoute exact path="/familiarUpload-page" component={FamiliarPage}/>

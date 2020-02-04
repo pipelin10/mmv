@@ -22,8 +22,6 @@ import Parallax from "components/Parallax/Parallax.jsx";
 
 import profile from "assets/img/faces/oldPerson.jpg";
 
-
-
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 class ProfilePage extends React.Component {

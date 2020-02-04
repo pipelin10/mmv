@@ -161,6 +161,8 @@ class QuestionsSection extends React.Component {
 
   continueSectionPrimary() {
     return <div>
+
+      <h2 className={this.props.classes.titleA}>Primaria</h2>
       <CustomInput
         labelText="Escuela primaria"
         id="primarySchool"
@@ -253,6 +255,7 @@ class QuestionsSection extends React.Component {
 
   continueSectionMiddleSchool() {
     return <div>
+    <h2 className={this.props.classes.titleA}>Escuela Media</h2>
       <CustomInput
         labelText="Institución"
         id="middleSchool"
@@ -297,6 +300,7 @@ class QuestionsSection extends React.Component {
 
   continueSectionUniversity() {
     return <div>
+    <h2 className={this.props.classes.titleA}>Universidad</h2>
       <CustomInput
         labelText="Universidad"
         id="university"
@@ -368,6 +372,7 @@ class QuestionsSection extends React.Component {
 
   continueSectionMom() {
     return <div>
+    <h2 className={this.props.classes.titleA}>Nombre de la madre</h2>
       <CustomInput
         labelText="Nombre de la madre"
         id="mom"
@@ -413,6 +418,7 @@ class QuestionsSection extends React.Component {
 
   continueSectionDad() {
     return <div>
+    <h2 className={this.props.classes.titleA}>Nombre del padre</h2>
       <CustomInput
         labelText="Nombre del padre"
         id="dad"
@@ -549,20 +555,20 @@ class QuestionsSection extends React.Component {
       <h2 className={this.props.classes.title}>¿Es aficcionado al futbol?</h2>
 
       <GridContainer justify="center">
-      <div className={this.props.classes.wrapp}>
-        <GridItem xs={12} sm={12} md={4}>
-          <Button
-            color="primary"
-            onClick={this.changeState}
-          >
-            Si
+        <div className={this.props.classes.wrapp}>
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              color="primary"
+              onClick={this.changeState}
+            >
+              Si
             </Button>
-          <Button
-            onClick={this.jumpStep}
-          >
-            No
+            <Button
+              onClick={this.jumpStep}
+            >
+              No
             </Button>
-        </GridItem>
+          </GridItem>
         </div>
       </GridContainer>
 
@@ -627,6 +633,7 @@ class QuestionsSection extends React.Component {
         onChange={this.handleChangeTown}
       />
 
+      <h2 className={this.props.classes.titleA}>Barrio</h2>
       <CustomInput
         labelText={"Barrio"}
         id="neighborhood"
@@ -635,7 +642,7 @@ class QuestionsSection extends React.Component {
         }}
         inputProps={{
           onChange: this.onChange,
-          type: "text",
+          type: "text"
         }}
       />
 

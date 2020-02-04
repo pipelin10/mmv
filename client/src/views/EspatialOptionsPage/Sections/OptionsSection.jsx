@@ -8,26 +8,21 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import swal from 'sweetalert';
+import profile from "assets/img/art2.jpeg";
 
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
 
-import activityStyle from "assets/jss/material-kit-react/views/landingPageSections/activityStyle.jsx";
+
+import activityStyle from "assets/jss/material-kit-react/views/landingPageSections/espatialOptionsStyle.jsx";
+
+const imgStyle = {
+  maxWidth: "15%",
+}
 
 class OptionsSection extends React.Component {
   constructor(props){
     super(props);
-    this.sweetAlertFunction = this.sweetAlertFunction.bind(this);
-  }
-
-  sweetAlertFunction(){
-    swal({
-      title: "Good job!",
-      text: "You clicked the button!",
-      icon: "success",
-      button: "Aww yiss!",
-    });
   }
 
   render() {
@@ -39,25 +34,10 @@ class OptionsSection extends React.Component {
       
         <GridContainer className={classes.textCenter} justify="center">
           <GridItem xs={12} sm={12} md={8}>
-            <h2 className={classes.title}>¿En qué quieres trabajar hoy?</h2>
+            <h2 className={classes.title}>¿Cuál actividad quieres resolver hoy?</h2>
             
-          </GridItem>
-          <GridItem xs={12} sm={8} md={6}>
-            <Button
-              component={Link}
-              color="success"
-              size="lg"
-              to="/select-person-album-page"
-            >
-              Ambito Afectivo
-            </Button>
-            <Button
-              onClick={this.sweetAlertFunction}
-              color="success"
-              size="lg"
-            >
-              Ambito Espacial
-            </Button>
+            <Button><img src={profile} alt="my image"  style={imgStyle}/></Button>
+
           </GridItem>
         </GridContainer>
 
