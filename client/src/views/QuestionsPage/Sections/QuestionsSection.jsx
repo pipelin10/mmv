@@ -317,27 +317,18 @@ class QuestionsSection extends React.Component {
 
   sectionMarriage() {
     return <div>
-      <h2 className={this.props.classes.title}>¿Está casado?</h2>
+      <h2 className={this.props.classes.titleA}>Situación sentimental</h2>
+      
+      <Select
+        styles={customStyles}
+        options={optionsStatus}
+        defaultValue={defaultChooseStatus}
+        onChange={this.handleChange}
+      />
+      <br/>
 
-      <GridContainer justify="center">
-        <div className={this.props.classes.wrapp}>
-          <GridItem xs={12} sm={12} md={12}>
-            <Button
-              color="primary"
-              onClick={this.changeState}
-              style={{ width: '8rem' }}
-            >
-              Si
-            </Button>
-            <Button
-              onClick={this.jumpStep}
-              style={{ width: '8rem' }}
-            >
-              No
-            </Button>
-          </GridItem>
-        </div>
-      </GridContainer>
+      {this.activeButtonsFunc(this.state.activeButtons)}
+
 
     </div>
   }
