@@ -205,10 +205,6 @@ class LoginPage extends React.Component {
                           autoComplete: "off"
                         }}
                       />
-                      <span className="red-text">
-                        {errors.pass}
-                        {errors.passincorrect}
-                      </span>
 
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>

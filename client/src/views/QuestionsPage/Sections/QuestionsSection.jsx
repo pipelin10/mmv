@@ -47,8 +47,16 @@ class QuestionsSection extends React.Component {
       deparment: null,
       number: null,
       town: null,
+      civilStatus: null,
       numberK: '0',
       activeButtons: false,
+      nickname: "",
+      neighborhood: "",
+      schoolPrimary: "",
+      schoolHigh: "",
+      mediumSchool: "",
+      mom: "",
+      dad: "",
     }
   }
 
@@ -164,6 +172,7 @@ class QuestionsSection extends React.Component {
 
       <h2 className={this.props.classes.titleA}>Primaria</h2>
       <CustomInput
+        value={this.state.schoolPrimary}
         labelText="Escuela primaria"
         id="primarySchool"
         formControlProps={{
@@ -212,6 +221,7 @@ class QuestionsSection extends React.Component {
     return <div>
       <h2 className={this.props.classes.titleA}>Escuela secundaria</h2>
       <CustomInput
+        value={this.state.schoolHigh}
         labelText="Escuela"
         id="highSchool"
         formControlProps={{
@@ -257,6 +267,7 @@ class QuestionsSection extends React.Component {
     return <div>
     <h2 className={this.props.classes.titleA}>Escuela Media</h2>
       <CustomInput
+        value={this.state.mediumSchool}
         labelText="Institución"
         id="middleSchool"
         formControlProps={{
@@ -318,17 +329,15 @@ class QuestionsSection extends React.Component {
   sectionMarriage() {
     return <div>
       <h2 className={this.props.classes.titleA}>Situación sentimental</h2>
-      
+      <br/>
       <Select
         styles={customStyles}
         options={optionsStatus}
         defaultValue={defaultChooseStatus}
-        onChange={this.handleChange}
+        onChange={this.handleChangeStatus}
       />
       <br/>
-
       {this.activeButtonsFunc(this.state.activeButtons)}
-
 
     </div>
   }
@@ -365,6 +374,7 @@ class QuestionsSection extends React.Component {
     return <div>
     <h2 className={this.props.classes.titleA}>Nombre de la madre</h2>
       <CustomInput
+        value={this.state.mom}
         labelText="Nombre de la madre"
         id="mom"
         formControlProps={{
@@ -382,7 +392,7 @@ class QuestionsSection extends React.Component {
 
   sectionDad() {
     return <div>
-      <h2 className={this.props.classes.title}>¿Es cercano a su padre?</h2>
+      <h2 className={this.props.classes.title}>¿Es cercano/a a su padre?</h2>
 
       <GridContainer justify="center">
         <div className={this.props.classes.wrapp}>
@@ -411,6 +421,7 @@ class QuestionsSection extends React.Component {
     return <div>
     <h2 className={this.props.classes.titleA}>Nombre del padre</h2>
       <CustomInput
+        value={this.state.dad}
         labelText="Nombre del padre"
         id="dad"
         formControlProps={{
@@ -428,6 +439,8 @@ class QuestionsSection extends React.Component {
 
   continueSectionMarriage() {
     return <div>
+
+  <h2 className={this.props.classes.titleA}>Nombre de la pareja</h2>
       <CustomInput
         labelText="Nombre de la pareja"
         id="partner"
@@ -490,9 +503,16 @@ class QuestionsSection extends React.Component {
     return <div>
       <h2 className={this.props.classes.titleA}>Fecha de Aniversario</h2>
       <FormControl fullWidth>
+        <div style={{color: "#000000", fontSize: "0.875rem" }}>
         <Datetime
-          inputProps={{ placeholder: "Aniversario" }}
+          inputProps={{
+          placeholder: "Aniversario",
+          style : {fontFamily: '"Nunito", "Roboto"'}
+            
+        }}
+         
         />
+        </div>
       </FormControl>
 
       {this.activeButtonsFunc(this.state.activeButtons)}
@@ -591,6 +611,7 @@ class QuestionsSection extends React.Component {
     return <div>
       <h2 className={this.props.classes.titleA}>Sobrenombre</h2>
       <CustomInput
+        value={this.state.nickname}
         labelText="Sobrenombre"
         id="nickname"
         formControlProps={{
@@ -626,6 +647,7 @@ class QuestionsSection extends React.Component {
 
       <h2 className={this.props.classes.titleA}>Barrio</h2>
       <CustomInput
+        value={this.state.neighborhood}
         labelText={"Barrio"}
         id="neighborhood"
         formControlProps={{
@@ -689,8 +711,6 @@ class QuestionsSection extends React.Component {
     }
   }
 
-
-
   handleChange = (deparment) => {
     this.setState({ deparment });
     this.setState({ number: (optionsDeparment.indexOf(deparment) - 1) });
@@ -700,13 +720,20 @@ class QuestionsSection extends React.Component {
     this.setState({ town });
   }
 
+  handleChangeStatus = (civilStatus) => {
+    this.setState({ civilStatus });
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.section}>
-        <GridContainer justify="center">
+        <GridContainer justify="center" style={{color: "#FFFFF"}}>
           <GridItem cs={12} sm={12} md={12}>
             <form>
 
