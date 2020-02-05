@@ -270,7 +270,7 @@ const buttonStyle = {
     borderRadius: "0.2rem"
   },
   round: {
-    borderRadius: "30px"
+    borderRadius: "90px"
   },
   block: {
     width: "100% !important"
@@ -293,9 +293,9 @@ const buttonStyle = {
       marginRight: "0px"
     },
     "&$lg": {
-      height: "57px",
+      height: "120px",
       minWidth: "57px",
-      width: "57px",
+      width: "120px",
       lineHeight: "56px",
       "& .fab,& .fas,& .far,& .fal,& .material-icons": {
         fontSize: "32px",

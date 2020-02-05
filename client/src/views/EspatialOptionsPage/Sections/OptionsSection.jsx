@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import activityStyle from "assets/jss/material-kit-react/views/landingPageSections/espatialOptionsStyle.jsx";
 
 const imgStyle = {
-  maxWidth: "15%",
+  maxWidth: "15%"
 }
 
 class OptionsSection extends React.Component {
@@ -36,7 +36,7 @@ class OptionsSection extends React.Component {
           <GridItem xs={12} sm={12} md={8}>
             <h2 className={classes.title}>¿Cuál actividad quieres resolver hoy?</h2>
             
-            <Button><img src={profile} alt="my image"  style={imgStyle}/></Button>
+            <Button><img src={profile} alt="my image" style={imgStyle}/> hola </Button>
 
           </GridItem>
         </GridContainer>

@@ -52,9 +52,10 @@ class ActivitySection extends React.Component {
               Ambito Afectivo
             </Button>
             <Button
-              onClick={this.sweetAlertFunction}
+              component={Link}
               color="success"
               size="lg"
+              to="/espatial-page"
             >
               Ambito Espacial
             </Button>

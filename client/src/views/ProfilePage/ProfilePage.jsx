@@ -2,9 +2,9 @@ import React from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchQuestions} from "../../actions/questionsAction";
-import { setCurrentUser} from "../../actions/authActions";
-import {fetchRelations } from "../../actions/relationAction";
+import { fetchQuestions } from "../../actions/questionsAction";
+import { setCurrentUser } from "../../actions/authActions";
+import { fetchRelations } from "../../actions/relationAction";
 
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
@@ -19,32 +19,86 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import moment from 'moment'
 
-import profile from "assets/img/faces/oldPerson.jpg";
+//library to show notifications
+import swal from 'sweetalert';
+
+// Material icons
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+
+// react components for routing our app without refresh
+import { Link } from "react-router-dom";
+
+import profileDefaultImg from "assets/img/faces/NotImage.png";
+import coverDefaultImg from "assets/img/EmptyImage.png"
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 class ProfilePage extends React.Component {
 
 
-componentDidMount(){
-  this.props.fetchQuestions(this.props.auth.user.sub);
-  this.props.fetchRelations(this.props.auth.user.sub);
-}
+  componentDidMount() {
+    this.props.fetchQuestions(this.props.auth.user.sub);
+    this.props.fetchRelations(this.props.auth.user.sub);
+  }
 
-renderQuestion(question,key){
-  return <div key={key}>
-    <h5>{question.question}</h5>
-    <p>{question.answer}</p>
+  renderQuestion(question, key) {
+    return <div key={key}>
+      <h5>{question.question}</h5>
+      <p>{question.answer}</p>
     </div>
-}
+  }
+
+  imageClick = () => {
+    swal("¿Quiéres cambiar tu foto de perfil?", {
+      buttons: {
+        cancel: "No",
+        catch: {
+          text: "Si",
+          value: true,
+        },
+        defeat: false,
+      },
+    })
+    .then((value) => {
+      if (value) {
+        this.redirectTo()
+      }
+    });
+  }
+
+  redirectTo = () => {
+    this.props.history.push("/cover-profile-person-page");
+  }
+
+  renderButtonComplete() {
+    return <div style={{textAlign: "right"}}>
+      
+      <Button
+        component={Link}
+        color="success"
+        size="lg"
+        to="/activities-page"
+        justIcon 
+        round
+      >
+        <PlayCircleOutlineIcon  style={{width: "60px", height: "60px", marginRight: "3px"}}  />
+      </Button>
+      <br />
+
+      <br />
+      <br />
+    </div>
+  }
+
 
   render() {
-    //const user = this.props.user;
-    //console.log(user)
     const { userData } = this.props.auth;
-    //console.log(userData)
-    const {questions} = this.props.questions;
+    let momentob = new Date(userData.birthdate);
+    var age = moment().diff(momentob, 'years');
+    const { questions } = this.props.questions;
     //console.log(questions);
     const { classes, ...rest } = this.props;
     const imageClasses = classNames(
@@ -57,7 +111,7 @@ renderQuestion(question,key){
         <Header
           //color="transparent"
           brand="Memento"
-          rightLinks={<HeaderLinks completed={true}/>}
+          rightLinks={<HeaderLinks completed={true} />}
           fixed
           changeColorOnScroll={{
             height: 300,
@@ -65,31 +119,31 @@ renderQuestion(question,key){
           }}
           {...rest}
         />
-        <Parallax filter small image={require("assets/img/profile-bg.jpg")} />
+        <Parallax filter small image={require("assets/img/EmptyImage.png")} />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>
               <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={6}>
+                <GridItem xs={10} sm={10} md={9}>
                   <div className={classes.profile}>
                     <div>
-                      <img src={profile} alt="..." className={imageClasses} />
+                      <img src={profileDefaultImg} alt="..." className={imageClasses} onClick={this.imageClick} style={{ "pointer-events": "all" }} />
                     </div>
                     <div className={classes.name}>
                       <h2 className={classes.title}> {userData.name} {userData.last_name}</h2>
-                      <h4>Hola, soy {userData.name}, tengo 83 años.
-                      <br/>
-                      Nací en Cali, Valle del Cauca y resido en el barrio Antonio Nariño, vivo con mi 
-                      hija, mi yerno y mis dos nietos.
-                      <br/>
-                      <br/>
-                      {questions.length !== 0 ? questions[0].score : ""} </h4>
+                      <h4>Hola, soy {userData.name}, tengo {age} años. </h4>
+                      {/*  {questions.length !== 0 ? questions[0].score : ""} </h4> 
                       {questions.map((question,key)=>{
                         return this.renderQuestion(question,key);
-                      })}
+                      })} */}
                     </div>
+
+
+                {questions.length == 0 ? this.renderButtonComplete() : "jkfjg"}
                   </div>
                 </GridItem>
+
+               
               </GridContainer>
             </div>
           </div>
@@ -111,4 +165,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {fetchQuestions, setCurrentUser, fetchRelations}) (withStyles(profilePageStyle)(withRouter(ProfilePage)));
+  { fetchQuestions, setCurrentUser, fetchRelations })(withStyles(profilePageStyle)(withRouter(ProfilePage)));
