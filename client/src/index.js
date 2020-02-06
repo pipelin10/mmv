@@ -26,7 +26,7 @@ import AlbumPage from "views/AlbumPage/Albumpage";
 import SelectAlbumViewPage from "views/SelectAlbumViewPage/AlbumViewPage";
 import AlbumCarouselPage from "views/AlbumCarouselPage/AlbumCarouselpage";
 import AlbumPersonPage from "views/AlbumPersonPage/AlbumPersonPage";
-import CoverAndProfilePage from "views/CoverAndProfilePage/CoverAndProfilePage";
+import UploadProfilePage from "views/UploadProfilePage/UploadProfilePage";
 import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
 import EspatialOptionsPage from "views/EspatialOptionsPage/EspatialOptionsPage"
 
@@ -71,7 +71,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/album-carousel-page" component={AlbumCarouselPage}/>
           <PrivateRoute exact path="/select-view-album-page" component={SelectAlbumViewPage}/>
           <PrivateRoute exact path="/select-person-album-page" component={AlbumPersonPage}/>
-          <PrivateRoute exact path="/cover-profile-person-page" component={CoverAndProfilePage}/>
+          <PrivateRoute exact path="/upload-imageProfile-person-page" component={UploadProfilePage}/>
           <PrivateRoute exact path="/profile-page" component={ProfilePage} />
           <Route path="/" component={MementoLandingPage} />
         </Switch>

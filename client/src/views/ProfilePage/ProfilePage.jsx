@@ -70,7 +70,7 @@ class ProfilePage extends React.Component {
   }
 
   redirectTo = () => {
-    this.props.history.push("/cover-profile-person-page");
+    this.props.history.push("/upload-imageProfile-person-page");
   }
 
   renderButtonComplete() {

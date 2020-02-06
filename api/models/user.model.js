@@ -15,6 +15,8 @@ let UserSchema = new Schema({
     last_login: Date,
     dementia_stage:  {type: String, enum: ['Inicial', 'Moderada'], required: true},
     sessionTime: Number,
+    profileImg: {type: String},
+    coverImg: {type: String},
     affectiveRelation:[{type: Schema.Types.ObjectId, ref: "AffectiveRelation"}],
     question: [{type: Schema.Types.ObjectId, ref: "Question"}],
     sessionTherapy:[{type: Schema.Types.ObjectId, ref: "SessionTherapy"}]

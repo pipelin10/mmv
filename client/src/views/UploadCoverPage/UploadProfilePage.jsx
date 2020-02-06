@@ -16,11 +16,11 @@ import Parallax from "components/Parallax/Parallax.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
-import CoverProfileSection from "./Sections/CoverProfileSection.jsx";
+import ProfileSection from "./Sections/ProfileSection.jsx.js";
 
 const dashboardRoutes = [];
 
-class CoverAndProfilePage extends React.Component {
+class UploadProfilePage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -44,7 +44,7 @@ class CoverAndProfilePage extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <CoverProfileSection />
+            <ProfileSection />
           </div>
         </div>
       </div>
@@ -52,8 +52,8 @@ class CoverAndProfilePage extends React.Component {
   }
 }
 
-CoverAndProfilePage.propTypes = {
+UploadProfilePage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(landingPageStyle)(CoverAndProfilePage);
+export default withStyles(landingPageStyle)(UploadProfilePage);

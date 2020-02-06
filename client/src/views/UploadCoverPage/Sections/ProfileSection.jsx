@@ -26,7 +26,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 
-class CoverProfileSection extends React.Component {
+class ProfileSection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -245,7 +245,7 @@ class CoverProfileSection extends React.Component {
   }
 }
 
-CoverProfileSection.propTypes = {
+ProfileSection.propTypes = {
   classes: PropTypes.object,
   auth: PropTypes.object.isRequired
 };
@@ -256,4 +256,4 @@ const mapStateToProps = state => ({
 
 export default  connect(
   mapStateToProps
-  ) (withStyles(workStyle)(withRouter(CoverProfileSection)));
+  ) (withStyles(workStyle)(withRouter(ProfileSection)));

@@ -295,8 +295,8 @@ const buttonStyle = {
     "&$lg": {
       height: "120px",
       minWidth: "57px",
-      width: "120px",
-      lineHeight: "56px",
+      width: "123px",
+      lineHeight: "80px",
       "& .fab,& .fas,& .far,& .fal,& .material-icons": {
         fontSize: "32px",
         lineHeight: "56px"
