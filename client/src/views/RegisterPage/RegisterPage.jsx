@@ -217,7 +217,8 @@ class RegisterPage extends React.Component {
             phone: this.state.phone,
             password: this.state.password,
             dementia_stage: this.state.demential_stage,
-            birthdate: this.state.date
+            birthdate: this.state.date,
+            profileImg: ""
           };
 
           this.props.registerUser(newUser, this.props.history); 

@@ -6,7 +6,8 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   USER_LOADING,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  USER_CHANGE
 } from "./types";
 
 
@@ -65,10 +66,19 @@ export const setUserLoading = () => {
   };
 };
 
-// User loading
+// User success
 export const setUser = user => {
   return {
     type: LOGIN_SUCCESS,
+    payload: user
+  };
+};
+// User change
+export const changeUser = user => {
+  console.log("Aquí estoy")
+  console.log(user)
+  return {
+    type: USER_CHANGE,
     payload: user
   };
 };

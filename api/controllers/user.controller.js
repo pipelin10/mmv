@@ -29,6 +29,7 @@ exports.create = function (req, res) {
                     dementia_stage: req.body.dementia_stage,
                     adress: req.body.adress,
                     birthdate: req.body.birthdate,
+                    profileImg: req.body.profileImg
                 }
             )
 
@@ -49,6 +50,7 @@ exports.create = function (req, res) {
                         dementia_stage: user.dementia_stage,
                         adress: user.adress,
                         birthdate: user.birthdate,
+                        profileImg: user.profileImg
                     }
                 });
             })
@@ -87,11 +89,13 @@ exports.login = function (req, res) {
                             dementia_stage: user.dementia_stage,
                             adress: user.adress,
                             birthdate: user.birthdate,
+                            profileImg: user.profileImg
                         },
                         message: 'Te has logueado correctamente'
                     });
                 }
                 else {
+                    console.error(err);
                     return res.status(400).send({ message: 'Contraseña incorrecta' });
                 }
             }
@@ -134,14 +138,14 @@ exports.newAffectionAndUpdate = function (req, res) {
 
 exports.updateProfilePhoto = function (req, res) {
 
-    User.updateOne({ _id: req.params.id }, { $set: { img: req.file.path } })
+    User.updateOne({ _id: req.params.id }, { $set: { profileImg: req.file.path } })
         .then((user, err) => {
             if (err) {
                 return res.status(400).send({ message: `Error adding affective relation ${err}` });
 
             }
 
-            res.status(200).send(`${user.img}`);
+            res.status(200).send({ profileImg: req.file.path });
 
         })
         .catch((err) => {

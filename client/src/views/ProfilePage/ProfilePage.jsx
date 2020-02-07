@@ -3,7 +3,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchQuestions } from "../../actions/questionsAction";
-import { setCurrentUser } from "../../actions/authActions";
 import { fetchRelations } from "../../actions/relationAction";
 
 //React router for wrapping the page
@@ -93,13 +92,21 @@ class ProfilePage extends React.Component {
     </div>
   }
 
+  returnImgActual(img){
+    if(img==null){
+      return profileDefaultImg
+    }
+    else return "../../../../../../" + img
+  }
+
 
   render() {
     const { userData } = this.props.auth;
+    console.log(userData)
     let momentob = new Date(userData.birthdate);
     var age = moment().diff(momentob, 'years');
     const { questions } = this.props.questions;
-    //console.log(questions);
+    const imgPro = this.returnImgActual(userData.profileImg)
     const { classes, ...rest } = this.props;
     const imageClasses = classNames(
       classes.imgRaised,
@@ -127,7 +134,7 @@ class ProfilePage extends React.Component {
                 <GridItem xs={10} sm={10} md={9}>
                   <div className={classes.profile}>
                     <div>
-                      <img src={profileDefaultImg} alt="..." className={imageClasses} onClick={this.imageClick} style={{ "pointer-events": "all" }} />
+                      <img src={imgPro} alt="..." className={imageClasses} onClick={this.imageClick} style={{ "pointerEvents": "all" }} />
                     </div>
                     <div className={classes.name}>
                       <h2 className={classes.title}> {userData.name} {userData.last_name}</h2>
@@ -165,4 +172,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions, setCurrentUser, fetchRelations })(withStyles(profilePageStyle)(withRouter(ProfilePage)));
+  { fetchQuestions, fetchRelations })(withStyles(profilePageStyle)(withRouter(ProfilePage)));

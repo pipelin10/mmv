@@ -22,31 +22,26 @@ import workStyle from "assets/jss/material-kit-react/views/landingPageSections/w
 import axios from "axios";
 //Redux
 import { connect } from "react-redux";
-
-import { fetchRelations } from "../../../actions/relationAction";
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
 
 
 class ProfileSection extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props)
     this.state = {
       profileFile: null,
       imgProfile: null,
-      height: 100
+      height: 30
     }
     this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.fetchRelations(this.props.auth.user.sub);
+    this.fileSelectedHandlerSecond = this.fileSelectedHandlerSecond.bind(this)
   }
 
   fileSelectedHandler = event => {
     var verify = this.verifyFormat(event.target.files[0].name)
 
-    if (verify === true) {
+    if(verify===true){
       this.setState({
         profileFile: URL.createObjectURL(event.target.files[0])
       })
@@ -57,7 +52,20 @@ class ProfileSection extends React.Component {
     else this.sweetAlertFunction()
   }
 
-  sweetAlertFunction() {
+  fileSelectedHandlerSecond = event => {
+    var verify = this.verifyFormat(event.target.files[0].name)
+    if(verify===true){
+      this.setState({
+        familyFile: URL.createObjectURL(event.target.files[0])
+      })
+      this.setState({
+        imgFamily: event.target.files[0]
+      })
+    }
+    else this.sweetAlertFunction()
+  }
+
+  sweetAlertFunction(){
     swal({
       title: "Error de formato",
       text: "El formato de imagen no es el correcto",
@@ -68,29 +76,35 @@ class ProfileSection extends React.Component {
 
   clean = () => {
     this.setState({
+      familyFile: null
+    })
+    this.setState({
       profileFile: null
     })
     this.setState({
       imgProfile: null
+    })
+    this.setState({
+      imgFamily: null
     })
   }
 
   verifyFormat = (URLname) => {
     var correct = false
 
-    if (URLname.includes(".png")) {
+    if(URLname.includes(".png")){
       correct = true
     }
 
-    if (URLname.includes(".jpg")) {
+    if(URLname.includes(".jpg")){
       correct = true
     }
 
-    if (URLname.includes(".jpeg")) {
+    if(URLname.includes(".jpeg")){
       correct = true
     }
 
-    if (URLname.includes(".gif")) {
+    if(URLname.includes(".gif")){
       correct = true
     }
 
@@ -99,67 +113,41 @@ class ProfileSection extends React.Component {
 
   onSubmit = e => {
     const fd = new FormData()
-    console.log(this.state.imgProfile)
     fd.append('image', this.state.imgProfile)
-    fd.append('description', "1")
+    var user = {}
+    const { userData } = this.props.auth
+    user = userData
 
-    console.log(this.props.auth.user.sub)
 
-    axios.post(`/affective/${this.props.auth.user.sub}/uploadPhoto`, fd)
-      .then(
-       console.log("pues si")
-      )
-      .catch(err =>
-        swal({
-          title: "No se han podido agregar las imágenes",
-          text: "Verifica que toda la información este correcta y vuelve a intentarlo",
-          icon: "error",
-          button: "Continuar",
+     axios.put(`/user/${this.props.auth.user.sub}/uploadProfilePhoto`, fd)
+    .then(res => {
+      let { profileImg } = res.data
+      user.profileImg = profileImg
+      this.props.changeUser(user)
+    }
+    )
+    .catch(err => 
+      swal({
+        title: "No se ha podido agregar la imagen de " + this.state.person,
+        text: "Verifica que toda la información este correcta y vuelve a intentarlo",
+        icon: "error",
+        button: "Continuar",
         })
-      );
-
-    e.preventDefault();
-  };
-
-  // const affectiveRelationData = {
-  //   name: this.state.name,
-  //   last_name: this.state.last_name,
-  //   relationship: this.state.relationship.value
-  // };
-
-  createOwnRelation = () => {
-    axios.post(`/user/${this.props.auth.user.sub}/newrelation`, affectiveRelationData)
-      .then(
-       console.log("pues si")
-      )
-      .catch(err =>
-        swal({
-          title: "No se han podido agregar las imágenes",
-          text: "Verifica que toda la información este correcta y vuelve a intentarlo",
-          icon: "error",
-          button: "Continuar",
-        })
-      );
-  }
+     );
+     e.preventDefault(); 
+ }
 
   render() {
     const { classes } = this.props;
     var { height } = this.state;
-    const { relations } = this.props.relations;
-    relations.map((relation,key)=>{
-      if(relation._id===this.props.auth.user.sub){
-        this.createOwnRelation()
-      }
-    }
-  )
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
 
             <h2 className={classes.title}>Sube una foto de perfil para el paciente</h2>
-
-            <p className={classes.subtitle}> Proporcionar imagenes ayuda al paciente a mantener
+            
+            <p className={classes.subtitle}> Proporcionar imagenes ayuda al paciente a mantener 
             presente su imagen y la de su familia </p>
 
             <form onSubmit={this.onSubmit}>
@@ -170,42 +158,42 @@ class ProfileSection extends React.Component {
                     <div className={classes.note}>Sube una foto de perfil para el paciente</div>
                   </div>
 
-                  <input
-                    style={{ display: 'none' }}
-                    type="file"
-                    onChange={this.fileSelectedHandler}
-                    ref={fileInput => this.fileInput = fileInput}
-                    accept="image/*"
+                  <input 
+                  style={{display:'none'}}
+                  type="file" 
+                  onChange={this.fileSelectedHandler}
+                  ref = {fileInput => this.fileInput = fileInput}
+                  accept="image/*"
                   />
-                  <img src={this.state.profileFile} height={height} alt="" />
-                  <Button
-                    onClick={() => this.fileInput.click()}
-                    round size="normal"
-                    color="success"
-                  >
-                    <AddAPhotoOutlinedIcon className={classes.icons} />
-                    Subir foto perfil
+                  <img src={this.state.profileFile} height={height} alt=""/>
+                  <Button 
+                      onClick={() => this.fileInput.click()}
+                      round size="normal"
+                      color="success"
+                      > 
+                      <AddAPhotoOutlinedIcon className={classes.icons}/>
+                      Subir foto perfil
                   </Button>
 
-                  <GridContainer justify="center">
-
-                    <GridItem xs={12} sm={7} md={3}>
-                      <div className={classes.wrapp}>
-                        <Button
-                          round size="lg"
-                          color="success"
-                          type="submit"
-                        >Guardar
+                <GridContainer justify="center">
+                
+                  <GridItem xs={12} sm={7} md={3}>
+                    <div className={classes.wrapp}>
+                      <Button
+                      round size="lg"
+                      color="success"
+                      type="submit"
+                      >Guardar
                       </Button>
-                      </div>
-                    </GridItem>
-
-                  </GridContainer>
-                </GridItem>
-
+                    </div>
+                  </GridItem>
+                
+              </GridContainer>
+              </GridItem>
+                
               </GridContainer>
 
-
+            
             </form>
           </GridItem>
         </GridContainer>
@@ -220,10 +208,16 @@ ProfileSection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  relations: state.relations
+  auth: state.auth
 });
 
-export default connect(
-    mapStateToProps,
-    { fetchRelations })(withStyles(workStyle)(withRouter(ProfileSection)));
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    changeUser: (user) => dispatch({ type: 'USER_CHANGE', user: user })
+  }
+}
+
+export default  connect(
+  mapStateToProps, mapDispatchToProps
+  ) (withStyles(workStyle)(withRouter(ProfileSection)));
