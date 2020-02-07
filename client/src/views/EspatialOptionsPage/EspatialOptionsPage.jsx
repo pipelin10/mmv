@@ -38,17 +38,9 @@ class EspatialOptionsPage extends React.Component {
           }}
           {...rest}
         />
-        <Parallax filter small image={require("assets/img/art5.jpg")}>
+        <Parallax filter verysmall image={require("assets/img/art5.jpg")}>
           <div className={classes.container}>
-            <GridContainer>
-              <GridItem xs={12} sm={10} md={6}>
-                <h1 className={classes.title}>Actividades</h1>
-                <h5 className={classes.subtitle2}>
-                  Con las actividades de Memento queremos ayudarte a recordar lo que has olvidado
-                </h5>
-                
-              </GridItem>
-            </GridContainer>
+            
           </div>
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>

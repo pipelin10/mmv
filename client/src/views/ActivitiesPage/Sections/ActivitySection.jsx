@@ -8,7 +8,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import swal from 'sweetalert';
 
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
@@ -16,19 +15,6 @@ import { Link } from "react-router-dom";
 import activityStyle from "assets/jss/material-kit-react/views/landingPageSections/activityStyle.jsx";
 
 class ActivitySection extends React.Component {
-  constructor(props){
-    super(props);
-    this.sweetAlertFunction = this.sweetAlertFunction.bind(this);
-  }
-
-  sweetAlertFunction(){
-    swal({
-      title: "Good job!",
-      text: "You clicked the button!",
-      icon: "success",
-      button: "Aww yiss!",
-    });
-  }
 
   render() {
     const { classes } = this.props;

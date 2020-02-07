@@ -103,8 +103,8 @@ function HeaderLinks({ ...props }) {
                 Fotos familiares
               </Link>
               ,
-              <Link to="/cover-profile-person-page" className={classes.dropdownLink}>
-                Foto del perfil y portada
+              <Link to="/upload-imageProfile-person-page" className={classes.dropdownLink}>
+                Foto del perfil
               </Link>
             ]}
           />
