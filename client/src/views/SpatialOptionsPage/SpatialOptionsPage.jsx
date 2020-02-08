@@ -6,8 +6,6 @@ import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// @material-ui/icons
-
 // core components
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
@@ -16,11 +14,12 @@ import Parallax from "components/Parallax/Parallax.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
-import QuestionsSection from "./Sections/QuestionsSection.jsx";
+import OptionsSection from "./Sections/OptionsSection.jsx";
 
 const dashboardRoutes = [];
 
-class FamiliarPage extends React.Component {
+class SpatialOptionsPage extends React.Component {
+
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -32,19 +31,19 @@ class FamiliarPage extends React.Component {
           rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 100,
-            color: "black"
+            height: 0,
+            color: "white"
           }}
           {...rest}
         />
-         <Parallax filter verysmall image={require("assets/img/hola.jpeg")}>
+        <Parallax filter verysmall image={require("assets/img/art5.jpg")}>
           <div className={classes.container}>
+            
           </div>
         </Parallax>
-
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <QuestionsSection />
+            <OptionsSection />
           </div>
         </div>
       </div>
@@ -52,8 +51,8 @@ class FamiliarPage extends React.Component {
   }
 }
 
-FamiliarPage.propTypes = {
+SpatialOptionsPage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(landingPageStyle)(FamiliarPage);
+export default withStyles(landingPageStyle)(SpatialOptionsPage);

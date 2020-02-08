@@ -37,12 +37,11 @@ const profilePageStyle = {
   title: {
     ...title,
     textTransform: "capitalize",
-    fontSize: "3rem",
-    display: "inline-block",
-    position: "relative",
+    fontSize: "2.5rem",
     marginTop: "30px",
     minHeight: "32px",
-    textDecoration: "none"
+    textDecoration: "none",
+    textAlign: "center",
   },
   textPacient: {
     ...title,

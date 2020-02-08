@@ -70,7 +70,7 @@ class QuestionsSection extends React.Component {
             style={{ width: '200px' }}
           >
             Anterior
-                  </Button>
+          </Button>
           <Button
             variant="contained"
             color="primary"

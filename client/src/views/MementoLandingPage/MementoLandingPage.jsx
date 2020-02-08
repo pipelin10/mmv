@@ -44,7 +44,6 @@ const partStyle = {
   backgroundPosition: "top center",
 }
 
-
 class MementoPage extends React.Component {
   constructor(props) {
     super(props);

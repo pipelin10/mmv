@@ -74,21 +74,6 @@ class ProfileSection extends React.Component {
     });
   }
 
-  clean = () => {
-    this.setState({
-      familyFile: null
-    })
-    this.setState({
-      profileFile: null
-    })
-    this.setState({
-      imgProfile: null
-    })
-    this.setState({
-      imgFamily: null
-    })
-  }
-
   verifyFormat = (URLname) => {
     var correct = false
 
@@ -119,11 +104,12 @@ class ProfileSection extends React.Component {
     user = userData
 
 
-     axios.put(`/user/${this.props.auth.user.sub}/uploadProfilePhoto`, fd)
+    axios.put(`/user/${this.props.auth.user.sub}/uploadProfilePhoto`, fd)
     .then(res => {
       let { profileImg } = res.data
       user.profileImg = profileImg
       this.props.changeUser(user)
+      this.props.history.push("/profile-page");
     }
     )
     .catch(err => 
@@ -134,6 +120,7 @@ class ProfileSection extends React.Component {
         button: "Continuar",
         })
      );
+     
      e.preventDefault(); 
  }
 

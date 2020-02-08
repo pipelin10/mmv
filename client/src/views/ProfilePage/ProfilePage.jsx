@@ -3,7 +3,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchQuestions } from "../../actions/questionsAction";
-import { fetchRelations } from "../../actions/relationAction";
 
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
@@ -31,7 +30,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Link } from "react-router-dom";
 
 import profileDefaultImg from "assets/img/faces/NotImage.png";
-import coverDefaultImg from "assets/img/EmptyImage.png"
+//import coverDefaultImg from "assets/img/EmptyImage.png"
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
@@ -40,7 +39,6 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.props.fetchQuestions(this.props.auth.user.sub);
-    this.props.fetchRelations(this.props.auth.user.sub);
   }
 
   renderQuestion(question, key) {
@@ -102,7 +100,6 @@ class ProfilePage extends React.Component {
 
   render() {
     const { userData } = this.props.auth;
-    console.log(userData)
     let momentob = new Date(userData.birthdate);
     var age = moment().diff(momentob, 'years');
     const { questions } = this.props.questions;
@@ -172,4 +169,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions, fetchRelations })(withStyles(profilePageStyle)(withRouter(ProfilePage)));
+  { fetchQuestions })(withStyles(profilePageStyle)(withRouter(ProfilePage)));

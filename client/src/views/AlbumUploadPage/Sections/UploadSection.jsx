@@ -37,8 +37,7 @@ const customStyles = {
   })
 }
 
-const optionDefaultFamiliarPhoto =  [{label: 'Selecciona', isDisabled: true }]
-
+const optionDefaultFamiliarPhoto =  [{label: 'Selecciona', Value: 'Selecciona', isDisabled: true }]
 
 class UploadSection extends React.Component {
   constructor(props){

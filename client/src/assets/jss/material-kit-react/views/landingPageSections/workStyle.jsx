@@ -18,7 +18,7 @@ const workStyle = {
     fontWeight: "400",
     marginBottom: "50px",
     marginTop: "10px",
-    minHeight: "22px",
+    minHeight: "20px",
     textDecoration: "none",
     textAlign: "center",
     fontSize: "1.2rem",
@@ -35,7 +35,7 @@ const workStyle = {
     marginRight: "3px"
   },
   note: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Nunito", "Roboto", "Helvetica", "Arial", sans-serif',
     bottom: "10px",
     color: "#5c5c5c",
     display: "block",

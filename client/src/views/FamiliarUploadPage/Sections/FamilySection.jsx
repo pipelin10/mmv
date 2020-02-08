@@ -70,7 +70,7 @@ const customStyles = {
 }
 
 
-class QuestionsSection extends React.Component {
+class FamilySection extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -105,13 +105,13 @@ class QuestionsSection extends React.Component {
     axios.post(`/user/${this.props.auth.user.sub}/newrelation`, affectiveRelationData)
     .then(res => swal({
       title: "Se ha agregado exitosamente",
-      text: "Ahora puedes agregar fotos y videos sobre " +  this.state.name,
+      text: "Ahora puedes agregar fotos y videos sobre " +  affectiveRelationData.name,
       icon: "success",
       button: "Continuar",
       }))
     .catch(err => 
       swal({
-        title: "No se ha podido agregar " + this.state.name,
+        title: "No se ha podido agregar " + affectiveRelationData.name,
         text: "Verifica que toda la información este bien y vuelve a intentarlo",
         icon: "error",
         button: "Continuar",
@@ -215,7 +215,7 @@ class QuestionsSection extends React.Component {
   }
 }
 
-QuestionsSection.propTypes = {
+FamilySection.propTypes = {
   classes: PropTypes.object,
   auth: PropTypes.object.isRequired
 };
@@ -226,4 +226,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-  ) (withStyles(workStyle)(withRouter(QuestionsSection)));
+  ) (withStyles(workStyle)(withRouter(FamilySection)));

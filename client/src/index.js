@@ -21,14 +21,15 @@ import RegisterPage from "views/RegisterPage/RegisterPage.jsx";
 import ActivitiesPage from "views/ActivitiesPage/ActivitiesPage";
 import QuestionsPage from "views/QuestionsPage/QuestionsPage";
 import AlbumUploadPage from "views/AlbumUploadPage/AlbumUploadPage";
-import FamiliarPage from "views/FamiliarPage/FamiliarPage";
+import FamiliarUploadPage from "views/FamiliarUploadPage/FamiliarUploadPage";
 import AlbumPage from "views/AlbumPage/Albumpage";
 import SelectAlbumViewPage from "views/SelectAlbumViewPage/AlbumViewPage";
 import AlbumCarouselPage from "views/AlbumCarouselPage/AlbumCarouselpage";
 import AlbumPersonPage from "views/AlbumPersonPage/AlbumPersonPage";
 import UploadProfilePage from "views/UploadProfilePage/UploadProfilePage";
 import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
-import EspatialOptionsPage from "views/EspatialOptionsPage/EspatialOptionsPage"
+import SpatialOptionsPage from "views/SpatialOptionsPage/SpatialOptionsPage"
+import IdentificationPage from "views/IdentificationPage/IdentificationPage"
 
 
 var hist = createBrowserHistory();
@@ -62,15 +63,16 @@ ReactDOM.render(
           <Route path="/login-page" component={LoginPage} />
           <Route path="/register-page" component={RegisterPage} />
           <PrivateRoute exact path="/activities-page" component={ActivitiesPage} />
-          <PrivateRoute exact path="/espatial-page" component={EspatialOptionsPage} />
+          <PrivateRoute exact path="/espatial-page" component={SpatialOptionsPage} />
           <PrivateRoute exact path="/questions-page" component={QuestionsPage} />
           <PrivateRoute exact path="/albumUpload-page" component={AlbumUploadPage} />
-          <PrivateRoute exact path="/familiarUpload-page" component={FamiliarPage}/>
+          <PrivateRoute exact path="/familiarUpload-page" component={FamiliarUploadPage}/>
           <PrivateRoute exact path="/album-page" component={AlbumPage}/>
           <PrivateRoute exact path="/album-carousel-page" component={AlbumCarouselPage}/>
           <PrivateRoute exact path="/select-view-album-page" component={SelectAlbumViewPage}/>
           <PrivateRoute exact path="/select-person-album-page" component={AlbumPersonPage}/>
           <PrivateRoute exact path="/upload-imageProfile-person-page" component={UploadProfilePage}/>
+          <PrivateRoute exact path="/identification-page" component={IdentificationPage} />
           <PrivateRoute exact path="/profile-page" component={ProfilePage} />
           <Route path="/" component={MementoLandingPage} />
         </Switch>
