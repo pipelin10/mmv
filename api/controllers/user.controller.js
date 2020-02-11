@@ -124,7 +124,7 @@ exports.newAffectionAndUpdate = function (req, res) {
 
                 }
 
-                res.status(200).send(`${newAffectiveRelation}`);
+                res.status(200).send(newAffectiveRelation);
             })
 
             user.affectiveRelation.push(newAffectiveRelation)

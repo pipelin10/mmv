@@ -20,10 +20,11 @@ const dashboardRoutes = [];
 class IdentificationPage extends React.Component {
   constructor(props) {
     super(props)
+    var randAnimal = (Math.floor(Math.random() * 7) + 1)
     this.state = {
       score: 0,
       actualAnimal: "Pajaro",
-      actualImg: "birds/1.jpeg"
+      actualImg: "birds/" + randAnimal + ".jpeg"
     }
   }
 
@@ -167,7 +168,7 @@ class IdentificationPage extends React.Component {
     return (
       <div>
         <Header
-          color="black"
+          color="white"
           routes={dashboardRoutes}
           brand="Memento"
           rightLinks={<HeaderLinks completed={true}/>}
@@ -175,7 +176,6 @@ class IdentificationPage extends React.Component {
           {...rest}
         />
         <div style={{paddingTop:"6rem"}}>
-
           <img src={require("assets/img/domesticAnimals/" + this.state.actualImg)} alt="..." className={classes.img} />
 
           <div>

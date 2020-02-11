@@ -38,7 +38,7 @@ class QuestionsPage extends React.Component {
           fixed
           changeColorOnScroll={{
             height: 50,
-            color: "black"
+            color: "white"
           }}
           {...rest}
         />

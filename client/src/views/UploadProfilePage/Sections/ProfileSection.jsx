@@ -201,7 +201,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    changeUser: (user) => dispatch({ type: 'USER_CHANGE', user: user })
+    changeUser: (user) => dispatch({ type: 'UPDATE_RELATIONS', user: user })
   }
 }
 

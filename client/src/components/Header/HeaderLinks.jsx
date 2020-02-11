@@ -76,10 +76,7 @@ function HeaderLinks({ ...props }) {
                 Agregar familiar
               </Link>,
               <Link to="/albumUpload-page" className={classes.dropdownLink}>
-                Agregar album
-              </Link>,
-              <Link to="/" className={classes.dropdownLink}>
-                Agregar pregunta
+                Agregar foto
               </Link>
               
             ]}
@@ -99,10 +96,6 @@ function HeaderLinks({ ...props }) {
               <Link to="/questions-page" className={classes.dropdownLink}>
                 Información básica
               </Link>,
-              <Link to="/albumUpload-page" className={classes.dropdownLink}>
-                Fotos familiares
-              </Link>
-              ,
               <Link to="/upload-imageProfile-person-page" className={classes.dropdownLink}>
                 Foto del perfil
               </Link>

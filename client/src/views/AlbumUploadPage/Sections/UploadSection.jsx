@@ -17,7 +17,6 @@ import swal from 'sweetalert';
 
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
-import { fetchRelations } from "../../../actions/relationAction";
 
 import { connect } from "react-redux";
 //Axios
@@ -37,10 +36,10 @@ const customStyles = {
   })
 }
 
-const optionDefaultFamiliarPhoto =  [{label: 'Selecciona', Value: 'Selecciona', isDisabled: true }]
+const optionDefaultFamiliarPhoto = [{ label: 'Selecciona', Value: 'Selecciona', isDisabled: true }]
 
 class UploadSection extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       imgFamiliarFile: null,
@@ -55,10 +54,11 @@ class UploadSection extends React.Component {
     this.sweetAlertFunction = this.sweetAlertFunction.bind(this);
   }
 
+
   fileSelectedHandler = event => {
     var verify = this.verifyFormat(event.target.files[0].name)
 
-   if(verify==true){
+    if (verify === true) {
       this.setState({
         imgFamiliarFile: URL.createObjectURL(event.target.files[0])
       })
@@ -69,7 +69,7 @@ class UploadSection extends React.Component {
     else this.sweetAlertFunction()
   }
 
-  sweetAlertFunction(){
+  sweetAlertFunction() {
     swal({
       title: "Error de formato",
       text: "El formato de imagen no es el correcto",
@@ -81,19 +81,19 @@ class UploadSection extends React.Component {
   verifyFormat = (URLname) => {
     var correct = false
 
-    if(URLname.includes(".png")){
+    if (URLname.includes(".png")) {
       correct = true
     }
 
-    if(URLname.includes(".jpg")){
+    if (URLname.includes(".jpg")) {
       correct = true
     }
 
-    if(URLname.includes(".jpeg")){
+    if (URLname.includes(".jpeg")) {
       correct = true
     }
 
-    if(URLname.includes(".gif")){
+    if (URLname.includes(".gif")) {
       correct = true
     }
 
@@ -103,10 +103,10 @@ class UploadSection extends React.Component {
   handleChange = (id) => {
     var select = id
     var person = id.label
-    var id = id.value
+    id = id.value
     this.setState({ id })
     this.setState({ person })
-    this.setState({select})
+    this.setState({ select })
   }
 
   onChange = e => {
@@ -123,123 +123,166 @@ class UploadSection extends React.Component {
     return names
   }
 
+  getPosn(relatis, actualRelation) {
+    for (var i = 0; i < relatis.length; i++) {
+      if (relatis[i]._id === actualRelation) {
+        return i
+      }
+    }
+  }
+
+  clean = () => {
+    this.setState({
+      imgFamiliarFile: null
+    })
+    this.setState({
+      img: null
+    })
+    this.setState({
+      id: 0
+    })
+    this.setState({
+      person: ''
+    })
+    this.setState({
+      select: ''
+    })
+    this.setState({
+      description: ''
+    })
+  }
+
   onSubmit = e => {
     const fd = new FormData()
     fd.append('image', this.state.img)
     fd.append('description', this.state.description)
 
-     axios.post(`/affective/${this.state.id}/uploadPhoto`, fd)
-    .then(res => swal({
-       title: "Se ha agregado exitosamente",
-       text: "Ahora puedes ver la imagen en el album de " +  this.state.person,
-       icon: "success",
-       button: "Continuar",
-       }))
-     .catch(err => 
-       swal({
-         title: "No se ha podido agregar la imagen de " + this.state.person,
-         text: "Verifica que toda la información este correcta y vuelve a intentarlo",
-         icon: "error",
-         button: "Continuar",
-         })
-      );  
+    axios.post(`/affective/${this.state.id}/uploadPhoto`, fd)
+      .then(res => {
+        const { relations } = this.props.relations;
+        const { affectiveRelation } = res.data
 
-      //this.clean()
+        let posnChange = this.getPosn(relations, affectiveRelation)
+        var relatns = relations;
+        relatns[posnChange].photo.push(res.data)
+        this.props.addPhotoToRelation(relatns)
 
-    e.preventDefault(); 
+        console.log(this.props.relations)
+
+      },
+        swal({
+          title: "Se ha agregado exitosamente",
+          text: "Ahora puedes ver la imagen en el album de " + this.state.person,
+          icon: "success",
+          button: "Continuar",
+        })
+      )
+      .catch(err =>
+        swal({
+          title: "No se ha podido agregar la imagen de " + this.state.person,
+          text: "Verifica que toda la información este correcta y vuelve a intentarlo",
+          icon: "error",
+          button: "Continuar",
+        })
+      );
+
+    this.clean()
+
+    e.preventDefault();
   };
 
   render() {
     const { classes } = this.props;
     var { height } = this.state;
-    const {relations} = this.props.relations;
+    const { relations } = this.props.relations;
     var names = this.returnNames(relations)
+
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
 
             <h2 className={classes.title}>Compártenos fotos de tu familia</h2>
-            
-            <p className={classes.subtitle}>Diseñaremos un album para el paciente, con el fin de que siga conectado 
+
+            <p className={classes.subtitle}>Diseñaremos un album para el paciente, con el fin de que siga conectado
             con sus familiares, amigos y allegados.</p>
 
             <form onSubmit={this.onSubmit}>
 
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
-                      
+
                   <div className={classes.typo}>
-                      <div className={classes.note}> ¿Sobre quién es esta foto?  </div>
+                    <div className={classes.note}> ¿Sobre quién es esta foto?  </div>
                   </div>
-                      <Select  
-                      styles = {customStyles}
-                      options={names} 
-                      defaultValue={optionDefaultFamiliarPhoto}
-                      onChange={this.handleChange}
-                      value={this.state.select}
-                      />
+                  <Select
+                    styles={customStyles}
+                    options={names}
+                    defaultValue={optionDefaultFamiliarPhoto}
+                    onChange={this.handleChange}
+                    value={this.state.select}
+                  />
 
                   <div className={classes.typo}>
                     <div className={classes.note}>Aporta una descripción </div>
                   </div>
 
                   <CustomInput
-                      
-                      labelText="Descripción"
-                      id="description"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        onChange: this.onChange,
-                        type: "text",
-                        value:this.state.description
-                      }}
-                    />
 
-                      <input 
-                      style={{display:'none'}}
-                      type="file" 
-                      onChange={this.fileSelectedHandler}
-                      ref = {fileInput => this.fileInput = fileInput}
-                      />
+                    labelText="Descripción"
+                    id="description"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      onChange: this.onChange,
+                      type: "text",
+                      value: this.state.description
+                    }}
+                  />
+
+                  <input
+                    style={{ display: 'none' }}
+                    type="file"
+                    onChange={this.fileSelectedHandler}
+                    ref={fileInput => this.fileInput = fileInput}
+                  />
                   <div className={classes.typo}>
-                      <div className={classes.note}> Selecciona la foto  </div>
+                    <div className={classes.note}> Selecciona la foto  </div>
                   </div>
 
-                  <Button 
-                      onClick={() => this.fileInput.click()}
-                      round size="normal"
-                      color="primary"
-                      >
-                     <AddAPhotoOutlinedIcon className={classes.icons}/>
-
-                     Agregar foto
-                  </Button>
-                  <img src={this.state.imgFamiliarFile} height={height}/>
-                      
-
-                <GridContainer justify="center">
-                
-               <GridItem xs={12} sm={12} md={12}>
-                  <div className={classes.wrapp}>
-                    <Button
+                  <Button
+                    onClick={() => this.fileInput.click()}
                     round size="lg"
-                    color="success"
-                    type="submit"
-                    >Guardar
+                    color="primary"
+                  >
+                    <AddAPhotoOutlinedIcon className={classes.icons} />
+
+                    Agregar foto
+                  </Button>
+
+                  <img src={this.state.imgFamiliarFile} height={height} alt="..." />
+
+                  <GridContainer justify="center">
+
+                    <GridItem xs={12} sm={12} md={12}>
+                      <div className={classes.wrapp}>
+                        <Button
+                          round size="lg"
+                          color="success"
+                          type="submit"
+                        >Guardar
                     </Button>
-                  </div>
+                      </div>
 
+                    </GridItem>
+
+                  </GridContainer>
                 </GridItem>
-                
-              </GridContainer>
-              </GridItem>
-                
+
               </GridContainer>
 
-            
+
             </form>
           </GridItem>
         </GridContainer>
@@ -248,7 +291,7 @@ class UploadSection extends React.Component {
   }
 }
 
-UploadSection.propTypes = {  
+UploadSection.propTypes = {
   classes: PropTypes.object,
   auth: PropTypes.object.isRequired
 };
@@ -258,6 +301,12 @@ const mapStateToProps = state => ({
   relations: state.relations,
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    addPhotoToRelation: (newPhoto) => dispatch({ type: 'UPDATE_RELATIONS', newRelation: newPhoto })
+  }
+}
+
+
 export default connect(
-  mapStateToProps,
-  {fetchRelations }) (withStyles(workStyle)(withRouter(UploadSection)));
+  mapStateToProps, mapDispatchToProps)(withStyles(workStyle)(withRouter(UploadSection)));

@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchQuestions } from "../../actions/questionsAction";
+import { fetchRelations } from "../../actions/relationAction";
 
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
@@ -38,7 +39,11 @@ class ProfilePage extends React.Component {
 
 
   componentDidMount() {
-    this.props.fetchQuestions(this.props.auth.user.sub);
+    console.log(this.props.questions.flagQuestions)
+    if(!this.props.questions.flagQuestions){
+      this.props.fetchQuestions(this.props.auth.user.sub)
+      this.props.fetchRelations(this.props.auth.user.sub)
+    }
   }
 
   renderQuestion(question, key) {
@@ -143,7 +148,7 @@ class ProfilePage extends React.Component {
                     </div>
 
 
-                {questions.length == 0 ? this.renderButtonComplete() : "jkfjg"}
+                {questions.length === 0 ? this.renderButtonComplete() : "jkfjg"}
                   </div>
                 </GridItem>
 
@@ -159,7 +164,8 @@ class ProfilePage extends React.Component {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  questions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -169,4 +175,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions })(withStyles(profilePageStyle)(withRouter(ProfilePage)));
+  {   fetchQuestions, fetchRelations })(withStyles(profilePageStyle)(withRouter(ProfilePage)));

@@ -1,7 +1,8 @@
-import { GET_QUESTIONS } from "../actions/types";
+import { GET_QUESTIONS, DELETE_USER_QUESTIONS } from "../actions/types";
 
 const initialState = {
-    questions: []
+    questions: [],
+    flagQuestions: false
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +10,13 @@ export default function(state = initialState, action) {
     case GET_QUESTIONS:
       return {
         ...state,
-        questions:action.payload
+        questions:action.payload,
+        flagQuestions: true
+    };
+    case DELETE_USER_QUESTIONS:
+      return {
+        questions: [],
+        flagQuestions: false
     };
     default:
       return state;

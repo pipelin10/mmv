@@ -7,7 +7,9 @@ import {
   SET_CURRENT_USER,
   USER_LOADING,
   LOGIN_SUCCESS,
-  USER_CHANGE
+  USER_CHANGE,
+  DELETE_USER_QUESTIONS,
+  DELETE_USER_RELATIONS
 } from "./types";
 
 
@@ -75,8 +77,6 @@ export const setUser = user => {
 };
 // User change
 export const changeUser = user => {
-  console.log("Aquí estoy")
-  console.log(user)
   return {
     type: USER_CHANGE,
     payload: user
@@ -85,7 +85,11 @@ export const changeUser = user => {
 // Log user out
 export const logoutUser = () => dispatch => {
   // Remove token from local storage
-  localStorage.removeItem("jwtToken");
+  localStorage.clear()
+  // Delete questions
+  dispatch({
+    type: DELETE_USER_QUESTIONS
+   }) 
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false

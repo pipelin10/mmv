@@ -30,6 +30,8 @@ import UploadProfilePage from "views/UploadProfilePage/UploadProfilePage";
 import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
 import SpatialOptionsPage from "views/SpatialOptionsPage/SpatialOptionsPage"
 import IdentificationPage from "views/IdentificationPage/IdentificationPage"
+import OrientationPage from "views/OrientationPage/OrientationPage"
+
 
 
 var hist = createBrowserHistory();
@@ -55,6 +57,7 @@ if (localStorage.jwtToken) {
 }
 
 
+
 ReactDOM.render(
   <Provider store={store}>
      <PersistGate loading={null} persistor={persistor}>
@@ -73,6 +76,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/select-person-album-page" component={AlbumPersonPage}/>
           <PrivateRoute exact path="/upload-imageProfile-person-page" component={UploadProfilePage}/>
           <PrivateRoute exact path="/identification-page" component={IdentificationPage} />
+          <PrivateRoute exact path="/orientation-page" component={OrientationPage} />
           <PrivateRoute exact path="/profile-page" component={ProfilePage} />
           <Route path="/" component={MementoLandingPage} />
         </Switch>

@@ -38,10 +38,22 @@ class OptionsSection extends React.Component {
                 </Button>
               </div>
               <div>
-                <Button size="lg" style={{ width: "230px" }} color="success"> Orientación </Button>
+                <Button 
+                size="lg"
+                style={{ width: "230px" }} 
+                color="success"
+                component={Link}
+                to="/orientation-page"
+                > Orientación 
+                </Button>
               </div>
               <div>
-                <Button size="lg" style={{ width: "230px" }} color="success"> Memoria </Button>
+                <Button 
+                size="lg" 
+                style={{ width: "230px" }} 
+                color="success"
+                > Memoria 
+                </Button>
               </div>
               <div>
                 <Button size="lg" style={{ width: "230px" }} color="success"> Atención y calculo </Button>

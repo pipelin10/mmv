@@ -32,8 +32,8 @@ class FamiliarUploadPage extends React.Component {
           rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 100,
-            color: "black"
+            height: 50,
+            color: "white"
           }}
           {...rest}
         />

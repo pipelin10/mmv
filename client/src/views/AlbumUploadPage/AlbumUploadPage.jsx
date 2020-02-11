@@ -32,8 +32,8 @@ class AlbumUploadPage extends React.Component {
           rightLinks={<HeaderLinks completed={true}/>}
           fixed
           changeColorOnScroll={{
-            height: 400,
-            color: "black"
+            height: 50,
+            color: "white"
           }}
           {...rest}
         />

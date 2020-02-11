@@ -26,6 +26,7 @@ import {albumPersonStyle} from "assets/jss/material-kit-react/views/landingPageS
 
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
+import { createNoSubstitutionTemplateLiteral } from "typescript";
 const buttonStyle={
   paddingLeft:"7rem",
   paddingRight:"7rem",
@@ -50,16 +51,8 @@ class PersonSection extends React.Component {
 
 
   render() {
-    console.log(this.props.auth)
-
     const {relations} = this.props.relations;
-    console.log(relations);
-    relations.map((relation,key)=>{
-      if(relation.photo.length){
-      return console.log(relation.name, relation.photo.length, key);
-      }
-    }
-  )
+    console.log(relations)
     const { classes } = this.props;
     return (
       <div className={classes.section}>

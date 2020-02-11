@@ -103,12 +103,20 @@ class FamilySection extends React.Component {
     };
     
     axios.post(`/user/${this.props.auth.user.sub}/newrelation`, affectiveRelationData)
-    .then(res => swal({
-      title: "Se ha agregado exitosamente",
-      text: "Ahora puedes agregar fotos y videos sobre " +  affectiveRelationData.name,
-      icon: "success",
-      button: "Continuar",
-      }))
+    .then(res => {
+      const relation = res.data 
+      const { relations } = this.props.relations;
+      var relatns = relations;
+      relatns.push(relation)
+      this.props.addRelation(relatns)
+     },
+       swal({
+       title: "Se ha agregado exitosamente",
+       text: "Ahora puedes agregar fotos y videos sobre " +  affectiveRelationData.name,
+       icon: "success",
+       button: "Continuar",
+       })
+    )
     .catch(err => 
       swal({
         title: "No se ha podido agregar " + affectiveRelationData.name,
@@ -119,11 +127,6 @@ class FamilySection extends React.Component {
       );
 
       this.clean()
-
-    //Aquí no debe estar este console sino el llamado a la función de redux para agregar a la nueva persona
-    //Modificar esto cuando se pueda
-    console.log(affectiveRelationData);
-    //También los botones y los cumston input deberían borrarse y aparecer vacios
 
     e.preventDefault(); 
   };
@@ -221,9 +224,16 @@ FamilySection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  relations: state.relations
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    addRelation: (newRelation) => dispatch({ type: 'UPDATE_RELATIONS', newRelation: newRelation })
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
   ) (withStyles(workStyle)(withRouter(FamilySection)));

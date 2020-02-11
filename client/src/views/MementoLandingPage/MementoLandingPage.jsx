@@ -70,8 +70,6 @@ class MementoPage extends React.Component {
   }
 
   render() {
-    const { classes, errors, ...rest } = this.props;
-
     return (
       <div>
         <div style={partStyle}>

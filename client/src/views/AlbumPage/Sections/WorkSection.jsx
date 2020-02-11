@@ -65,8 +65,9 @@ class WorkSection extends React.Component {
       if((actualPersonAlbum.includes(relation.relationship)) && (relation.photo.length)){
         photosRoute = relation.photo;
       }
-    });
+
     return photosRoute;
+    });
   }
 
   render() {

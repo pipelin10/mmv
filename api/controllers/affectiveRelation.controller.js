@@ -20,7 +20,7 @@ exports.newPhotoUpdate = function(req, res){
             
         }
         
-        res.status(200).send(`${newPhoto}`);
+        res.status(200).send(newPhoto);
     })
 
     affectiveRelation.photo.push(newPhoto)
