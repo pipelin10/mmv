@@ -64,7 +64,6 @@ class WorkSection extends React.Component {
         photosRoute = relation.photo;
       }
     });
-
     return photosRoute;
   }
 
