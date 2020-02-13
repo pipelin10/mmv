@@ -59,19 +59,16 @@ class WorkSection extends React.Component {
 
     let photosRoute = "";
     relations.map((relation,key)=>{
-      console.log(relation.relationship)
-      console.log(actualPersonAlbum.includes(relation.relationship))
       //Quitar ese relation.photo.length cuando haga las validaciones
       if((actualPersonAlbum.includes(relation.relationship)) && (relation.photo.length)){
         photosRoute = relation.photo;
       }
+    });
 
     return photosRoute;
-    });
   }
 
   render() {
-    const { classes } = this.props;
     const { actualPersonAlbum } = this.props.relations;
     const { relations } = this.props.relations;
     const photos = this.returnPhotosRoute(actualPersonAlbum, relations)
@@ -86,12 +83,12 @@ class WorkSection extends React.Component {
             alignItems= "flex-end"
             >
             <GridItem xs={6} sm={6} md={6} >
-              <img src={"../../../../../../" + photos[1].img } style={imgStyle} />
+              <img src={"../../../../../../" + photos[0].img } style={imgStyle} />
 
             </GridItem>
             <GridItem xs={6} sm={6} md={6}>
               <div style={leftDiv}>
-                <img src={Ejemplo} style={imgStyle} />
+                <img src={"../../../../../../" + photos[1].img } style={imgStyle} />
 
               </div>
 
