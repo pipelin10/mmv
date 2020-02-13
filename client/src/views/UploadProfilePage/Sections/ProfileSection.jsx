@@ -139,7 +139,6 @@ class ProfileSection extends React.Component {
 
             <form onSubmit={this.onSubmit}>
               <GridContainer>
-
                 <GridItem xs={12} sm={10} md={12}>
                   <div className={classes.typo}>
                     <div className={classes.note}>Sube una foto de perfil para el paciente</div>
@@ -201,7 +200,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    changeUser: (user) => dispatch({ type: 'UPDATE_RELATIONS', user: user })
+    changeUser: (userD) => dispatch({ type: 'USER_CHANGE', user: userD })
   }
 }
 
