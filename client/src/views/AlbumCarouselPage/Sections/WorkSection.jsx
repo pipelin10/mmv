@@ -7,19 +7,50 @@ import Carousel from "react-slick";
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 import LocationOn from "@material-ui/icons/LocationOn";
+import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Card from "components/Card/Card.jsx";
 import carouselStyle from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.jsx";
-import image1 from "assets/img/bg.jpg";
+//import image1 from "assets/img/bg.jpg";
 import image2 from "assets/img/bg2.jpg";
 import image3 from "assets/img/bg3.jpg";
+
+//React router for wrapping the page
+import { withRouter } from "react-router-dom";
+
+import { connect } from "react-redux";
 
 
 
 class WorkSection extends React.Component {
+  returnPhotosRoute(actualPersonAlbum, relations) {
+    let photosRoute = "";
+    relations.map((relation, key) => {
+      if ((actualPersonAlbum.includes(relation.relationship)) && (relation.photo.length)) {
+        photosRoute = relation.photo;
+      }
+    });
+    return photosRoute;
+  }
+
+  returnImg = (photo, key) => {
+    return <div key={key}>
+      <img
+        src={"../../../../../../" + photo.img}
+        alt="First slide"
+        className="slick-image"
+      />
+    </div>
+  }
+
+
+
   render() {
+    const { actualPersonAlbum } = this.props.relations;
+    const { relations } = this.props.relations;
+    const photos = this.returnPhotosRoute(actualPersonAlbum, relations)
     const { classes } = this.props;
     const settings = {
       dots: true,
@@ -36,45 +67,9 @@ class WorkSection extends React.Component {
             <GridItem xs={12} sm={12} md={8} className={classes.marginAuto}>
               <Card carousel>
                 <Carousel {...settings}>
-                  <div>
-                    <img
-                      src={image1}
-                      alt="First slide"
-                      className="slick-image"
-                    />
-                    <div className="slick-caption">
-                      <h4>
-                        <LocationOn className="slick-icons" />
-                        Yellowstone National Park, United States
-                      </h4>
-                    </div>
-                  </div>
-                  <div>
-                    <img
-                      src={image2}
-                      alt="Second slide"
-                      className="slick-image"
-                    />
-                    <div className="slick-caption">
-                      <h4>
-                        <LocationOn className="slick-icons" />
-                        Somewhere Beyond, United States
-                      </h4>
-                    </div>
-                  </div>
-                  <div>
-                    <img
-                      src={image3}
-                      alt="Third slide"
-                      className="slick-image"
-                    />
-                    <div className="slick-caption">
-                      <h4>
-                        <LocationOn className="slick-icons" />
-                        Yellowstone National Park, United States
-                      </h4>
-                    </div>
-                  </div>
+                  {photos.map((photo, key) => {
+                    return this.returnImg(photo, key)
+                  })}
                 </Carousel>
               </Card>
             </GridItem>
@@ -85,8 +80,13 @@ class WorkSection extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  relations: state.relations,
+  actualPersonAlbum: state.actualPersonAlbum
+});
+
 WorkSection.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(carouselStyle)(WorkSection);
+export default connect(mapStateToProps)(withStyles(carouselStyle)(withRouter(WorkSection)));

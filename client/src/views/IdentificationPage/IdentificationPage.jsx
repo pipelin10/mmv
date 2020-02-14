@@ -191,6 +191,14 @@ class IdentificationPage extends React.Component {
               onClick={() => { this.answerClick() }}>
               Respuesta
           </Button>
+          <Button
+              color="success"
+              size="lg"
+              style={{width:"280px"}}
+              onClick={() => { this.answerClick() }}>
+              Terminar juego
+          </Button>
+
           </div>
 
         </div>

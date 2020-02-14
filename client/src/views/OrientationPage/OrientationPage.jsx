@@ -20,24 +20,24 @@ import moment from 'moment'
 
 const dashboardRoutes = [];
 
-const questionsOrientation = ["¿En qué año nos encontramos?","¿En qué mes nos encontramos?",
-"¿En qué día nos encontramos?", "¿En qué día de la semana nos encontramos?", "¿Cuál es la hora actual?",
-"¿En qué país nos encontramos?", "¿En qué departamento nos encontramos?", "¿En qué ciudad nos encontramos?",
-"¿En qué hospital nos encontramos?", "¿En qué piso nos encontramos?"]
+const questionsOrientation = ["¿En qué año nos encontramos?", "¿En qué mes nos encontramos?",
+  "¿En qué día nos encontramos?", "¿En qué día de la semana nos encontramos?", "¿Cuál es la hora actual?",
+  "¿En qué país nos encontramos?", "¿En qué departamento nos encontramos?", "¿En qué ciudad nos encontramos?",
+  "¿En qué hospital nos encontramos?", "¿En qué piso nos encontramos?"]
 
 
 class OrientationPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: moment().toDate().getFullYear(),
-      month: 0,
-      day: moment().toDate().getDate(),
-      weekDay: '',
-      hour: Date,
-      country: '',
-      department: '',
-      city: '',
+      year: moment().toDate().getFullYear().toString(),
+      month: (moment().toDate().getMonth() + 1).toString(),
+      day: moment().toDate().getDate().toString(),
+      weekDay: moment().toDate().getDay().toString(),
+      hour: moment().toDate().getHours().toString(),
+      country: 'Colombia',
+      department: 'Valle del cauca',
+      city: 'Cali',
       hospital: '',
       floor: 0,
       actualQuestion: 0
@@ -56,55 +56,49 @@ class OrientationPage extends React.Component {
         defeat: false,
       },
     })
-    .then((value) => {
-      if (value) {
-        this.point()
-      }
-      else this.notPoint()
-    });
+      .then((value) => {
+        if (value) {
+          this.point()
+        }
+        else this.notPoint()
+      });
   }
 
-  data = () => {
+  noticateAndNext = () => {
     swal({
       title: "Ingresa el dato",
-      content: "input",
       buttons: {
         catch: {
           text: "Siguiente",
-          value: true,
         },
       },
     })
-    .then((value) => {
-      if (value) {
-        this.returnImg()
 
     let { actualQuestion } = this.state;
-    this.setState({ actualQuestion: actualQuestion + 1});
-      }
-    });
+    this.setState({ actualQuestion: actualQuestion + 1 });
   }
 
-  verifyAndNext = () => {
+  verifyAndNext = (step) => {
     swal({
-      title: "Ingresa el dato",
+      title: "Ingresa el " + step,
       content: "input",
       button: {
         text: "Verificar",
         closeModal: false,
       },
     })
-    .then(name => {
-      console.log("año", moment().toDate().getFullYear() )
-      console.log("hora", moment().toDate().getHours())
-      console.log("minutos", moment().toDate().getMinutes())
-      var hola = moment().toDate()
-      console.log("días", moment().toDate().getDate())
-      console.log( moment().toDate().getMonth())
-      console.log("día", hola.getDay())
-      const moonLanding = new Date(moment())
-      console.log("hehe", moonLanding.getMonth());
-    });
+      .then(data => {
+        if (this.state.actualQuestion === 0) {
+          if (data === 2020) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+          }
+          this.noticateAndNext()
+
+        }
+
+      });
   }
 
   render() {
@@ -115,23 +109,23 @@ class OrientationPage extends React.Component {
           color="white"
           routes={dashboardRoutes}
           brand="Memento"
-          rightLinks={<HeaderLinks completed={true}/>}
+          rightLinks={<HeaderLinks completed={true} />}
           fixed
           {...rest}
         />
-        <div style={{paddingTop:"5rem"}}>
+        <div style={{ paddingTop: "5rem" }}>
 
-        <h2 className={classes.title}>{questionsOrientation[this.state.actualQuestion]}</h2>
-          
-        <img src={calendarImg} alt="..." className={classes.img} />
-        
+          <h2 className={classes.title}>{questionsOrientation[this.state.actualQuestion]}</h2>
+
+          <img src={calendarImg} alt="..." className={classes.img} />
 
 
-          <div style={{paddingRight: "10rem", textAlign: "right"}}>
-          <Button
+
+          <div style={{ paddingRight: "10rem", textAlign: "right" }}>
+            <Button
               color="success"
               round size="lg"
-              style={{width:"180px", heigth: "100px"}}
+              style={{ width: "180px", heigth: "100px" }}
               onClick={() => { this.verifyAndNext() }}>
               Contestar
           </Button>

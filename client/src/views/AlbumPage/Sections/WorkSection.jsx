@@ -13,7 +13,6 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Background from "assets/img/p4.png";
 
 //import anotherExample from "../../../../../api/uploads"
-import Ejemplo from "assets/img/faces/avatar.jpg"
 
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
 import { relative } from "path";
