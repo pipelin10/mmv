@@ -112,6 +112,52 @@ class OrientationPage extends React.Component {
           this.noticateAndNext()
 
         }
+        else if (this.state.actualQuestion === 1) {
+          var mes = 0;
+          data.toLowerCase()
+          if(data==="enero"){
+            mes=1;
+          }
+          else if(data==="febrero"){
+            mes=2;
+          }
+          else if(data==="marzo"){
+            mes=3;
+          }
+          else if(data==="abril"){
+            mes=4;
+          }else if(data==="mayo"){
+            mes=5;
+          }
+          else if(data==="junio"){
+            mes=6;
+          }
+          else if(data==="julio"){
+            mes=7;
+          }
+          else if(data==="agosto"){
+            mes=8;
+          }
+          else if(data==="septiembre"){
+            mes=9;
+          }
+          else if(data==="octubre"){
+            mes=10;
+          }
+          else if(data==="noviembre"){
+            mes=11;
+          }
+          else if(data==="diciembre"){
+            mes=12;
+          }
+
+          if (data === this.state.month) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+          }
+          this.noticateAndNext()
+        }
       });
   }
 
