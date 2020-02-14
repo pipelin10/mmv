@@ -25,6 +25,9 @@ const questionsOrientation = ["¿En qué año nos encontramos?", "¿En qué mes 
   "¿En qué país nos encontramos?", "¿En qué departamento nos encontramos?", "¿En qué ciudad nos encontramos?",
   "¿En qué hospital nos encontramos?", "¿En qué piso nos encontramos?"]
 
+const stepData = ["año", "mes", "día", "día de la semana", "hora actural", "país", "departamento",
+"ciudad", "hospital", "piso"]
+
 
 class OrientationPage extends React.Component {
   constructor(props) {
@@ -64,19 +67,28 @@ class OrientationPage extends React.Component {
       });
   }
 
+  notData() {
+    swal({
+      title: "Por favor ingresa el dato",
+      icon: "error",
+      button: "Reintentar",
+    });
+  }
+
   noticateAndNext = () => {
     swal({
-      title: "Ingresa el dato",
-      buttons: {
-        catch: {
-          text: "Siguiente",
-        },
-      },
+      title: "Bien, continuemos",
+      icon: "error",
+      buttons: "Siguiente"
     })
 
     let { actualQuestion } = this.state;
     this.setState({ actualQuestion: actualQuestion + 1 });
   }
+
+  advice = () => {
+  }
+
 
   verifyAndNext = (step) => {
     swal({
@@ -88,8 +100,11 @@ class OrientationPage extends React.Component {
       },
     })
       .then(data => {
-        if (this.state.actualQuestion === 0) {
-          if (data === 2020) {
+        if(data === ""){
+         this.notData()
+        }
+        else if (this.state.actualQuestion === 0) {
+          if (data === this.state.year) {
 
             let { score } = this.state;
             this.setState({ score: score + 1 });
@@ -97,7 +112,6 @@ class OrientationPage extends React.Component {
           this.noticateAndNext()
 
         }
-
       });
   }
 
@@ -126,7 +140,7 @@ class OrientationPage extends React.Component {
               color="success"
               round size="lg"
               style={{ width: "180px", heigth: "100px" }}
-              onClick={() => { this.verifyAndNext() }}>
+              onClick={() => { this.verifyAndNext(stepData[this.state.actualQuestion]) }}>
               Contestar
           </Button>
           </div>

@@ -9,6 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 
 import Background from "assets/img/p4.png";
 
@@ -35,7 +37,7 @@ const sectionStyle = {
 };
 
 const conta ={
-  paddingTop: "17rem",
+  paddingTop: "19rem",
   paddingLeft: "7rem",
   paddingRight: "7rem",
   paddingBottom: "10rem",
@@ -44,6 +46,8 @@ const conta ={
 const imgStyle = {
   maxWidth: "350px",
   maxHeight:"266px",
+  border: "10px solid #525F74",
+  borderRadius: "4px"
 }
 
 const leftDiv = {
@@ -83,6 +87,8 @@ class WorkSection extends React.Component {
             <GridItem xs={6} sm={6} md={6} >
               <img src={"../../../../../../" + photos[0].img } style={imgStyle} />
 
+              
+
             </GridItem>
             <GridItem xs={6} sm={6} md={6}>
               <div style={leftDiv}>
@@ -91,7 +97,19 @@ class WorkSection extends React.Component {
               </div>
 
             </GridItem>
+
+            
             </GridContainer>
+
+            <div style={{textAlign: "right", paddingTop:"4rem"}}>
+          <Button
+              color="primary"
+              size="sm"
+              style={{width:"70px", backgroundColor: "#525F74"}}>
+                <ChevronRightRoundedIcon/>
+          </Button>
+
+          </div>
           </div>
       </section>
     );

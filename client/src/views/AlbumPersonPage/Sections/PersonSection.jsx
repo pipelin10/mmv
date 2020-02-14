@@ -40,7 +40,7 @@ class PersonSection extends React.Component {
           onClick={() => this.props.onTodoClick(name)}
           component={Link}
           style={{display: "block", marginLeft: "0"}}
-          color="success"
+          backgroundColor="success"
           size="lg"
           to="/select-view-album-page"
         >
