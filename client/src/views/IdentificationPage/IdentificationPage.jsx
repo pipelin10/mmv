@@ -70,7 +70,7 @@ class IdentificationPage extends React.Component {
 
   notPoint = () => {
     swal({
-      title: "No te preocupes, sigue intentandolo",
+      title: "¡Sigue intentandolo!",
       icon: "error",
       buttons: {
         catch: {
