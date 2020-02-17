@@ -19,21 +19,13 @@ import identificationStyle from "assets/jss/material-kit-react/views/landingPage
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
+import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle";
 
 
 const dashboardRoutes = [];
 
 
 class QuizAlbumPage extends React.Component {
-  constructor(props) {
-    super(props)
-    var randAnimal = (Math.floor(Math.random() * 7) + 1)
-    this.state = {
-      score: 0,
-      actualAnimal: "Pajaro",
-      actualImg: "birds/" + randAnimal + ".jpeg"
-    }
-  }
 
   returnPhotosRoute(actualPersonAlbum, relations){
 
@@ -49,6 +41,12 @@ class QuizAlbumPage extends React.Component {
 
   render() {
     const { classes, ...rest } = this.props;
+    const { actualPersonAlbum } = this.props.relations;
+    const { relations } = this.props.relations;
+    const photos = this.returnPhotosRoute(actualPersonAlbum, relations)
+    const photoslen = photos.length
+    var randPhoto = Math.floor(Math.random() * photoslen)
+
     return (
       <div>
         <Header
@@ -60,7 +58,7 @@ class QuizAlbumPage extends React.Component {
           {...rest}
         />
         <div style={{paddingTop:"6rem"}}>
-          <img src={require("assets/img/domesticAnimals/" + this.state.actualImg)} alt="..." className={classes.img} />
+          <img src={"../../../../../../" + photos[randPhoto].img } alt="..." className={classes.img} />
 
           <div>
 
@@ -92,7 +90,12 @@ class QuizAlbumPage extends React.Component {
 }
 
 QuizAlbumPage.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
-export default withStyles(identificationStyle)(QuizAlbumPage);
+const mapStateToProps = state => ({
+  relations: state.relations,
+  actualPersonAlbum: state.actualPersonAlbum
+});
+
+export default connect(mapStateToProps) (withStyles(identificationStyle)(withRouter(QuizAlbumPage)));
