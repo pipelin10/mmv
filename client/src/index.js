@@ -31,8 +31,7 @@ import MementoLandingPage from "views/MementoLandingPage/MementoLandingPage"
 import SpatialOptionsPage from "views/SpatialOptionsPage/SpatialOptionsPage"
 import IdentificationPage from "views/IdentificationPage/IdentificationPage"
 import OrientationPage from "views/OrientationPage/OrientationPage"
-
-
+import QuizAlbumPage from "views/QuizAlbumPage/QuizAlbumPage"
 
 var hist = createBrowserHistory();
 
@@ -77,6 +76,7 @@ ReactDOM.render(
           <PrivateRoute exact path="/upload-imageProfile-person-page" component={UploadProfilePage}/>
           <PrivateRoute exact path="/identification-page" component={IdentificationPage} />
           <PrivateRoute exact path="/orientation-page" component={OrientationPage} />
+          <PrivateRoute exact path="/quiz-album-page" component={QuizAlbumPage} />
           <PrivateRoute exact path="/profile-page" component={ProfilePage} />
           <Route path="/" component={MementoLandingPage} />
         </Switch>

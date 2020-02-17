@@ -18,15 +18,17 @@ import orientationStyle from "assets/jss/material-kit-react/views/landingPageSec
 import calendarImg from "assets/img/calendar1.png"
 import moment from 'moment'
 
+import happy from "assets/img/happy.png"
+
 const dashboardRoutes = [];
 
-const questionsOrientation = ["¿En qué año nos encontramos?", "¿En qué mes nos encontramos?",
-  "¿En qué día nos encontramos?", "¿En qué día de la semana nos encontramos?", "¿Cuál es la hora actual?",
-  "¿En qué país nos encontramos?", "¿En qué departamento nos encontramos?", "¿En qué ciudad nos encontramos?",
-  "¿En qué hospital nos encontramos?", "¿En qué piso nos encontramos?"]
+const questionsOrientation = ["¿En qué año estamos?", "¿En qué mes estamos?",
+  "¿En qué número de día estamos?", "¿En qué día de la semana estamos?", "¿Cuál es la hora actual?",
+  "¿En qué país estamos?", "¿En qué departamento estamos?", "¿En qué ciudad estamos?",
+  "¿En qué hospital estamos?", "¿En qué piso estamos?"]
 
-const stepData = ["año", "mes", "día", "día de la semana", "hora actural", "país", "departamento",
-"ciudad", "hospital", "piso"]
+const stepData = ["el año", "el mes", "el día", "el día de la semana", "la hora actual", "el país", "el departamento",
+"la ciudad", "el hospital", "el piso"]
 
 
 class OrientationPage extends React.Component {
@@ -38,32 +40,35 @@ class OrientationPage extends React.Component {
       day: moment().toDate().getDate().toString(),
       weekDay: moment().toDate().getDay().toString(),
       hour: moment().toDate().getHours().toString(),
-      country: 'Colombia',
-      department: 'Valle del cauca',
-      city: 'Cali',
+      country: 'colombia',
+      department: 'valle del cauca',
+      city: 'cali',
       hospital: '',
       floor: 0,
       actualQuestion: 0
     }
   }
 
-  answerClick = () => {
+  answerNotDefined = () => {
     swal({
       title: this.state.actualAnimal,
       buttons: {
         catch: {
-          text: "Si, acerté",
+          text: "Dar punto",
           value: true,
         },
-        cancel: "No acerté",
+        cancel: "Sin punto",
         defeat: false,
       },
     })
       .then((value) => {
         if (value) {
-          this.point()
+          let { score } = this.state;
+          this.setState({ score: score + 1 });
+          this.noticateAndNext()
+          
         }
-        else this.notPoint()
+        else this.noticateAndNext()
       });
   }
 
@@ -75,24 +80,48 @@ class OrientationPage extends React.Component {
     });
   }
 
+  finish() {
+    swal({
+      title: "Bien, hemos terminado por hoy!",
+      icon: "success",
+      button: "¡Si!",
+    });
+  }
+
   noticateAndNext = () => {
     swal({
-      title: "Bien, continuemos",
-      icon: "error",
+      title: "Muy bien, continuemos",
+      icon: "success",
       buttons: "Siguiente"
     })
 
     let { actualQuestion } = this.state;
-    this.setState({ actualQuestion: actualQuestion + 1 });
+    if(actualQuestion===9){
+      this.finish()
+    }
+    else this.setState({ actualQuestion: actualQuestion + 1 });
   }
 
-  advice = () => {
+  noticateBad = () => {
+    swal({
+      title: "Sigue intentando",
+      text: "¡Vamos!",
+      icon: happy,
+      button: "Reintentar"
+    })
   }
 
+  nextQuestion = () => {
+    let { actualQuestion } = this.state;
+    if(actualQuestion===9){
+     this.finish()
+    }
+    else this.setState({ actualQuestion: actualQuestion + 1 });
+  }
 
   verifyAndNext = (step) => {
     swal({
-      title: "Ingresa el " + step,
+      title: "Ingresa " + step,
       content: "input",
       button: {
         text: "Verificar",
@@ -108,56 +137,149 @@ class OrientationPage extends React.Component {
 
             let { score } = this.state;
             this.setState({ score: score + 1 });
+            this.noticateAndNext()
           }
-          this.noticateAndNext()
-
+          else this.noticateBad()
         }
         else if (this.state.actualQuestion === 1) {
-          var mes = 0;
           data.toLowerCase()
           if(data==="enero"){
-            mes=1;
+            data="1";
           }
           else if(data==="febrero"){
-            mes=2;
+            data="2";
           }
           else if(data==="marzo"){
-            mes=3;
+            data="3";
           }
           else if(data==="abril"){
-            mes=4;
+            data="4";
           }else if(data==="mayo"){
-            mes=5;
+            data="5";
           }
           else if(data==="junio"){
-            mes=6;
+            data="6";
           }
           else if(data==="julio"){
-            mes=7;
+            data="7";
           }
           else if(data==="agosto"){
-            mes=8;
+            data="8";
           }
           else if(data==="septiembre"){
-            mes=9;
+            data="9";
           }
           else if(data==="octubre"){
-            mes=10;
+            data="10";
           }
           else if(data==="noviembre"){
-            mes=11;
+            data="11";
           }
           else if(data==="diciembre"){
-            mes=12;
+            data="12";
           }
 
           if (data === this.state.month) {
 
             let { score } = this.state;
             this.setState({ score: score + 1 });
+            this.noticateAndNext()
           }
-          this.noticateAndNext()
+          else this.noticateBad()
         }
+        else if (this.state.actualQuestion === 2) {
+          if (data === this.state.day) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 3) {
+          data.toLowerCase()
+
+          if(data==="lunes"){
+            data= "1"
+          }
+
+          else if(data==="martes"){
+            data= "2"
+          }
+
+          else if(data==="miercoles"){
+            data= "3"
+          }
+
+          else if(data==="jueves"){
+            data= "4"
+          }
+
+          else if(data==="viernes"){
+            data= "5"
+          }
+          else if(data==="sábado"||data==="sabado"){
+            data= "6"
+          }
+          else if(data==="domingo"){
+            data= "7"
+          }
+          if (data === this.state.weekDay) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 4) {
+          if (data === this.state.hour) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 5) {
+          data.toLowerCase()
+          if (data === this.state.country) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 6) {
+          data.toLowerCase()
+          if (data === this.state.department) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 7) {
+          data.toLowerCase()
+          if (data === this.state.city) {
+
+            let { score } = this.state;
+            this.setState({ score: score + 1 });
+            this.noticateAndNext()
+          }
+          else this.noticateBad()
+        }
+        else if (this.state.actualQuestion === 8) {
+
+          this.answerNotDefined()
+        }
+        else if (this.state.actualQuestion === 9) {
+          this.answerNotDefined()
+        }
+        
+
       });
   }
 
@@ -181,13 +303,19 @@ class OrientationPage extends React.Component {
 
 
 
-          <div style={{ paddingRight: "10rem", textAlign: "right" }}>
+          <div style={{ textAlign: "center" }}>
             <Button
               color="success"
-              round size="lg"
+              size="lg"
               style={{ width: "180px", heigth: "100px" }}
               onClick={() => { this.verifyAndNext(stepData[this.state.actualQuestion]) }}>
               Contestar
+          </Button>
+          <Button
+              size="lg"
+              style={{ width: "180px", heigth: "100px", backgroundColor: "#AF543C" }}
+              onClick={() => { this.nextQuestion() }}>
+              Siguiente
           </Button>
           </div>
 

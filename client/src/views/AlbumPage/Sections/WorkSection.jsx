@@ -19,6 +19,9 @@ import Background from "assets/img/p4.png";
 import workStyle from "assets/jss/material-kit-react/views/landingPageSections/workStyle.jsx";
 import { relative } from "path";
 
+//notifications
+import swal from 'sweetalert';
+
 //React router for wrapping the page
 import { withRouter } from "react-router-dom";
 
@@ -57,6 +60,13 @@ const leftDiv = {
 
 
 class WorkSection extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      actualImg: 0,
+      photoslen:0,
+    }
+  }
 
   returnPhotosRoute(actualPersonAlbum, relations){
 
@@ -70,11 +80,38 @@ class WorkSection extends React.Component {
     return photosRoute;
   }
 
+  changeState(actual ,photoslen){
+    if(actual+1<photoslen){
+      let {actualImg} = this.state
+      this.setState({actualImg: actualImg + 1 })
+
+    }
+    else this.notData()
+
+  }
+
+  notData() {
+    swal({
+      title: "No hay más imagenes para previsualizar",
+      text: "¿Quieres pasar al quiz?",
+      icon: "warning",
+      buttons: ["No", "Si, quiz"],
+    })
+    .then(willDelete => {
+      if (willDelete) {
+        this.props.history.push("/quiz-album-page");
+      }
+    });
+  }
+
+
+
   render() {
     const { actualPersonAlbum } = this.props.relations;
     const { relations } = this.props.relations;
     const photos = this.returnPhotosRoute(actualPersonAlbum, relations)
-    console.log(photos[1].img)
+    const photoslen = photos.length
+    
 
     return (
        <section style={ sectionStyle }>
@@ -85,14 +122,14 @@ class WorkSection extends React.Component {
             alignItems= "flex-end"
             >
             <GridItem xs={6} sm={6} md={6} >
-              <img src={"../../../../../../" + photos[0].img } style={imgStyle} />
+              <img src={"../../../../../../" + photos[this.state.actualImg].img } style={imgStyle} />
 
               
 
             </GridItem>
             <GridItem xs={6} sm={6} md={6}>
               <div style={leftDiv}>
-                <img src={"../../../../../../" + photos[1].img } style={imgStyle} />
+                <img src={"../../../../../../" + photos[this.state.actualImg+1].img } style={imgStyle} />
 
               </div>
 
@@ -105,7 +142,8 @@ class WorkSection extends React.Component {
           <Button
               color="primary"
               size="sm"
-              style={{width:"70px", backgroundColor: "#525F74"}}>
+              style={{width:"70px", backgroundColor: "#525F74"}}
+              onClick={() => { this.changeState(this.state.actualImg+1, photoslen)}}>
                 <ChevronRightRoundedIcon/>
           </Button>
 

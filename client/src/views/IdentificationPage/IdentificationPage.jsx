@@ -83,6 +83,21 @@ class IdentificationPage extends React.Component {
     );
   }
 
+  areYouSure = () => {
+    swal({
+      title: "¿Estás seguro de terminar el juego?",
+      text: "Se guardara la puntuación y serás redirigido al perfil",
+      icon: "warning",
+      buttons: ["¡No!", "Si, terminar"],
+      dangerMode: true,
+    })
+    .then(willDelete => {
+      if (willDelete) {
+        this.props.history.push("/profile-page");
+      }
+    });
+  }
+
   returnImg = () => {
     var img = ""
     let randAnimal = (Math.floor(Math.random() * 7) + 1)
@@ -192,10 +207,10 @@ class IdentificationPage extends React.Component {
               Respuesta
           </Button>
           <Button
-              color="success"
+              color="danger"
               size="lg"
               style={{width:"280px"}}
-              onClick={() => { this.answerClick() }}>
+              onClick={() => { this.areYouSure() }}>
               Terminar juego
           </Button>
 
