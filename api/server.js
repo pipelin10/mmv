@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/memento', { useNewUrlParser: true } )
 
 //Connection port
 
-const port = 3001; //Define the port
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log(`Server is up and running on port number http://localhost:${port}`);
