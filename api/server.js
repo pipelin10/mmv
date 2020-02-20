@@ -4,7 +4,7 @@ const app = require('./app');
 
 //Connection to a database
 
-mongoose.connect('mongodb://localhost/memento', { useNewUrlParser: true } )
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/memento', { useNewUrlParser: true } )
   .then(db  =>  console.log('BD is connected'))
   .catch(err =>  console.log(err));
 
